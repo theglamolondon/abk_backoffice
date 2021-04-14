@@ -122,10 +122,18 @@ export default function HeaderSide(props){
                                     <li className="dropdown-menu-footer"><a className="dropdown-item text-muted text-center" href="#abc">Read all messages</a></li>
                                 </ul>
                             </li>
-                            <li className="dropdown dropdown-user nav-item"><a className="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div className="avatar avatar-online"><img src="/assets/images/portrait/small/avatar-s-1.png" alt="avatar" /><i></i></div><span className="user-name">John Doe</span></a>
-                                <div className="dropdown-menu dropdown-menu-right"><a className="dropdown-item" href="user-profile.html"><i className="feather icon-user"></i> Edit Profile</a><a className="dropdown-item" href="app-email.html"><i className="feather icon-mail"></i> My Inbox</a><a className="dropdown-item" href="user-cards.html"><i className="feather icon-check-square"></i> Task</a><a className="dropdown-item" href="app-chat.html"><i className="feather icon-message-square"></i> Chats</a>
-                                    <div className="dropdown-divider"></div><a className="dropdown-item" href="login-with-bg-image.html"><i className="feather icon-power"></i> Logout</a>
+                            <li className="dropdown dropdown-user nav-item">
+                                <a className="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                    <div className="avatar avatar-online">
+                                        <img src="/assets/images/portrait/small/avatar-s-1.png" alt="avatar" />
+                                        <i></i>
+                                    </div>
+                                    <span className="user-name">John Doe</span>
+                                </a>
+                                <div className="dropdown-menu dropdown-menu-right">
+                                    <a className="dropdown-item" href="user-profile.html"><i className="feather icon-user"></i> Edit Profile</a><a className="dropdown-item" href="app-email.html"><i className="feather icon-mail"></i> My Inbox</a><a className="dropdown-item" href="user-cards.html"><i className="feather icon-check-square"></i> Task</a><a className="dropdown-item" href="app-chat.html"><i className="feather icon-message-square"></i> Chats</a>
+                                    <div className="dropdown-divider"></div>
+                                    <a className="dropdown-item" href="login-with-bg-image.html"><i className="feather icon-power"></i> Logout</a>
                                 </div>
                             </li>
                         </ul>
