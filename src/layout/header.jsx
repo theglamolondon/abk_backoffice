@@ -6,31 +6,43 @@ export default function HeaderSide(props){
             <div className="navbar-wrapper">
                 <div className="navbar-header">
                     <ul className="nav navbar-nav flex-row">
-                        <li className="nav-item mobile-menu d-md-none mr-auto"><a className="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i className="feather icon-menu font-large-1"></i></a></li>
-                        <li className="nav-item"><a className="navbar-brand" href="index-2.html"><img className="brand-logo" alt="logo" src="/assets/images/logo/stack-logo.png" />
-                            <h2 className="brand-text">Stack</h2></a></li>
-                        <li className="nav-item d-md-none"><a className="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i className="fa fa-ellipsis-v"></i></a></li>
+                        <li className="nav-item mobile-menu d-md-none mr-auto">
+                            <a className="nav-link nav-menu-main menu-toggle hidden-xs" href="#abc">
+                            <i className="feather icon-menu font-large-1"></i></a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="navbar-brand" href="index-2.html">
+                                <img className="brand-logo" alt="logo" src="/assets/images/logo/logo.jpg" width="32" />
+                                <h2 className="brand-text">ABK</h2>
+                                <h6>Back Office</h6>
+                            </a>
+                        </li>
+                        <li className="nav-item d-md-none">
+                            <a className="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile" href="#abc">
+                                <i className="fa fa-ellipsis-v"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div className="navbar-container content">
                     <div className="collapse navbar-collapse" id="navbar-mobile">
                         <ul className="nav navbar-nav mr-auto float-left">
-                            <li className="nav-item d-none d-md-block"><a className="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i className="feather icon-menu"></i></a></li>
-
-                            <li className="nav-item d-none d-md-block"><a className="nav-link nav-link-expand" href="#"><i className="ficon feather icon-maximize"></i></a></li>
-                            <li className="nav-item nav-search"><a className="nav-link nav-link-search" href="#"><i className="ficon feather icon-search"></i></a>
+                            <li className="nav-item d-none d-md-block">
+                                <a className="nav-link nav-menu-main menu-toggle hidden-xs" href="#abc"><i className="feather icon-menu"></i></a>
+                            </li>
+                            <li className="nav-item nav-search"><a className="nav-link nav-link-search" href="#abc"><i className="ficon feather icon-search"></i></a>
                                 <div className="search-input">
                                     <input className="input" type="text" placeholder="Explore Stack..." tabIndex="0" data-search="template-search" />
-                                        <div className="search-input-close"><i className="feather icon-x"></i></div>
-                                        <ul className="search-list" />
+                                    <div className="search-input-close"><i className="feather icon-x"></i></div>
+                                    <ul className="search-list" />
                                 </div>
                             </li>
                         </ul>
                         <ul className="nav navbar-nav float-right">
-                            <li className="dropdown dropdown-language nav-item"><a className="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="flag-icon flag-icon-us"></i><span className="selected-language"></span></a>
-                                <div className="dropdown-menu" aria-labelledby="dropdown-flag"><a className="dropdown-item" href="#" data-language="en"><i className="flag-icon flag-icon-us"></i> English</a><a className="dropdown-item" href="#" data-language="fr"><i className="flag-icon flag-icon-fr"></i> French</a><a className="dropdown-item" href="#" data-language="pt"><i className="flag-icon flag-icon-pt"></i> Portuguese</a><a className="dropdown-item" href="#" data-language="de"><i className="flag-icon flag-icon-de"></i> German</a></div>
-                            </li>
-                            <li className="dropdown dropdown-notification nav-item"><a className="nav-link nav-link-label" href="#" data-toggle="dropdown"><i className="ficon feather icon-bell"></i><span className="badge badge-pill badge-danger badge-up">5</span></a>
+                            <li className="dropdown dropdown-notification nav-item">
+                                <a className="nav-link nav-link-label" href="#abc" data-toggle="dropdown">
+                                    <i className="ficon feather icon-bell"></i><span className="badge badge-pill badge-danger badge-up">5</span>
+                                </a>
                                 <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
                                     <li className="dropdown-menu-header">
                                         <h6 className="dropdown-header m-0"><span className="grey darken-2">Notifications</span><span className="notification-tag badge badge-danger float-right m-0">5 New</span></h6>
@@ -77,20 +89,29 @@ export default function HeaderSide(props){
                                     <li className="dropdown-menu-footer"><a className="dropdown-item text-muted text-center" href="#abc">Read all notifications</a></li>
                                 </ul>
                             </li>
-                            <li className="dropdown dropdown-notification nav-item"><a className="nav-link nav-link-label" href="#" data-toggle="dropdown"><i className="ficon feather icon-mail"></i><span className="badge badge-pill badge-warning badge-up">3</span></a>
+                            <li className="dropdown dropdown-notification nav-item">
+                                <a className="nav-link nav-link-label" href="#abc" data-toggle="dropdown">
+                                    <i className="ficon feather icon-mail"></i>
+                                    <span className="badge badge-pill badge-warning badge-up">3</span>
+                                </a>
                                 <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
                                     <li className="dropdown-menu-header">
-                                        <h6 className="dropdown-header m-0"><span className="grey darken-2">Messages</span><span className="notification-tag badge badge-warning float-right m-0">4 New</span></h6>
+                                        <h6 className="dropdown-header m-0">
+                                            <span className="grey darken-2">Messages</span>
+                                            <span className="notification-tag badge badge-warning float-right m-0">4 New</span>
+                                        </h6>
                                     </li>
                                     <li className="scrollable-container media-list"><a href="#abc">
                                         <div className="media">
                                             <div className="media-left">
-                                                <div className="avatar avatar-online avatar-sm rounded-circle"><img src="/assets/images/portrait/small/avatar-s-1.png" alt="avatar" /><i></i></div>
+                                                <div className="avatar avatar-online avatar-sm rounded-circle">
+                                                    <img src="/assets/images/portrait/small/avatar-s-1.png" alt="avatar" /><i></i>
+                                                </div>
                                             </div>
                                             <div className="media-body">
                                                 <h6 className="media-heading">Margaret Govan</h6>
-                                                <p className="notification-text font-small-3 text-muted">I like your portfolio, let's start.</p><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Today</time></small>
+                                                <p className="notification-text font-small-3 text-muted">I like your portfolio, let's start.</p>
+                                                <small><time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Today</time></small>
                                             </div>
                                         </div></a><a href="#abc">
                                         <div className="media">
@@ -123,7 +144,7 @@ export default function HeaderSide(props){
                                 </ul>
                             </li>
                             <li className="dropdown dropdown-user nav-item">
-                                <a className="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                <a className="dropdown-toggle nav-link dropdown-user-link" href="#abc" data-toggle="dropdown">
                                     <div className="avatar avatar-online">
                                         <img src="/assets/images/portrait/small/avatar-s-1.png" alt="avatar" />
                                         <i></i>
