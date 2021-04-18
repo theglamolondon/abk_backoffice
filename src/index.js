@@ -2,12 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import AppLayout from "./layout/main";
-import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import { createBrowserHistory } from 'history';
-
-const history = createBrowserHistory();//createBrowserHistory({ basename: baseUrl });
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const store = configureStore();

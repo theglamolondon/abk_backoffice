@@ -22,7 +22,7 @@ axios.interceptors.request.use(
     */
     config.headers['Content-Type'] = 'application/json';
     config.headers['Access-Control-Allow-Origin'] = '*';
-    config.baseURL = "https://localhost:8080"
+    config.baseURL = "http://localhost:8080"
     return config;
   },
   error => {
