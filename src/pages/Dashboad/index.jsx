@@ -1,7 +1,13 @@
 import React from "react";
+import CommandeListeDetails from "./commandeListDetails";
+import BoxStatistics from "./boxStatistics";
 
-export default function Dashboard(params) {
-    return(
-        <h1>Dashboard</h1>
+export default function Dashboard(props) {
+    
+    return (
+        <React.Fragment>
+            <BoxStatistics />
+            <CommandeListeDetails /> 
+        </React.Fragment>
     )
 }

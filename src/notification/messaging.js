@@ -5,6 +5,7 @@ const messaging = firebase.messaging();
 function setupNotification(){
     
     getToken((flag)=> {console.log("set Token ", flag)})
+    
     messaging.onMessage((payload) => {
         console.log('[firebase-messaging-sw.js] Received background message ', payload);
         // Customize notification here
