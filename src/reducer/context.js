@@ -4,7 +4,7 @@ const DASHBOARD_DATA = "DASHBOARD_DATA"
 
 export function searchClient(subject){
     return dispatch => {
-        axios.get(`/commercial/clients/SearchGeaClient?subject=${subject}`)
+        return axios.get(`/commercial/clients/SearchGeaClient?subject=${subject}`)
             .then((response) => {
                 console.log(response)
                 dispatch({

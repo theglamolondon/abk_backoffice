@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function HeaderSide(props){
     return(
-        <nav className="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-light bg-gradient-x-grey-blue">
+        <nav className="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-dark">
             <div className="navbar-wrapper">
                 <div className="navbar-header">
                     <ul className="nav navbar-nav flex-row">
@@ -11,16 +12,15 @@ export default function HeaderSide(props){
                             <i className="feather icon-menu font-large-1"></i></a>
                         </li>
                         <li className="nav-item">
-                            <a className="navbar-brand" href="index-2.html">
+                            <Link className="navbar-brand" to="/">
                                 <img className="brand-logo" alt="logo" src="/assets/images/logo/logo.jpg" width="32" />
                                 <h2 className="brand-text">ABK</h2>
-                                <h6>Back Office</h6>
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item d-md-none">
-                            <a className="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile" href="#abc">
+                            <Link className="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile" to="/mobile">
                                 <i className="fa fa-ellipsis-v"></i>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

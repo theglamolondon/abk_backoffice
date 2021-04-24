@@ -6,8 +6,6 @@ import axios from "axios";
 axios.interceptors.request.use(
   config => {
     console.log("sarting web request")
-
-    console.log("Configuration Axios",config)
     
     if(config.method === "post"){      
       //let userRaw = localStorage.getItem("user")

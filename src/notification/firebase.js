@@ -1,10 +1,11 @@
 import firebase from 'firebase/app';
 import "firebase/firebase-messaging"
 
+export const FCM_API_KEY = "AIzaSyC_Tbrg9zlKTf-qikT879WxIG04FcjxCQA";
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
-    apiKey: "AIzaSyC_Tbrg9zlKTf-qikT879WxIG04FcjxCQA",
+    apiKey: FCM_API_KEY,
     authDomain: "abk-food.firebaseapp.com",
     projectId: "abk-food",
     storageBucket: "abk-food.appspot.com",

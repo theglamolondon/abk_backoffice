@@ -1,8 +1,11 @@
-import ContextRx from "../reducer/context";
+import { combineReducers } from "redux";
+import CommandesRx from "../reducer/commandes";
 import UtilisateurRx from "../reducer/user";
 
 let rootReducers = {
-    context: ContextRx.reducer,
+    context: combineReducers({
+        commandes : CommandesRx.reducer,
+    }),
     user: UtilisateurRx.reducer
 }
 

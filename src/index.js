@@ -3,16 +3,22 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import AppLayout from "./layout/main";
 import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
+import { ConnectedRouter } from 'connected-react-router';
+import configureStore, { history } from './store/configureStore';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
+    <ConnectedRouter history={history}>
       <React.StrictMode>
-        <AppLayout />
+        <Router>
+          <AppLayout />
+        </Router>        
       </React.StrictMode>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

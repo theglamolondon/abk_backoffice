@@ -5,11 +5,9 @@ import ContentPage from "./content";
 import LoginPage from '../pages/Auth/Login';
 import { connect } from 'react-redux';
 import useToken from '../pages/Auth/useToken';
-import setupNotification from '../notification/messaging';
+import NotificationManager from '../notification/messaging'
 
 function AppLayout(props) {
-
-    setupNotification();
 
     const { token, setToken } = useToken();
 
@@ -23,6 +21,7 @@ function AppLayout(props) {
             <MenuLeftSide />
             <ContentPage />
             <Footer />
+            <NotificationManager />
         </React.Fragment>
     )
 }
