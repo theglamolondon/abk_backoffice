@@ -6,17 +6,21 @@ import OpenMap from '../../component/OpenMap';
 
 function DetailsCommande({data, getData}) {
     
-    let { reference } = useParams();
-    useEffect(() => getData(reference), [])
+  let { reference } = useParams();
+  useEffect(() => getData(reference), [])
 
-    return (
-    <React.Fragment>
-        <h2>{ reference }</h2>        
-        <div className="col-xl-12 col-lg-12" style={{maxHeight: '350px'}}>
-            <OpenMap />
-        </div>
-    </React.Fragment>
-    )
+  return (
+  <React.Fragment>
+    <div className="col-md-12">
+          
+    </div>      
+    <div style={{height: '550px', position: 'relative'}}>
+      <div>
+        <OpenMap />
+      </div>
+    </div>
+  </React.Fragment>
+  )
 }
 
 DetailsCommande.propTypes = {

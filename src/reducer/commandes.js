@@ -49,19 +49,22 @@ export function getCommandeDetails(reference){
     }
 }
 
-const initialState = [];
-export const reducer = (state = initialState, action) => {
+const initialState = {liste : [], details: null};
+export const reducer = (oldState = initialState, action) => {
+
+    console.log("####### old Store", oldState)
+
     switch (action.type) {
         case COMMANDES_PAYEES :
-            return action.payload
+            return { liste:  action.payload }
         case COMMANDES_LIVREES :
-            return action.payload
+            return { liste: action.payload }
         case COMMANDES_DETAILS :
-            return action.payload
+            return { ...oldState, details : action.payload}
         case "@@router/LOCATION_CHANGE" :
             return initialState
         default :
-            return state
+            return oldState
     }
 }
 

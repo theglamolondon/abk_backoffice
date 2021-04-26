@@ -10,13 +10,13 @@ function CommandePage (props){
     return (
         <Switch>
             <Route path="/commandes/attentes" exact strict>
-                <CommandeListe data={props.data} getData={props.getCommandePayees} title="En attente d'affectation"/>
+                <CommandeListe data={props.data.liste} getData={props.getCommandePayees} title="En attente d'affectation"/>
             </Route>
             <Route path="/commandes/affectees" exact strict>
-                <CommandeListe data={props.data} getData={props.getCommandeLivrees} title="Livrées"/>
+                <CommandeListe data={props.data.liste} getData={props.getCommandeLivrees} title="Livrées"/>
             </Route>
             <Route path="/commandes/details/:reference" exact strict>
-                <DetailsCommande data={props.data} getData={props.getCommandeDetails} />
+                <DetailsCommande data={props.data.details} getData={props.getCommandeDetails} />
             </Route>
         </Switch>
     )
