@@ -49,12 +49,15 @@ function CommandeListe({title, data, getData}) {
 }
 
 function LigneCommande({line}) {
+
+  const link = line.statut === StatutCommandeEnum.PAYEE ? 
+    <Link to={`/commandes/affecter/${line.reference}`}> {`#${line.reference}`}</Link> :
+    <Link to={`/commandes/details/${line.reference}`}> {`#${line.reference}`}</Link>
+
     return (
       <tr>
         <td className="text-truncate">
-          <span className="text-truncate">
-            <Link to={`/commandes/details/${line.reference}`}> {`#${line.reference}`}</Link>
-          </span>
+          <span className="text-truncate">{link}</span>
         </td>        
         <td className="text-truncate">
           <span className="text-truncate">

@@ -18,3 +18,18 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .leaflet-container {
     height: 400px;
 }
+
+.abk-map-icon-resto{
+	background-image: url(/assets/images/map/resto_marker.png);
+	background-size: 41px;
+}
+
+.abk-map-icon-client{
+	background-image: url(/assets/images/map/home_client.png);
+	background-size: 41px;
+}
+
+.abk-map-icon-livreur{
+	background-image: url(/assets/images/map/livreur.png);
+	background-size: 41px;
+}

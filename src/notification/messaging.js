@@ -2,6 +2,8 @@ import React from 'react';
 import firebase from "../notification/firebase";
 import axios from "axios";
 import { Toast } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import LivreurRx from '../reducer/livreur';
 
 
 class NotificationManager extends React.Component {
@@ -39,12 +41,18 @@ class NotificationManager extends React.Component {
   
     messaging.onMessage((payload) => {
       console.log('[firebase-messaging-sw.js] Received background message ', payload);
-      // Customize notification here
-      this.setState({
-        show: true,
-        title: payload.notification.title,
-        message: payload.notification.body
-      })
+
+      //if is a notifcation
+      if(payload.notification !== undefined){
+        this.setState({
+          show: true,
+          title: payload.notification.title,
+          message: payload.notification.body
+        })
+      }else{
+        this.props.handleLocation(payload)
+      }
+      
     });
   }
   
@@ -73,6 +81,7 @@ class NotificationManager extends React.Component {
     axios.post('/backoffice/firebase/topic/subscribe', {topic : topic, token: token})
     .then(response => {
       console.log('Subscribed to "'+topic+'"');
+      sessionStorage.setItem("firebase", token)
     }).catch(error => {
       console.log('Error subscribing to topic: '+ error.status + ' - ' + error.body)
       console.error(error);
@@ -96,5 +105,9 @@ class NotificationManager extends React.Component {
   }
 }
 
+const handleLocation = LivreurRx.handleLivreurPosition
+const mapDispatchToProps = {
+  handleLocation
+}
 
-export default NotificationManager;
+export default connect(undefined, mapDispatchToProps) (NotificationManager);

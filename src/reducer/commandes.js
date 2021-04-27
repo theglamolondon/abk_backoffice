@@ -3,6 +3,7 @@ import axios from "../enabler/Axios"
 const COMMANDES_PAYEES = "COMMANDES_PAYEES"
 const COMMANDES_LIVREES = "COMMANDES_LIVREES"
 const COMMANDES_DETAILS = "COMMANDES_DETAILS"
+const LIVREUR_POSITION = "LIVREUR_POSITION"
 
 export function getCommandesPayees(){
     return dispatch => {
@@ -49,18 +50,36 @@ export function getCommandeDetails(reference){
     }
 }
 
-const initialState = {liste : [], details: null};
+export function getCommandeAffectation(reference){
+    const token = sessionStorage.getItem("firebase")
+    return dispatch => {
+        return axios.get(`/backoffice/commandes/affecter/${reference}?token=${token}`)
+            .then((response) => {
+                dispatch({
+                    type: COMMANDES_DETAILS,
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
+const initialState = {liste : [], details: {data : {}, livreurs: []}};
 export const reducer = (oldState = initialState, action) => {
-
-    console.log("####### old Store", oldState)
-
+    
     switch (action.type) {
         case COMMANDES_PAYEES :
             return { liste:  action.payload }
         case COMMANDES_LIVREES :
             return { liste: action.payload }
         case COMMANDES_DETAILS :
-            return { ...oldState, details : action.payload}
+            return { ...oldState, details : {...oldState.details, data: action.payload}}
+        case LIVREUR_POSITION : 
+            let livreurs = oldState.details.livreurs
+            livreurs.push(action.payload)            
+            return { ...oldState, details: {...oldState.details, livreurs: livreurs}}
         case "@@router/LOCATION_CHANGE" :
             return initialState
         default :
@@ -73,6 +92,7 @@ const CommandesRx = {
     commandesPayees : getCommandesPayees,
     commandesLivrees : getCommandesLivrees,
     commandeDetails : getCommandeDetails,
+    getCommandeAffectation : getCommandeAffectation,
 }
 
 export default CommandesRx;
