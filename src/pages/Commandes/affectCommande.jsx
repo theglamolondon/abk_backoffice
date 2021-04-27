@@ -11,7 +11,6 @@ function AffectCommande({data, getData}) {
   let { reference } = useParams();
   useEffect(() => getData(reference), [])
 
-  console.log("$$$$$$$",data)
   let points =  data.livreurs.map(livreur => {
     if(livreur !== undefined){
       return { position: [livreur.data.lat,livreur.data.long], icon: MapIcon.livreur, title: livreur.data.fullname + ' / ' + livreur.data.telephone}
