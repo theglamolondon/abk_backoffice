@@ -71,9 +71,9 @@ export const reducer = (oldState = initialState, action) => {
     
     switch (action.type) {
         case COMMANDES_PAYEES :
-            return { liste:  action.payload }
+            return { ...oldState, liste:  action.payload }
         case COMMANDES_LIVREES :
-            return { liste: action.payload }
+            return { ...oldState, liste: action.payload }
         case COMMANDES_DETAILS :
             return { ...oldState, details : {...oldState.details, data: action.payload}}
         case LIVREUR_POSITION : 
