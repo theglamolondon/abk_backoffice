@@ -66,6 +66,18 @@ export function getCommandeAffectation(reference){
     }
 }
 
+export function putCommandeAffectation(data){
+    return dispatch => {
+        return axios.put(`/backoffice/commandes/affecter`,data)
+            .then((response) => {
+                return true
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
 const initialState = {liste : [], details: {data : {}, livreurs: []}};
 export const reducer = (oldState = initialState, action) => {
     
@@ -93,6 +105,7 @@ const CommandesRx = {
     commandesLivrees : getCommandesLivrees,
     commandeDetails : getCommandeDetails,
     getCommandeAffectation : getCommandeAffectation,
+    affecterCommande: putCommandeAffectation,
 }
 
 export default CommandesRx;

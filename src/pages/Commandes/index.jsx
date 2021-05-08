@@ -31,6 +31,7 @@ function CommandePage (props){
                     details={props.data.details} 
                     getData={props.getCommandeAffectation} 
                     getEmplacement={props.getRestoEmplacements}
+                    affecter={props.affecterCommande}
                     />
             </Route>
             <Route path="/commandes/details/:reference" exact strict>
@@ -48,9 +49,10 @@ const getCommandeLivrees = CommandesRx.commandesLivrees
 const getCommandeDetails = CommandesRx.commandeDetails 
 const getCommandeAffectation = CommandesRx.getCommandeAffectation 
 const getRestoEmplacements = RestaurantRx.emplacement
+const affecterCommande = CommandesRx.affecterCommande
 
 const mapDispatchToProps = {
-    getCommandePayees, getCommandeLivrees, getCommandeDetails, getCommandeAffectation, getRestoEmplacements
+    getCommandePayees, getCommandeLivrees, getCommandeDetails, getCommandeAffectation, getRestoEmplacements, affecterCommande
 }
 
 const mapStateToProps = state => {

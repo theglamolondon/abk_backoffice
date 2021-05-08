@@ -7,10 +7,10 @@ axios.interceptors.request.use(
   config => {
     console.log("sarting web request")
     
-    if(config.method === "post"){      
+    if(config.method === "post" || "put"){      
       //let userRaw = localStorage.getItem("user")
       //let user = JSON.parse(userRaw);
-      config.data = {...config.data, UtilisateurId: 1}
+      config.data = {...config.data, IdUtilisateur: 1}
     }
 
     /*
