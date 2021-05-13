@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import AppLayout from "./layout/main";
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router/immutable';
 import configureStore from './store/configureStore';
 import { BrowserRouter as Router } from 'react-router-dom';
 import history from "./store/history";

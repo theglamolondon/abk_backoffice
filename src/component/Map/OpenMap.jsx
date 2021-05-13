@@ -17,7 +17,7 @@ function OpenMap(props) {
           url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${token}`}
       />
       
-        {data.map( (point, k) =>  {
+        {data.length && data.map( (point, k) =>  {
           return (point !== undefined && 
             <Marker position={point.position} icon={point.icon} key={k}>
               <Popup onOpen={() => {handleMarkerClick(point)}} >{point.title}</Popup>
@@ -44,6 +44,10 @@ function LocationMarker({coordonnees}) {
       map.locate()
     }
     return null
+}
+
+LocationMarker.defaultProps = {
+  coordonnees: null,
 }
 
 export default OpenMap;

@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { connectRouter, routerMiddleware } from 'connected-react-router/immutable';
 import thunk from 'redux-thunk';
 import rootReducers from './index';
 import { createBrowserHistory } from 'history';

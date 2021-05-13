@@ -50,7 +50,9 @@ class NotificationManager extends React.Component {
           message: payload.notification.body
         })
       }else{
-        this.props.handleLocation(payload)
+        if(payload.data.action === "responseLocate"){ //Cas de réponse à un broadcast de locatiation des livreurs
+          this.props.handleLocation(payload)
+        }        
       }
       
     });

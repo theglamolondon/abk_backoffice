@@ -19,7 +19,7 @@ export default function MenuLeftSide(props){
                     </li>
                     <li className="nav-item has-sub open">
                         <Link to="#">
-                            <i className="feather icon-monitor" />
+                            <i className="feather icon-shopping-cart" />
                             <span className="menu-title" >Commandes</span>
                         </Link>
                         <ul className="menu-content">
@@ -33,31 +33,12 @@ export default function MenuLeftSide(props){
                     </li>
 
                     <li className="has-sub nav-item open">
-                        <Link to="#1"><i className="feather icon-zap" /><span className="menu-title" data-i18n="Starter kit">Starter kit</span><span className="badge badge badge-danger badge-pill float-right mr-2">New</span></Link>
-                        <ul className="menu-content">
-                            <li>
-                                <Link className="menu-item" to="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/starter-kit/ltr/vertical-menu-template/layout-1-column.html" data-i18n="1 column">1 column</Link>
-                            </li>
-                            <li>
-                                <Link className="menu-item" to="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/starter-kit/ltr/vertical-menu-template/layout-2-columns.html" data-i18n="2 columns">2 columns</Link>
-                            </li>
-                            <li className="has-sub nav-item open">
-                                <Link className="menu-item" to="#1" data-i18n="Content Detached Sidebar">Content Detached Sidebar</Link>
-                                <ul className="menu-content">
-                                    <li>
-                                        <Link className="menu-item" to="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/starter-kit/ltr/vertical-menu-template/layout-content-detached-left-sidebar.html" data-i18n="Detached left sidebar">Detached left sidebar</Link>
-                                    </li>
-                                    <li>
-                                        <Link className="menu-item" to="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/starter-kit/ltr/vertical-menu-template/layout-content-detached-left-sticky-sidebar.html" data-i18n="Detached sticky left sidebar">Detached sticky left sidebar</Link>
-                                    </li>
-                                </ul>
-                            </li>                            
-                            <li className="navigation-divider" />
-                            <li>
-                                <Link className="menu-item" to="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/starter-kit/ltr/vertical-menu-template/layout-semi-dark.html" data-i18n="Semi dark layout">Semi dark layout</Link>
-                            </li>
-                        </ul>
+                        <Link to="/restaurants">
+                            <i className="feather icon-grid" />
+                            <span className="menu-title" data-i18n="Starter kit">Restaurants</span>
+                        </Link>
                     </li>
+                    
                     <li className="has-sub nav-item open">
                         <Link to="#1">
                             <i className="feather icon-image" />

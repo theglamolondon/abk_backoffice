@@ -1,9 +1,9 @@
 import axios from "../enabler/Axios"
 
-const COMMANDES_PAYEES = "COMMANDES_PAYEES"
+const COMMANDES_PAYEES  = "COMMANDES_PAYEES"
 const COMMANDES_LIVREES = "COMMANDES_LIVREES"
 const COMMANDES_DETAILS = "COMMANDES_DETAILS"
-const LIVREUR_POSITION = "LIVREUR_POSITION"
+const LIVREUR_POSITION  = "LIVREUR_POSITION"
 
 export function getCommandesPayees(){
     return dispatch => {
