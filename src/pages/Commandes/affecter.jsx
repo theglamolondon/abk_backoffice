@@ -114,7 +114,7 @@ function AffectFormCard({emplacement,livreur, affecterHandle}){
   }
 
   return(
-    <div style={{position: 'relative', width: '250px', height: '300px', zIndex: '9999999', }}>
+    <div style={{position: 'relative', width: '250px', height: '300px', zIndex: '9999999', bottom: "-317px" }}>
       <Card style={{ width: '18rem' }}>
       <Card.Body>
         <Card.Title>Affecter commande</Card.Title>

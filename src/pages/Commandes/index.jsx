@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import CommandesRx from '../../reducer/commandes';
 import RestaurantRx from '../../reducer/restaurants';
-import AffectCommande from './affectCommande';
-import DetailsCommande from './detailsCommande';
-import CommandeListe from './listeCommande';
+import AffectCommande from './affecter';
+import DetailsCommande from './details';
+import CommandeListe from './liste';
 
 function CommandePage (props){
     

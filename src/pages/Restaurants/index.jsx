@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router';
 import RestaurantRx from '../../reducer/restaurants';
 import DetailsCommande from './details';
 import EmplacementPage from './emplacement';
-import ListeRestaurant from './listeRestaurant';
+import ListeRestaurant from './liste';
 import PlatPage from './plats';
 
 function Restaurants(props) {
@@ -14,6 +14,7 @@ function Restaurants(props) {
             <ListeRestaurant 
                 data={props.data.liste} 
                 getData={props.getListe}
+                addNew={props.addNewResto}
                 />
         </Route>
         <Route path="/restaurants/:id/details" exact strict>
@@ -41,9 +42,10 @@ function Restaurants(props) {
 const getListe = RestaurantRx.liste
 const getEmplacements = RestaurantRx.emplacement
 const getDetails = RestaurantRx.details
+const addNewResto = RestaurantRx.ajouter
 
 const mapDispatchToProps = {
-    getListe, getEmplacements, getDetails
+    getListe, getEmplacements, getDetails, addNewResto
 }
 const mapStateToProps = state => {
     return {

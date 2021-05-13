@@ -18,9 +18,10 @@ axios.interceptors.request.use(
       config.headers['Authorization'] = 'Bearer ' + token;
     }
     */
-    config.headers['Content-Type'] = 'application/json';
+    config.headers['Content-Type'] = config.headers['Content-Type'] === undefined ? 'application/json' : config.headers['Content-Type'];
     config.headers['Access-Control-Allow-Origin'] = '*';
     config.baseURL = "http://localhost:8080"
+    console.log("config axios", config)
     return config;
   },
   error => {

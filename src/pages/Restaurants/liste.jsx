@@ -1,0 +1,113 @@
+import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PlatForm from './forms/platForm';
+import RestaurantForm from './forms/restaurantForm';
+
+function ListeRestaurant({data, getData, addNew}) {
+    useEffect(()=>{
+        getData()
+    }, [])
+
+    
+    const defaultResto = {id: 0, nom: "", image:"", duree: 0, prixLivraison: 100, ranking: "", actif: true}
+    const [resto, setResto] = useState(defaultResto);
+
+    //Restaurant actions
+    const [showResto, setShowResto] = useState(false);
+    const handleCloseResto = () => setShowResto(false);
+    const handleShowResto = () => setShowResto(true);
+
+    const createNewResto = () => {
+        setResto(defaultResto)
+        handleShowResto()
+    }
+
+    const editRestoHandle = (resto) => {
+        setResto(resto)
+        handleShowResto()
+    }
+
+    //Plat actions
+    const [showPlat, setShowPlat] = useState(false);
+    const handleClosePlat = () => setShowPlat(false);
+    const handleShowPlat = (arg) => {
+        setResto(arg);
+        setShowPlat(true);
+    }
+
+    const modalControl = {
+        show: showPlat,
+        handleClose: handleClosePlat,
+        handleShow: handleShowPlat
+    }
+    
+    return (
+    <div className="col-xl-12 col-lg-12">
+        <div className="mb-2">
+            <Button variant="primary" onClick={createNewResto}> Ajouter un restaurant </Button>
+
+            <RestaurantForm
+                handleClose={handleCloseResto}
+                handleShow={handleShowResto}
+                show={showResto}
+                title={resto.id === 0 ? "Ajouter un restaurant" : "Modifier un restaurant"}
+                resto={resto}
+                submitAction={resto.id === 0 ? addNew : ()=>{}}
+                />
+
+            <PlatForm 
+                show={modalControl.show} 
+                handleClose={modalControl.handleClose} 
+                title="Ajouter un plat" 
+                handleShow={modalControl.handleShow} 
+                resto={resto} 
+                submitAction={()=>{}}
+                />
+        </div>
+
+        <div className="row match-height">
+            {data.map( (item, key) => <RestaurantCard line={item} key={key} modalControl={modalControl} restoEdit={editRestoHandle}/>)}
+		</div>
+    </div>
+    );
+}
+
+function RestaurantCard({line, modalControl, restoEdit}) {
+    const clickPlatHandle = () =>{
+        modalControl.handleShow(line)
+    }
+    const clickRestoHandle = () =>{
+        restoEdit(line)
+    }
+
+    return (
+    <div className="col-xl-3 col-md-6 col-sm-12">
+        <div className="card">
+            <div className="card-content">
+                <div className="card-body">
+                    <h4 className="card-title">{line.nom}</h4>
+                </div>
+                <Link to={`/restaurants/${line.id}/details`} >
+                    <img className="img-fluid" src={line.image} alt={line.nom} style={{height:"158px", width:"30em"}}/>
+                </Link>
+                <div className="card-body">
+                    <div className="form-group text-center">
+                        <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={clickRestoHandle}>
+                            <i className="fa fa-pencil" />
+                        </Link>
+                        <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
+                            <i className="fa fa-cutlery" />
+                        </Link>
+                        <Link to={`/restaurants/${line.id}/emplacements`} className="btn btn-float btn-square btn-secondary" title="Les emplacements">
+                            <i className="fa fa-map-marker" />
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    )
+  }
+
+  export default ListeRestaurant

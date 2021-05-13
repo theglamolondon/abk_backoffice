@@ -3,6 +3,7 @@ import axios from "../enabler/Axios"
 const RESTO_EMPLACEMENTS = "RESTO_EMPLACEMENTS"
 const RESTO_LISTE = "RESTO_LISTE"
 const RESTO_DETAILS = "RESTO_DETAILS"
+const RESTO_ADD = "RESTO_ADD"
 
 export function getEmplacements(restaurantId){
     return dispatch => {
@@ -49,6 +50,24 @@ export function getListeRestaurant(){
     }
 }
 
+export function addNewRestaurant(data){
+    console.log("add new restau action data :", data)
+    let configs = { headers: {'Content-Type': 'multipart/form-data'}}
+    return dispatch => {
+        return axios.post(`backoffice/restaurant/save`, data)
+            .then((response) => {
+                console.log("response add new resto",response)
+                dispatch({
+                    type: RESTO_ADD,
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
 const initialState = {liste : [], emplacements: [], details: {}};
 export const reducer = (oldState = initialState, action) => {
     
@@ -71,6 +90,7 @@ const RestaurantRx = {
     emplacement : getEmplacements,
     liste : getListeRestaurant,
     details : getDetails,
+    ajouter: addNewRestaurant,
 }
 
 export default RestaurantRx;
