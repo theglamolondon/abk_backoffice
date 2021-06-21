@@ -4,6 +4,7 @@ const RESTO_EMPLACEMENTS = "RESTO_EMPLACEMENTS"
 const RESTO_LISTE = "RESTO_LISTE"
 const RESTO_DETAILS = "RESTO_DETAILS"
 const RESTO_ADD = "RESTO_ADD"
+const PLAT_ADD = "PLAT_ADD"
 
 export function getEmplacements(restaurantId){
     return dispatch => {
@@ -51,14 +52,29 @@ export function getListeRestaurant(){
 }
 
 export function addNewRestaurant(data){
-    console.log("add new restau action data :", data)
-    let configs = { headers: {'Content-Type': 'multipart/form-data'}}
     return dispatch => {
         return axios.post(`backoffice/restaurant/save`, data)
             .then((response) => {
                 console.log("response add new resto",response)
                 dispatch({
                     type: RESTO_ADD,
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
+export function addNewPlat(data){
+    console.log('data add new plat', data)
+    return dispatch => {
+        return axios.post(`backoffice/restaurant/plats/save`, data)
+            .then((response) => {
+                console.log("response add new plat",response)
+                dispatch({
+                    type: PLAT_ADD,
                     payload: response.data
                 })
             })
@@ -86,11 +102,12 @@ export const reducer = (oldState = initialState, action) => {
 }
 
 const RestaurantRx = {
-    reducer : reducer,
-    emplacement : getEmplacements,
-    liste : getListeRestaurant,
-    details : getDetails,
+    reducer: reducer,
+    emplacement: getEmplacements,
+    liste: getListeRestaurant,
+    details: getDetails,
     ajouter: addNewRestaurant,
+    ajouterPlat: addNewPlat,
 }
 
 export default RestaurantRx;

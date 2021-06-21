@@ -34,7 +34,9 @@ function LocationMarker({coordonnees}) {
       //  map.locate()
       //},
       locationfound(e) {
-        map.flyTo(e.latlng, map.getZoom())
+        if(coordonnees === null){
+          map.flyTo(e.latlng, map.getZoom())
+        }        
       },
     })
 

@@ -4,7 +4,7 @@ import UtilisateurRx from '../../reducer/user';
 import { connect } from 'react-redux';
 
 function LoginPage(props) {
-    const {handleLogin} = props;
+    const {handleLoginSuccess} = props;
 
     return (
     <div className="col-12 d-flex align-items-center justify-content-center abk-login-bg">
@@ -35,7 +35,7 @@ function LoginPage(props) {
                             }}
                             onSubmit={(values, { setSubmitting }) => { 
                                 props.login(values).then(value => {
-                                    handleLogin(value)
+                                    handleLoginSuccess(value)
                                 }); 
                             }}
                         >

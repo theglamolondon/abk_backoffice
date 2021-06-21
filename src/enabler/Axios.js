@@ -5,12 +5,17 @@ import axios from "axios";
 // Add a request interceptor
 axios.interceptors.request.use(
   config => {
-    console.log("sarting web request")
+    console.log("sarting web request with data :", config.data)
     
     if(config.method === "post" || "put"){      
       //let userRaw = localStorage.getItem("user")
       //let user = JSON.parse(userRaw);
-      config.data = {...config.data, IdUtilisateur: 1}
+
+      if(config.data instanceof FormData){
+        config.data.append("idUtilisateur", 1)
+      }else{
+        config.data = {...config.data, idUtilisateur: 1}
+      }
     }
 
     /*
@@ -21,7 +26,6 @@ axios.interceptors.request.use(
     config.headers['Content-Type'] = config.headers['Content-Type'] === undefined ? 'application/json' : config.headers['Content-Type'];
     config.headers['Access-Control-Allow-Origin'] = '*';
     config.baseURL = "http://localhost:8080"
-    console.log("config axios", config)
     return config;
   },
   error => {

@@ -42,14 +42,14 @@ export default function MenuLeftSide(props){
                     <li className="has-sub nav-item open">
                         <Link to="#1">
                             <i className="feather icon-image" />
-                            <span className="menu-title" data-i18n="Gallery">Gallery</span>
+                            <span className="menu-title" data-i18n="Gallery">Personnel</span>
                         </Link>
                         <ul className="menu-content">
                             <li>
-                                <Link className="menu-item" to="gallery-grid.html" data-i18n="Gallery Grid">Gallery Grid</Link>
+                                <Link className="menu-item" to="#2" >Livreurs</Link>
                             </li>
                             <li>
-                                <Link className="menu-item" to="gallery-grid-with-desc.html" data-i18n="Gallery Grid with Desc">Gallery Grid with Desc</Link>
+                                <Link className="menu-item" to="#3html" >Utilisateurs</Link>
                             </li>
                         </ul>
                     </li>

@@ -12,7 +12,7 @@ function AppLayout(props) {
     const { token, setToken } = useToken();
 
     if(!token) {
-      return <LoginPage handleLogin={setToken} />
+      return <LoginPage handleLoginSuccess={setToken} />
     }
 
     return(

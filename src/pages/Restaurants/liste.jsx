@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PlatForm from './forms/platForm';
 import RestaurantForm from './forms/restaurantForm';
 
-function ListeRestaurant({data, getData, addNew}) {
+function ListeRestaurant({data, accompagnements, getData, addNewResto, addNewPlat, getAccompagnements}) {
     useEffect(()=>{
         getData()
     }, [])
@@ -12,6 +12,9 @@ function ListeRestaurant({data, getData, addNew}) {
     
     const defaultResto = {id: 0, nom: "", image:"", duree: 0, prixLivraison: 100, ranking: "", actif: true}
     const [resto, setResto] = useState(defaultResto);
+    
+    const defaultPlat = {id: 0, titre: "", image:"", description: 0, prix: 0, actif: true}
+    const [plat, setPlat] = useState(defaultPlat);
 
     //Restaurant actions
     const [showResto, setShowResto] = useState(false);
@@ -31,15 +34,17 @@ function ListeRestaurant({data, getData, addNew}) {
     //Plat actions
     const [showPlat, setShowPlat] = useState(false);
     const handleClosePlat = () => setShowPlat(false);
-    const handleShowPlat = (arg) => {
+    const createNewPlat = (arg) => {
+        getAccompagnements()
         setResto(arg);
+        setPlat(defaultPlat)
         setShowPlat(true);
     }
 
-    const modalControl = {
+    const platControls = {
         show: showPlat,
         handleClose: handleClosePlat,
-        handleShow: handleShowPlat
+        createNewPlat: createNewPlat
     }
     
     return (
@@ -53,29 +58,31 @@ function ListeRestaurant({data, getData, addNew}) {
                 show={showResto}
                 title={resto.id === 0 ? "Ajouter un restaurant" : "Modifier un restaurant"}
                 resto={resto}
-                submitAction={resto.id === 0 ? addNew : ()=>{}}
+                submitAction={resto.id === 0 ? addNewResto : ()=>{}}
                 />
 
             <PlatForm 
-                show={modalControl.show} 
-                handleClose={modalControl.handleClose} 
+                show={platControls.show} 
+                handleClose={platControls.handleClose} 
                 title="Ajouter un plat" 
-                handleShow={modalControl.handleShow} 
+                handleShow={platControls.handleShow} 
                 resto={resto} 
-                submitAction={()=>{}}
+                plat={plat}
+                accompagnements={accompagnements}
+                submitAction={plat.id === 0 ? addNewPlat : ()=>{}}
                 />
         </div>
 
         <div className="row match-height">
-            {data.map( (item, key) => <RestaurantCard line={item} key={key} modalControl={modalControl} restoEdit={editRestoHandle}/>)}
+            {data.map( (item, key) => <RestaurantCard line={item} key={key} platActions={platControls} restoEdit={editRestoHandle}/>)}
 		</div>
     </div>
     );
 }
 
-function RestaurantCard({line, modalControl, restoEdit}) {
+function RestaurantCard({line, platActions, restoEdit}) {
     const clickPlatHandle = () =>{
-        modalControl.handleShow(line)
+        platActions.createNewPlat(line)
     }
     const clickRestoHandle = () =>{
         restoEdit(line)

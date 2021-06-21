@@ -8,16 +8,19 @@ function InputFile({name, placeholder}){
 
     return (
         <React.Fragment>
-            <fieldset className="form-group position-relative mb-2">
-                <input 
-                    type="file" 
-                    className="form-control form-control-lg" 
-                    name={name} 
-                    placeholder={placeholder} 
-                    onChange={(event) => {
-                        setFieldValue(name, event.target.files[0])
-                    }} 
-                />
+            <fieldset className="form-group mb-2">
+                <label>{placeholder}</label>
+                <div className="custom-file">
+                    <input 
+                        type="file" 
+                        className="custom-file-input" 
+                        name={name}
+                        onChange={(event) => {
+                            setFieldValue(name, event.target.files[0])
+                        }} 
+                    />
+                    <label className="custom-file-label">{placeholder}</label>
+                </div>
             </fieldset>
             <ErrorMessage name={name} component="div" />
         </React.Fragment>

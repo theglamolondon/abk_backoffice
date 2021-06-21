@@ -84,7 +84,7 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter}
       <div>
         <OpenMap 
           data={points} 
-          location={clientPosition}
+          //location={clientPosition}
           controls={<AffectFormCard livreur={livreur} emplacement={emplacement} affecterHandle={affecterSubmit} />}
           handleMarkerClick={(icon) => {
             let data = {id: icon.id, label: icon.title}

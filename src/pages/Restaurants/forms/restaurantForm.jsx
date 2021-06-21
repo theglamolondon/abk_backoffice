@@ -18,13 +18,13 @@ function RestaurantForm({title, show, handleClose, handleShow, resto, submitActi
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormViewRestaurant handleClose={handleClose} resto={resto} hanldeSubmit={submitAction}/>
+          <FormViewRestaurant handleClose={handleClose} resto={resto} submitHandler={submitAction}/>
         </Modal.Body>
       </Modal>
     </React.Fragment>)
 }
 
-function FormViewRestaurant({handleClose, resto, hanldeSubmit}){
+function FormViewRestaurant({handleClose, resto, submitHandler}){
 
     return (
         <Formik
@@ -38,31 +38,41 @@ function FormViewRestaurant({handleClose, resto, hanldeSubmit}){
                     errors.duree = "La duree est requise"
                 }
             }}
-            onSubmit={(values, { setSubmitting }) => { 
-                console.log("submit resto", values.image)
-                let data = new FormData();
-                data.set("image", values.image);
-                console.log("submit resto FormData", data)
-                hanldeSubmit(data)
+            onSubmit={(values, {setSubmitting}) => { 
+                let data = new FormData(document.forms[0]);
+                submitHandler(data)
                 handleClose()
             }}
         >
             <Form className="form-horizontal form-simple" noValidate encType="multipart/form-data">
                 <fieldset className="form-group position-relative mb-2">
-                    <Field type="text" className="form-control form-control-lg" name="nom" placeholder="Nom du restaurant" />
+                    <label>Nom du restaurant</label>
+                    <Field type="text" className="form-control" name="nom" placeholder="Nom du restaurant" />
                 </fieldset>
                 <ErrorMessage name="nom" component="div" />
 
                 <div className="row">
                     <div className="col-md-6">
                         <fieldset className="form-group position-relative">
-                            <Field type="number" className="form-control form-control-lg" name="duree" placeholder="Durée de livraison" />
+                            <label>Durée</label>
+                            <div className="input-group">
+                                <Field type="number" className="form-control" name="duree" placeholder="Durée de livraison" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text">minutes</span>
+                                </div>
+                            </div>
                         </fieldset>
                         <ErrorMessage name="duree" component="div" />
                     </div>
                     <div className="col-md-6">
                         <fieldset className="form-group position-relative">
-                            <Field type="number" className="form-control form-control-lg" name="prixLivraison" placeholder="Prix de la livraison" />
+                            <label>Frais de livraison</label>
+                            <div className="input-group">
+                                <Field type="number" className="form-control " name="prixLivraison" placeholder="Prix de la livraison" />
+                                <div className="input-group-append">
+                                    <span className="input-group-text">F CFA</span>
+                                </div>
+                            </div>
                         </fieldset>
                         <ErrorMessage name="prixLivraison" component="div" />
                     </div>
@@ -71,7 +81,7 @@ function FormViewRestaurant({handleClose, resto, hanldeSubmit}){
                 <InputFile name="image" placeholder="Image du plat" />
 
                 <hr/>
-                <Button variant="primary" type="submit">Enregistrer</Button>
+                <Button variant="primary" type="submit" >Enregistrer</Button>
                 
             </Form>
         </Formik>
