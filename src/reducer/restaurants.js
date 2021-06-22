@@ -4,6 +4,7 @@ const RESTO_EMPLACEMENTS = "RESTO_EMPLACEMENTS"
 const RESTO_LISTE = "RESTO_LISTE"
 const RESTO_DETAILS = "RESTO_DETAILS"
 const RESTO_ADD = "RESTO_ADD"
+const RESTO_UPDATE = "RESTO_UPDATE"
 const PLAT_ADD = "PLAT_ADD"
 
 export function getEmplacements(restaurantId){
@@ -67,6 +68,22 @@ export function addNewRestaurant(data){
     }
 }
 
+export function updateRestaurant(data){
+    return dispatch => {
+        return axios.post(`backoffice/restaurant/update`, data)
+            .then((response) => {
+                console.log("response update resto",response)
+                dispatch({
+                    type: RESTO_UPDATE,
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
 export function addNewPlat(data){
     console.log('data add new plat', data)
     return dispatch => {
@@ -107,6 +124,7 @@ const RestaurantRx = {
     liste: getListeRestaurant,
     details: getDetails,
     ajouter: addNewRestaurant,
+    modifier: updateRestaurant,
     ajouterPlat: addNewPlat,
 }
 

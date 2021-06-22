@@ -45,6 +45,8 @@ function FormViewRestaurant({handleClose, resto, submitHandler}){
             }}
         >
             <Form className="form-horizontal form-simple" noValidate encType="multipart/form-data">
+                <Field type="hidden" name="id" />
+                
                 <fieldset className="form-group position-relative mb-2">
                     <label>Nom du restaurant</label>
                     <Field type="text" className="form-control" name="nom" placeholder="Nom du restaurant" />

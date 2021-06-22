@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import InputFile from '../../../component/Input/Input';
 import SelectMultiple from '../../../component/Input/selectMultiple';
 
-function PlatForm({show, handleClose, handleShow, title, resto, submitAction, accompagnements}){
+function PlatForm({show, handleClose, title, resto, submitAction, accompagnements}){
 
   return (
     <React.Fragment>
@@ -44,9 +44,9 @@ function FormViewPlat({resto,handleClose, submitHandler, accompagnements}){
                 }
             }}
             onSubmit={(values, { setSubmitting }) => { 
-                console.log("submit",values)
                 let data = new FormData(document.forms[0]);
                 data.append("idRestaurant", resto.id)
+                data.append("accompagnements", values.accompagnements.map(item => item.id))
                 submitHandler(data)
                 handleClose()
             }}

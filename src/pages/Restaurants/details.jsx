@@ -1,35 +1,66 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
+import {Link} from 'react-router-dom';
 import MapIcon from '../../component/Map/icons';
-import OpenMap from '../../component/Map/OpenMap'
+import OpenMap from '../../component/Map/OpenMap';
+import PlatForm from './forms/platForm';
 
-function DetailsCommande({data, getData}) {
-    console.log("data", data)
+function DetailsCommande({data, getData, accompagnements, getAccompagnements, addNewPlat}) {
+    
     let { id } = useParams();
+    
+    const defaultPlat = {id: 0, titre: "", image:"", description: 0, prix: 0, actif: true}
+    const [plat, setPlat] = useState(defaultPlat);
 
     useEffect(()=>{
        getData(id) 
     },[])
+
+    //Plat actions
+    const [showPlat, setShowPlat] = useState(false);
+    const handleClosePlat = () => setShowPlat(false);
+
+    const createNewPlat = (arg) => {
+        getAccompagnements()
+        setPlat(defaultPlat)
+        setShowPlat(true);
+    }
+
+    const clickPlatHandle = () =>{
+        createNewPlat(data)
+    }
 
     return (
     <React.Fragment>
         <RestaurantBanner resto={data}/>        
         <div className="row" >
             <CarteEmplacements emplacements={data.emplacements} />
-            <StatisticsBox id={id}/>
+            <StatisticsBox id={id} clickPlatHandle={clickPlatHandle}/>
         </div>
         <br />
         <ListePlat plats={data.plats} />
+
+        <PlatForm
+            show={showPlat} 
+            handleClose={handleClosePlat} 
+            title="Ajouter un plat"
+            resto={data} 
+            plat={plat}
+            accompagnements={accompagnements}
+            submitAction={plat.id === 0 ? addNewPlat : ()=>{}}
+            />
     </React.Fragment>
     )
 }
 
-function StatisticsBox({id}){
+function StatisticsBox({id, clickPlatHandle}){
     return (
         <div className="col-md-3">
             <div className="card">
                 <div className="card-body">
                     <h1>{id}</h1>
+                    <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
+                            <i className="fa fa-cutlery" /> </Link>
                 </div>
             </div>
         </div>

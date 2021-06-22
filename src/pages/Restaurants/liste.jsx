@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PlatForm from './forms/platForm';
 import RestaurantForm from './forms/restaurantForm';
 
-function ListeRestaurant({data, accompagnements, getData, addNewResto, addNewPlat, getAccompagnements}) {
+function ListeRestaurant({data, accompagnements, getData, addNewResto, updateResto, addNewPlat, getAccompagnements}) {
     useEffect(()=>{
         getData()
     }, [])
@@ -58,14 +58,13 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, addNewPla
                 show={showResto}
                 title={resto.id === 0 ? "Ajouter un restaurant" : "Modifier un restaurant"}
                 resto={resto}
-                submitAction={resto.id === 0 ? addNewResto : ()=>{}}
+                submitAction={resto.id === 0 ? addNewResto : updateResto}
                 />
 
             <PlatForm 
                 show={platControls.show} 
                 handleClose={platControls.handleClose} 
                 title="Ajouter un plat" 
-                handleShow={platControls.handleShow} 
                 resto={resto} 
                 plat={plat}
                 accompagnements={accompagnements}
@@ -74,7 +73,12 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, addNewPla
         </div>
 
         <div className="row match-height">
-            {data.map( (item, key) => <RestaurantCard line={item} key={key} platActions={platControls} restoEdit={editRestoHandle}/>)}
+            {data.map( (item, key) => <RestaurantCard 
+                line={item} 
+                key={key} 
+                platActions={platControls} 
+                restoEdit={editRestoHandle}
+            />)}
 		</div>
     </div>
     );
