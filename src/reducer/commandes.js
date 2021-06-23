@@ -1,9 +1,26 @@
 import axios from "../enabler/Axios"
 
-const COMMANDES_PAYEES  = "COMMANDES_PAYEES"
-const COMMANDES_LIVREES = "COMMANDES_LIVREES"
-const COMMANDES_DETAILS = "COMMANDES_DETAILS"
-const LIVREUR_POSITION  = "LIVREUR_POSITION"
+const COMMANDES_PAYEES      = "COMMANDES_PAYEES"
+const COMMANDES_LIVREES     = "COMMANDES_LIVREES"
+const COMMANDES_DETAILS     = "COMMANDES_DETAILS"
+const COMMANDES_ALL         = "COMMANDES_ALL"
+const COMMANDES_PREPAREES   = "COMMANDES_PREPAREES"
+const LIVREUR_POSITION      = "LIVREUR_POSITION"
+
+export function getAllCommandes(){
+    return dispatch => {
+        return axios.get(`/backoffice/commandes/liste`)
+            .then((response) => {
+                dispatch({
+                    type: COMMANDES_ALL,
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
 
 export function getCommandesPayees(){
     return dispatch => {
@@ -11,6 +28,21 @@ export function getCommandesPayees(){
             .then((response) => {
                 dispatch({
                     type: COMMANDES_PAYEES,
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
+export function getCommandesPreparees(){
+    return dispatch => {
+        return axios.get(`/backoffice/commandes/a-recuperer`)
+            .then((response) => {
+                dispatch({
+                    type: COMMANDES_PREPAREES,
                     payload: response.data
                 })
             })
@@ -82,9 +114,10 @@ const initialState = {liste : [], details: {data : {}, livreurs: []}};
 export const reducer = (oldState = initialState, action) => {
     
     switch (action.type) {
-        case COMMANDES_PAYEES :
-            return { ...oldState, liste:  action.payload }
-        case COMMANDES_LIVREES :
+        case COMMANDES_PAYEES    :
+        case COMMANDES_LIVREES   :
+        case COMMANDES_PREPAREES :
+        case COMMANDES_ALL       :
             return { ...oldState, liste: action.payload }
         case COMMANDES_DETAILS :
             return { ...oldState, details : {...oldState.details, data: action.payload}}
@@ -101,7 +134,9 @@ export const reducer = (oldState = initialState, action) => {
 
 const CommandesRx = {
     reducer : reducer,
+    commandesAll: getAllCommandes,
     commandesPayees : getCommandesPayees,
+    commandesPreparees: getCommandesPreparees,
     commandesLivrees : getCommandesLivrees,
     commandeDetails : getCommandeDetails,
     getCommandeAffectation : getCommandeAffectation,

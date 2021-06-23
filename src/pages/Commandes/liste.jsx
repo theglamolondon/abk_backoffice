@@ -49,42 +49,51 @@ function CommandeListe({title, data, getData}) {
 }
 
 function LigneCommande({line}) {
+  
+  let link;
+  switch(line.statut){
+    case StatutCommandeEnum.PAYEE :
+      link = <Link to={`/commandes/affecter/${line.reference}`}> {`#${line.reference}`}</Link>
+      break;
+    case StatutCommandeEnum.PRETE :
+    case StatutCommandeEnum.PREPARATION :
+      link = <Link to={`/commandes/recuperer/${line.reference}`}> {`#${line.reference}`}</Link>
+      break;
+    default :
+      link = <Link to={`/commandes/details/${line.reference}`}> {`#${line.reference}`}</Link> 
+  }
 
-  const link = line.statut === StatutCommandeEnum.PAYEE ? 
-    <Link to={`/commandes/affecter/${line.reference}`}> {`#${line.reference}`}</Link> :
-    <Link to={`/commandes/details/${line.reference}`}> {`#${line.reference}`}</Link>
-
-    return (
-      <tr>
-        <td className="text-truncate">
-          <span className="text-truncate">{link}</span>
-        </td>        
-        <td className="text-truncate">
-          <span className="text-truncate">
-          {new Intl.DateTimeFormat("fr-FR", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric'
-          }).format(Date.parse(line.dateCommande))}
-          </span>
-        </td>
-        <td className="align-middle">
-          <span>{line.client.nom} {line.client.prenoms}</span>
-        </td>
-        <td className="align-middle">
-          <span>{line.montant}</span>
-        </td>
-        <td className="align-middle">
-          <StatutCommande statut={line.statut} />
-        </td>
-        <td className="align-middle">
-          <span>{line.restaurant.nom}</span>
-        </td>                
-      </tr>
-    )
+  return (
+    <tr>
+      <td className="text-truncate">
+        <span className="text-truncate">{link}</span>
+      </td>        
+      <td className="text-truncate">
+        <span className="text-truncate">
+        {new Intl.DateTimeFormat("fr-FR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric'
+        }).format(Date.parse(line.dateCommande))}
+        </span>
+      </td>
+      <td className="align-middle">
+        <span>{line.client.nom} {line.client.prenoms}</span>
+      </td>
+      <td className="align-middle">
+        <span>{line.montant}</span>
+      </td>
+      <td className="align-middle">
+        <StatutCommande statut={line.statut} />
+      </td>
+      <td className="align-middle">
+        <span>{line.restaurant.nom}</span>
+      </td>                
+    </tr>
+  )
 }
 
 const StatutCommandeEnum = {
@@ -93,8 +102,9 @@ const StatutCommandeEnum = {
   ANNULEE: 2,
   AFFECTEE: 3,
   PREPARATION: 4,
-  RECUPEREE: 5, 
-  LIVREE: 6
+  PRETE: 5,
+  RECUPEREE: 6, 
+  LIVREE: 7
 }
 
 function StatutCommande({statut}) {
@@ -110,6 +120,8 @@ function StatutCommande({statut}) {
       return <span className="badge badge-info">Affectée</span>
     case StatutCommandeEnum.PREPARATION :
       return <span className="badge badge-warning">En cours de préparation</span>
+    case StatutCommandeEnum.PRETE :
+      return <span className="badge badge-warning">Commande prête</span>
     case StatutCommandeEnum.RECUPEREE :
       return <span className="badge badge-warning">En cours de livraison</span>
     case StatutCommandeEnum.LIVREE :

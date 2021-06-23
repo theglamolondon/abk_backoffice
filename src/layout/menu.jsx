@@ -24,10 +24,16 @@ export default function MenuLeftSide(props){
                         </Link>
                         <ul className="menu-content">
                             <li>
-                                <Link className="menu-item" to="/commandes/attentes" >En attentes</Link>
+                                <Link className="menu-item" to="/commandes/liste">Toutes</Link>
                             </li>
                             <li>
-                                <Link className="menu-item" to="/commandes/affectees" >Affectées</Link>
+                                <Link className="menu-item" to="/commandes/a-affecter">A traiter</Link>
+                            </li>
+                            <li>
+                                <Link className="menu-item" to="/commandes/a-recuperer">A récupérer</Link>
+                            </li>
+                            <li>
+                                <Link className="menu-item" to="/commandes/livrees" >Livrées</Link>
                             </li>
                         </ul>
                     </li>
