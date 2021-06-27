@@ -30,7 +30,7 @@ function DetailsCommande({data, getData, accompagnements, getAccompagnements, ad
         createNewPlat(data)
     }
 
-    return (
+    return ( data !== undefined &&
     <React.Fragment>
         <RestaurantBanner resto={data}/>        
         <div className="row" >

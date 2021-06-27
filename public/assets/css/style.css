@@ -36,3 +36,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	background-image: url(/assets/images/map/livreur.png);
 	background-size: 41px;
 }
+.modal-90w {
+    width: 70%;
+    max-width: none!important;
+}

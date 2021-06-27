@@ -108,9 +108,9 @@ export const reducer = (oldState = initialState, action) => {
         case RESTO_LISTE :
             return { ...oldState, liste:  action.payload }
         case RESTO_DETAILS :
-            return {...initialState, details: action.payload }
+            return {...initialState, restaurant: action.payload }
         case RESTO_EMPLACEMENTS :
-            return { ...oldState, emplacements: action.payload }
+            return action.payload
         case "@@router/LOCATION_CHANGE" :
             return initialState
         default :

@@ -27,13 +27,13 @@ function Restaurants(props) {
                 accompagnements={props.accompagnements.liste}
                 getAccompagnements={props.getAccompagnements}
                 addNewPlat={props.addNewPlat}
-                data={props.data.details} 
+                data={props.data.restaurant} 
                 getData={props.getDetails}
                 />
         </Route>
         <Route path="/restaurants/:id/emplacements" exact strict>
             <EmplacementPage 
-                data={props.data.emplacements} 
+                data={props.data} 
                 getData={props.getEmplacements}
                 />
         </Route>

@@ -8,7 +8,6 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, updateRes
     useEffect(()=>{
         getData()
     }, [])
-
     
     const defaultResto = {id: 0, nom: "", image:"", duree: 0, prixLivraison: 100, ranking: "", actif: true}
     const [resto, setResto] = useState(defaultResto);

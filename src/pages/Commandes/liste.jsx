@@ -96,7 +96,7 @@ function LigneCommande({line}) {
   )
 }
 
-const StatutCommandeEnum = {
+export const StatutCommandeEnum = {
   INITIEE : 0, 
   PAYEE: 1, 
   ANNULEE: 2,
@@ -107,7 +107,7 @@ const StatutCommandeEnum = {
   LIVREE: 7
 }
 
-function StatutCommande({statut}) {
+export function StatutCommande({statut}) {
   
   switch(statut){
     case StatutCommandeEnum.INITIEE :
@@ -117,7 +117,7 @@ function StatutCommande({statut}) {
     case StatutCommandeEnum.ANNULEE :
       return <span className="badge badge-error">Annulée</span>
     case StatutCommandeEnum.AFFECTEE :
-      return <span className="badge badge-info">Affectée</span>
+      return <span className="badge badge-info">Envoyée au restaurant</span>
     case StatutCommandeEnum.PREPARATION :
       return <span className="badge badge-warning">En cours de préparation</span>
     case StatutCommandeEnum.PRETE :

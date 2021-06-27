@@ -4,6 +4,7 @@ import { Redirect, useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import OpenMap from '../../component/Map/OpenMap';
 import MapIcon from '../../component/Map/icons';
+import DetailsCommandeItem from './detailsItem'
 import { Button, Card, Form } from 'react-bootstrap';
 
 function AffectCommande({details, getData, getEmplacement, restaurant, affecter, mode}) {
@@ -27,90 +28,98 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
 
   useEffect(() => getData(reference), [])
 
+  let commande = null;
+  if(details !== undefined){
+    commande = details.data
+  }
+
   useEffect(() => { 
     if(details.data.emplacement !== undefined && mode === ModeAffectation.RESTAURANT){ //Seulement si la commande n'est pas encore affectée
       getEmplacement(details.data.emplacement.restaurant.id) 
     }           
-  },[details.data])
+  },[commande])
 
-  if(mode === ModeAffectation.LIVREUR){
-    //Les livreurs
-    if(details !== undefined ){
-      details.livreurs.map(livreur => {
-        if(livreur !== undefined){
-          points.push( { 
-            position: [livreur.data.lat,livreur.data.long], 
-            icon: MapIcon.livreur, 
-            type: 'L',
-            id: livreur.data.id,
-            title: livreur.data.fullname + ' / ' + livreur.data.telephone
-          })
-        }
-        return null
+  if(details.data.emplacement !== undefined){
+    if(mode === ModeAffectation.LIVREUR){
+      //Les livreurs
+      if(details !== undefined ){
+        details.livreurs.map(livreur => {
+          if(livreur !== undefined){
+            points.push( { 
+              position: [livreur.data.lat,livreur.data.long], 
+              icon: MapIcon.livreur, 
+              type: 'L',
+              id: livreur.data.id,
+              title: livreur.data.fullname + ' / ' + livreur.data.telephone
+            })
+          }
+          return null
+        })
+      }
+    }
+    
+    if(mode === ModeAffectation.RESTAURANT){
+      //Les emplacements du restaurant
+      restaurant.emplacements.map(emplacement => {
+        points.push( { 
+          position: [emplacement.lattitude, emplacement.longitude], 
+          icon: MapIcon.resto, 
+          type: 'R',
+          id: emplacement.id,
+          title: emplacement.restaurant.nom + ' - ' + emplacement.adresse
+        })
+        return null;
       })
+    }else{ //On prend l'emplacement du resto déjà affecté
+      points.push( { 
+        position: [details.data.emplacement.lattitude, details.data.emplacement.longitude], 
+        icon: MapIcon.resto, 
+        type: 'R',
+        id: details.data.emplacement.id,
+        title: details.data.emplacement.restaurant.nom + ' - ' + details.data.emplacement.adresse
+      })
+    }
+  
+    //Le client
+    if(details.data.adresse !== undefined ){
+      points.push(
+        { 
+          position: [details.data.adresse.lattitude, details.data.adresse.longitude], 
+          icon: MapIcon.client,
+          type: 'C',
+          id: details.data.adresse.id,
+          title: details.data.adresse.client.nom + ' ' + details.data.adresse.client.prenoms + ' / ' + details.data.adresse.client.telephone
+        }
+      )
     }
   }
   
-  if(mode === ModeAffectation.RESTAURANT){
-    //Les emplacements du restaurant
-    restaurant.emplacements.map(emplacement => {
-      points.push( { 
-        position: [emplacement.lattitude, emplacement.longitude], 
-        icon: MapIcon.resto, 
-        type: 'R',
-        id: emplacement.id,
-        title: emplacement.restaurant.nom + ' - ' + emplacement.adresse
-      })
-      return null;
-    })
-  }else{ //On prend l'emplacement du resto déjà affecté
-    points.push( { 
-      position: [details.data.emplacement.lattitude, details.data.emplacement.longitude], 
-      icon: MapIcon.resto, 
-      type: 'R',
-      id: details.data.emplacement.id,
-      title: details.data.emplacement.restaurant.nom + ' - ' + details.data.emplacement.adresse
-    })
-  }
-
-  //Le client
-  if(details.data.adresse !== undefined ){
-    points.push(
-      { 
-        position: [details.data.adresse.lattitude, details.data.adresse.longitude], 
-        icon: MapIcon.client,
-        type: 'C',
-        id: details.data.adresse.id,
-        title: details.data.adresse.client.nom + ' ' + details.data.adresse.client.prenoms + ' / ' + details.data.adresse.client.telephone
-      }
-    )
-  }
-
-  let clientPosition = details.data.adresse !== undefined ? [details.data.adresse.lattitude, details.data.adresse.longitude] : null
-
+  let clientPosition = details.data.adresse !== undefined ? [details.data.adresse.lattitude, details.data.adresse.longitude] : null  
 
   return ( afterSubmit ? <Redirect to="/commandes/liste" /> : 
-  <React.Fragment>
-    <div className="col-md-12"></div>      
-    <div style={{position: 'relative'}}>
-      <div>
-        <OpenMap 
-          data={points} 
-          //location={clientPosition}
-          controls={<AffectFormCard livreur={livreur} emplacement={emplacement} affecterHandle={affecterSubmit} mode={mode} />}
-          handleMarkerClick={(icon) => {
-            let data = {id: icon.id, label: icon.title}
-            if(icon.type === 'L'){
-              setLivreur(data)
-            }
-            if(icon.type === 'R'){
-              setEmplacement(data)
-            }
-          }}
-          />
+    (details.data !== undefined && <React.Fragment>
+      <div className="col-md-12"></div>      
+      <div style={{position: 'relative'}}>
+        <div>
+          <OpenMap 
+            data={points} 
+            //location={clientPosition}
+            controls={<AffectFormCard livreur={livreur} emplacement={emplacement} affecterHandle={affecterSubmit} mode={mode} />}
+            handleMarkerClick={(icon) => {
+              let data = {id: icon.id, label: icon.title}
+              if(icon.type === 'L'){
+                setLivreur(data)
+              }
+              if(icon.type === 'R'){
+                setEmplacement(data)
+              }
+            }}
+            />
+        </div>
       </div>
-    </div>
-  </React.Fragment>
+      <br />
+      <DetailsCommandeItem commande={details}/>
+    </React.Fragment>)
   )
 }
 
@@ -132,7 +141,7 @@ function AffectFormCard({emplacement, livreur, affecterHandle, mode}){
   }
 
   return(
-    <div style={{position: 'relative', width: '250px', height: '300px', zIndex: '9999999', bottom: "-405px" }}>
+    <div style={{position: 'relative', width: '250px', height: '300px', zIndex: '1037', bottom: "-405px" }}>
       <Card style={{ width: '18rem' }}>
       <Card.Body>
         <Card.Title>Affecter commande</Card.Title>
