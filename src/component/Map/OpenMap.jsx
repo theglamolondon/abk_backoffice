@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import './Map.css'
 
 const token = "pk.eyJ1IjoiZ2xhbW9sb25kb24iLCJhIjoiY2tudmtra2Q4MG5tazJwcnZhdTVoanA3NiJ9.uhDiwzTLS_BbPRv17_HBYg"
 
 function OpenMap(props) {    
-  const {data, location, handleMarkerClick, controls} = props
+  const {data, location, handleMarkerClick, controls, handleClickEvent} = props
 
   return (
     <MapContainer center={[3.8306364,11.3703662]} zoom={13} scrollWheelZoom={false}>
@@ -23,16 +24,18 @@ function OpenMap(props) {
               <Popup onOpen={() => {handleMarkerClick(point)}} >{point.title}</Popup>
             </Marker>) 
         })}
-      <LocationMarker coordonnees={location} />
+      <LocationMarker coordonnees={location} clickEventHandler={handleClickEvent} />
   </MapContainer>)
 }
 
-function LocationMarker({coordonnees}) {
-    
+function LocationMarker({coordonnees, clickEventHandler}) {
+    let clickFlag = false
+
     const map = useMapEvents({
-      //click() {
-      //  map.locate()
-      //},
+      click(e) {
+        clickFlag = true
+        clickEventHandler(e, map) //map.locate()
+      },
       locationfound(e) {
         if(coordonnees === null){
           map.flyTo(e.latlng, map.getZoom())
@@ -42,7 +45,7 @@ function LocationMarker({coordonnees}) {
 
     if(coordonnees !== null){
       map.flyTo(coordonnees, map.getZoom())
-    }else{
+    }else if(!clickFlag){
       map.locate()
     }
     return null
@@ -50,6 +53,19 @@ function LocationMarker({coordonnees}) {
 
 LocationMarker.defaultProps = {
   coordonnees: null,
+}
+LocationMarker.propTypes = {
+  getMapObject: PropTypes.func,
+}
+
+OpenMap.defaultProps = {
+  handleClickEvent: ()=>{},
+  handleMarkerClick: ()=>{},  
+}
+OpenMap.propTypes = {
+  location: PropTypes.object,
+  handleClickEvent: PropTypes.func,
+  handleMarkerClick: PropTypes.func,
 }
 
 export default OpenMap;

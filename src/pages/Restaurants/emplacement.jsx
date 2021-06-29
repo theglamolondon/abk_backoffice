@@ -11,8 +11,6 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl}) {
         getData(id)
     }, [])
 
-    console.log("******", data)
-
     const defaultEmplacement = {id: 0, adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0}
     const [emplacement, setEmplacement] = useState(defaultEmplacement);
 
@@ -59,16 +57,15 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl}) {
                                     </thead>
                                     <tbody>
                                         {data.emplacements.map( (item, k) => {
-                                        return (<tr>
+                                        return (<tr key={k}>
                                                     <th scope="row">{k+1}</th>
                                                     <td>{item.adresse}</td>
                                                     <td>{item.telephone1} / {item.telephone2}</td>
                                                     <td>@mdo</td>
                                                     <td>
                                                         <div className="btn-group" role="group" aria-label="First Group">
-                                                            <button onClick={() => {handleShowEmpl({})}} type="button" className="btn btn-icon btn-light"><i className="fa fa-umbrella"></i></button>
-                                                            <button type="button" className="btn btn-icon btn-secondary"><i className="fa fa-moon-o"></i></button>
-                                                            <button type="button" className="btn btn-icon btn-primary"><i className="fa fa-cloud-download"></i></button>
+                                                            <button onClick={() => {handleShowEmpl({})}} type="button" className="btn btn-icon btn-success"><i className="fa fa-edit"></i></button>
+                                                            <button onClick={() => {handleShowEmpl({})}} type="button" className="btn btn-icon btn-danger"><i className="fa fa-trash"></i></button>
                                                         </div>
                                                     </td>
                                                 </tr>)

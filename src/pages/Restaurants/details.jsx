@@ -60,7 +60,8 @@ function StatisticsBox({id, clickPlatHandle}){
                 <div className="card-body">
                     <h1>{id}</h1>
                     <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
-                            <i className="fa fa-cutlery" /> </Link>
+                        <i className="fa fa-cutlery" /> 
+                    </Link>
                 </div>
             </div>
         </div>
@@ -84,7 +85,7 @@ function CarteEmplacements({emplacements}){
         })
     }    
 
-    return ( emplacements !== undefined &&
+    return (emplacements !== undefined &&
     <div className="col-md-9"> 
         <div style={{position: 'relative'}}>
             <div className="abk-details-resto">
@@ -101,15 +102,14 @@ function RestaurantBanner({resto}){
     return(
     <div className="card profile-with-cover">
         <div className="card-img-top img-fluid bg-cover height-200" style={{background: `url('${resto.image}') 50%`}} >
-        <h1 style={{position: "relative", width: "400px", margin: "0px auto", textAlign: "center", color: "white", fontSize: "3.2em", fontWeight: "bold", top: "40%"}}>
+            <h1 style={{position: "relative", width: "400px", margin: "0px auto", textAlign: "center", color: "white", fontSize: "3.2em", fontWeight: "bold", top: "40%"}}>
                 {resto.nom}
             </h1>
         </div>
-    </div> )
+    </div>)
 }
 
 function ListePlat({plats}) {
-
     return( plats !== undefined &&
         <div className="card">
             <div className="card-header">

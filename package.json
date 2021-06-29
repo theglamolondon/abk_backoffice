@@ -13,6 +13,7 @@
     "formik": "^2.2.6",
     "history": "^4.10.1",
     "leaflet": "^1.7.1",
+    "leaflet-control-geocoder": "^2.3.0",
     "multiselect-react-dropdown": "^1.6.11",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",

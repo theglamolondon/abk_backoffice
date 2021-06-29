@@ -17,8 +17,8 @@ function DetailsCommande({data, getData}) {
 }
 
 DetailsCommande.propTypes = {
-    getData : PropTypes.func.isRequired,
-    //data : PropTypes.object.isRequired
-  }
+  getData : PropTypes.func.isRequired,
+  //data : PropTypes.object.isRequired
+}
 
 export default connect(undefined, undefined) (DetailsCommande)

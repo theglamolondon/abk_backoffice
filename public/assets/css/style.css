@@ -21,6 +21,9 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .abk-details-resto .leaflet-container {
     height: 300px;
 }
+.abk-emplacement-resto .leaflet-container {
+    height: 400px;
+}
 
 .abk-map-icon-resto{
 	background-image: url(/assets/images/map/resto_marker.png);
