@@ -26,7 +26,7 @@ function PlatForm({show, handleClose, title, resto, submitAction, accompagnement
     </React.Fragment>)
 }
 
-function FormViewPlat({resto,handleClose, submitHandler, accompagnements}){
+function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
     
     return (
         <Formik

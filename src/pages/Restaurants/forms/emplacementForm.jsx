@@ -70,7 +70,7 @@ function FormViewEmplacement({resto, handleClose, submitHandler}){
       onSubmit={(values, { setSubmitting }) => {
           let data = {...values, longitude: position.latlng.lng, lattitude: position.latlng.lat}
           console.log(data)
-          //submitHandler(values)
+          submitHandler(data)
           handleClose()
       }}
     >        

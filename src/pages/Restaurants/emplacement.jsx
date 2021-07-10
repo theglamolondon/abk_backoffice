@@ -61,7 +61,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl}) {
                                                     <th scope="row">{k+1}</th>
                                                     <td>{item.adresse}</td>
                                                     <td>{item.telephone1} / {item.telephone2}</td>
-                                                    <td>@mdo</td>
+                                                    <td>@{item.username}</td>
                                                     <td>
                                                         <div className="btn-group" role="group" aria-label="First Group">
                                                             <button onClick={() => {handleShowEmpl({})}} type="button" className="btn btn-icon btn-success"><i className="fa fa-edit"></i></button>

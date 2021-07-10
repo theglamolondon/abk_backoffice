@@ -8,7 +8,7 @@ import EmplacementPage from './emplacement';
 import ListeRestaurant from './liste';
 import PlatPage from './plats';
 
-function Restaurants(props) {
+function RestaurantPage(props) {
     return (
     <Switch>
         <Route path="/restaurants" exact strict>
@@ -18,7 +18,7 @@ function Restaurants(props) {
                 getData={props.getListe}
                 addNewResto={props.addNewResto}
                 updateResto={props.updateResto}
-                addNewPlat={props.addNewPlat}
+                addNewPlat={props.addPlat}
                 getAccompagnements={props.getAccompagnements}
                 />
         </Route>
@@ -26,7 +26,7 @@ function Restaurants(props) {
             <DetailsCommande 
                 accompagnements={props.accompagnements.liste}
                 getAccompagnements={props.getAccompagnements}
-                addNewPlat={props.addNewPlat}
+                addNewPlat={props.addPlat}
                 data={props.data.restaurant} 
                 getData={props.getDetails}
                 />
@@ -35,6 +35,8 @@ function Restaurants(props) {
             <EmplacementPage 
                 data={props.data} 
                 getData={props.getEmplacements}
+                addNewEmpl={props.addEmplmt}
+                updtEmpl={()=>{}}
                 />
         </Route>
         <Route path="/restaurants/:id/plats" exact strict>
@@ -52,11 +54,12 @@ const getEmplacements = RestaurantRx.emplacement
 const getDetails = RestaurantRx.details
 const addNewResto = RestaurantRx.ajouter
 const updateResto = RestaurantRx.modifier
-const addNewPlat = RestaurantRx.ajouterPlat
+const addPlat = RestaurantRx.ajouterPlat
+const addEmplmt = RestaurantRx.ajouterEmpl
 const getAccompagnements = AccompagnementRx.liste
 
 const mapDispatchToProps = {
-    getListe, getEmplacements, getDetails, addNewResto, addNewPlat, getAccompagnements,updateResto
+    getListe, getEmplacements, getDetails, addNewResto, addPlat, getAccompagnements,updateResto, addEmplmt
 }
 const mapStateToProps = state => {
     return {
@@ -65,4 +68,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Restaurants)
+export default connect(mapStateToProps, mapDispatchToProps) (RestaurantPage)

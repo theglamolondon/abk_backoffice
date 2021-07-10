@@ -1,6 +1,7 @@
 import axios from "../enabler/Axios"
 
 const USER_LOGIN = "USER_LOGIN"
+const USER_LISTE = "USER_LISTE"
 
 export function login(credentials){
     return dispatch => {
@@ -28,9 +29,9 @@ export const reducer = (state = initialState, action) => {
     }
 }
 
-const UtilisateurRx = {
+const AuthRx = {
     reducer : reducer,
     login: login,
 }
 
-export default UtilisateurRx;
+export default AuthRx;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import UtilisateurRx from '../../reducer/user';
 import { connect } from 'react-redux';
+import AuthRx from '../../reducer/auth';
 
 function LoginPage(props) {
     const {handleLoginSuccess} = props;
@@ -75,7 +75,7 @@ function LoginPage(props) {
     )
 }
 
-const login = UtilisateurRx.login;
+const login = AuthRx.login;
 
 const mapDispatchToProps = { login }
 

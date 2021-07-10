@@ -101,6 +101,23 @@ export function addNewPlat(data){
     }
 }
 
+export function addEmplacement(data){
+    console.log('data add new emplacement', data)
+    return dispatch => {
+        return axios.post(`backoffice/restaurant/emplacement/save`, data)
+            .then((response) => {
+                console.log("response add emplacement",response)
+                dispatch({
+                    type: PLAT_ADD,
+                    payload: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
 const initialState = {liste : [], emplacements: [], details: {}};
 export const reducer = (oldState = initialState, action) => {
     
@@ -126,6 +143,7 @@ const RestaurantRx = {
     ajouter: addNewRestaurant,
     modifier: updateRestaurant,
     ajouterPlat: addNewPlat,
+    ajouterEmpl: addEmplacement,
 }
 
 export default RestaurantRx;

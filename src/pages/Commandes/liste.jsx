@@ -8,43 +8,43 @@ function CommandeListe({title, data, getData}) {
 
     return (
     <div className="col-xl-12 col-lg-12">
-    <div className="card active-users">
-      <div className="card-header border-0">
-        <h4 className="card-title">{title}</h4>
-        <a className="heading-elements-toggle" href="#aaaaaaaaaaa">
-          <i className="fa fa-ellipsis-v font-medium-3"></i>
-        </a>
-        <div className="heading-elements">
-          <ul className="list-inline mb-0">
-            <li>
-              <a data-action="reload" href="#reload">
-                <i className="feather icon-rotate-cw" />
-              </a>
-            </li>
-          </ul>
+      <div className="card active-users">
+        <div className="card-header border-0">
+          <h4 className="card-title">{title}</h4>
+          <a className="heading-elements-toggle" href="#aaaaaaaaaaa">
+            <i className="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+          <div className="heading-elements">
+            <ul className="list-inline mb-0">
+              <li>
+                <a data-action="reload" href="#reload">
+                  <i className="feather icon-rotate-cw" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className="card-content">
-        <div id="audience-list-scroll" className="table-responsive position-relative">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Commande</th>
-                <th>Date commande</th>
-                <th>Client</th>
-                <th>Montant</th>
-                <th>Satut</th>
-                <th>Restaurant</th>
-              </tr>
-            </thead>
-            <tbody>
-            {data.map( (item, key) => <LigneCommande line={item} key={key}/>)}   
-            </tbody>
-          </table>
+        <div className="card-content">
+          <div id="audience-list-scroll" className="table-responsive position-relative">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Commande</th>
+                  <th>Date commande</th>
+                  <th>Client</th>
+                  <th>Montant</th>
+                  <th>Satut</th>
+                  <th>Restaurant</th>
+                </tr>
+              </thead>
+              <tbody>
+              {data.map( (item, key) => <LigneCommande line={item} key={key}/>)}   
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
     )
 }
 

@@ -1,20 +1,28 @@
 import { React } from "react";
 import { Switch, Route } from "react-router-dom";
-import Commandes from "../pages/Commandes";
-import Dashboard from "../pages/Dashboad";
-import Restaurants from "../pages/Restaurants";
+import CommandePage from "../pages/Commandes";
+import DashboardPage from "../pages/Dashboad";
+import RestaurantPage from "../pages/Restaurants";
+import UtilisateurPage from "../pages/Utilisateurs";
+import LivreurPage from "../pages/Livreurs";
 
 export default function AppRouter(props) {
     return(
         <Switch>
             <Route path="/" exact>
-                <Dashboard/>
+                <DashboardPage/>
             </Route>
             <Route path="/commandes" >
-                <Commandes/>
+                <CommandePage/>
             </Route>
             <Route path="/restaurants" >
-                <Restaurants/>
+                <RestaurantPage/>
+            </Route>
+            <Route path="/utilisateurs" >
+                <UtilisateurPage/>
+            </Route>            
+            <Route path="/livreurs" >
+                <LivreurPage/>
             </Route>
         </Switch>
     )
