@@ -42,6 +42,7 @@ function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
                 if(!values.prix === "" || values.prix === 0){
                     errors.description = "Le prix ne peut pas être vide ou égale à 0"
                 }
+                return errors
             }}
             onSubmit={(values, { setSubmitting }) => { 
                 let data = new FormData(document.forms[0]);
@@ -56,19 +57,19 @@ function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
                     <label>Nom du plat</label>   
                     <Field type="text" className="form-control " name="titre" placeholder="Nom du plat" />
                 </fieldset>
-                <ErrorMessage name="titre" component="div" />
+                <ErrorMessage name="titre" component="div" className="text-danger" />
 
                 <fieldset className="form-group position-relative mb-2">
                     <label>Description du plat</label>
                     <Field as="textarea" className="form-control " name="description" placeholder="Description du plat" />
                 </fieldset>
-                <ErrorMessage name="description" component="div" />
+                <ErrorMessage name="description" component="div" className="text-danger"/>
 
                 <fieldset className="form-group position-relative mb-2">
                     <label>Accompagnements</label>
                     <SelectMultiple data={accompagnements} name="accompagnements" display="nom" />
                 </fieldset>
-                <ErrorMessage name="description" component="div" />
+                <ErrorMessage name="description" component="div" className="text-danger"/>
 
                 <div className="row">
                     <div className="col-md-6">
@@ -81,7 +82,7 @@ function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
                                 </div>
                             </div>                            
                         </fieldset>
-                        <ErrorMessage name="prix" component="div" />
+                        <ErrorMessage name="prix" component="div" className="text-danger"/>
                     </div>
                     <div className="col-md-6">
                         <InputFile name="image" placeholder="Image du plat" />

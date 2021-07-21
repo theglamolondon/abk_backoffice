@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AuthRx from '../reducer/auth';
 
-export default function HeaderSide(props){
+function HeaderSide(props){
     return(
         <nav className="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-dark">
             <div className="navbar-wrapper">
@@ -40,108 +42,6 @@ export default function HeaderSide(props){
                         </ul>
                         <ul className="nav navbar-nav float-right">
                             <li className="dropdown dropdown-notification nav-item">
-                                <a className="nav-link nav-link-label" href="#abc" data-toggle="dropdown">
-                                    <i className="ficon feather icon-bell"></i><span className="badge badge-pill badge-danger badge-up">5</span>
-                                </a>
-                                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                                    <li className="dropdown-menu-header">
-                                        <h6 className="dropdown-header m-0"><span className="grey darken-2">Notifications</span><span className="notification-tag badge badge-danger float-right m-0">5 New</span></h6>
-                                    </li>
-                                    <li className="scrollable-container media-list"><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left align-self-center"><i className="feather icon-plus-square icon-bg-circle bg-cyan"></i></div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading">You have new order!</h6>
-                                                <p className="notification-text font-small-3 text-muted">Lorem ipsum dolor sit amet, consectetuer elit.</p><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">30 minutes ago</time></small>
-                                            </div>
-                                        </div></a><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left align-self-center"><i className="feather icon-download-cloud icon-bg-circle bg-red bg-darken-1"></i></div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading red darken-1">99% Server load</h6>
-                                                <p className="notification-text font-small-3 text-muted">Aliquam tincidunt mauris eu risus.</p><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Five hour ago</time></small>
-                                            </div>
-                                        </div></a><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left align-self-center"><i className="feather icon-alert-triangle icon-bg-circle bg-yellow bg-darken-3"></i></div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading yellow darken-3">Warning notifixation</h6>
-                                                <p className="notification-text font-small-3 text-muted">Vestibulum auctor dapibus neque.</p><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Today</time></small>
-                                            </div>
-                                        </div></a><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left align-self-center"><i className="feather icon-check-circle icon-bg-circle bg-cyan"></i></div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading">Complete the task</h6><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Last week</time></small>
-                                            </div>
-                                        </div></a><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left align-self-center"><i className="feather icon-file icon-bg-circle bg-teal"></i></div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading">Generate monthly report</h6><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Last month</time></small>
-                                            </div>
-                                        </div></a></li>
-                                    <li className="dropdown-menu-footer"><a className="dropdown-item text-muted text-center" href="#abc">Read all notifications</a></li>
-                                </ul>
-                            </li>
-                            <li className="dropdown dropdown-notification nav-item">
-                                <a className="nav-link nav-link-label" href="#abc" data-toggle="dropdown">
-                                    <i className="ficon feather icon-mail"></i>
-                                    <span className="badge badge-pill badge-warning badge-up">3</span>
-                                </a>
-                                <ul className="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                                    <li className="dropdown-menu-header">
-                                        <h6 className="dropdown-header m-0">
-                                            <span className="grey darken-2">Messages</span>
-                                            <span className="notification-tag badge badge-warning float-right m-0">4 New</span>
-                                        </h6>
-                                    </li>
-                                    <li className="scrollable-container media-list"><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left">
-                                                <div className="avatar avatar-online avatar-sm rounded-circle">
-                                                    <img src="/assets/images/portrait/small/avatar-s-1.png" alt="avatar" /><i></i>
-                                                </div>
-                                            </div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading">Margaret Govan</h6>
-                                                <p className="notification-text font-small-3 text-muted">I like your portfolio, let's start.</p>
-                                                <small><time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Today</time></small>
-                                            </div>
-                                        </div></a><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left"><span className="avatar avatar-sm avatar-busy rounded-circle"><img src="/assets/images/portrait/small/avatar-s-2.png" alt="avatar" /><i></i></span></div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading">Bret Lezama</h6>
-                                                <p className="notification-text font-small-3 text-muted">I have seen your work, there is</p><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Tuesday</time></small>
-                                            </div>
-                                        </div></a><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left">
-                                                <div className="avatar avatar-online avatar-sm rounded-circle"><img src="/assets/images/portrait/small/avatar-s-3.png" alt="avatar" /><i></i></div>
-                                            </div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading">Carie Berra</h6>
-                                                <p className="notification-text font-small-3 text-muted">Can we have call in this week ?</p><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">Friday</time></small>
-                                            </div>
-                                        </div></a><a href="#abc">
-                                        <div className="media">
-                                            <div className="media-left"><span className="avatar avatar-sm avatar-away rounded-circle"><img src="/assets/images/portrait/small/avatar-s-6.png" alt="avatar" /><i></i></span></div>
-                                            <div className="media-body">
-                                                <h6 className="media-heading">Eric Alsobrook</h6>
-                                                <p className="notification-text font-small-3 text-muted">We have project party this saturday.</p><small>
-                                                <time className="media-meta text-muted" dateTime="2015-06-11T18:29:20+08:00">last month</time></small>
-                                            </div>
-                                        </div></a></li>
-                                    <li className="dropdown-menu-footer"><a className="dropdown-item text-muted text-center" href="#abc">Read all messages</a></li>
-                                </ul>
                             </li>
                             <li className="dropdown dropdown-user nav-item">
                                 <a className="dropdown-toggle nav-link dropdown-user-link" href="#abc" data-toggle="dropdown">
@@ -149,12 +49,12 @@ export default function HeaderSide(props){
                                         <img src="/assets/images/portrait/small/avatar-s-1.png" alt="avatar" />
                                         <i></i>
                                     </div>
-                                    <span className="user-name">John Doe</span>
+                                    <span className="user-name">{props.utilisateur.nom} {props.utilisateur.prenoms}</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right">
-                                    <a className="dropdown-item" href="user-profile.html"><i className="feather icon-user"></i> Edit Profile</a><a className="dropdown-item" href="app-email.html"><i className="feather icon-mail"></i> My Inbox</a><a className="dropdown-item" href="user-cards.html"><i className="feather icon-check-square"></i> Task</a><a className="dropdown-item" href="app-chat.html"><i className="feather icon-message-square"></i> Chats</a>
+                                    <span className="dropdown-item abk-pointer"><i className="feather icon-user"></i> Modifier mon profile</span>
                                     <div className="dropdown-divider"></div>
-                                    <a className="dropdown-item" href="login-with-bg-image.html"><i className="feather icon-power"></i> Logout</a>
+                                    <span className="dropdown-item abk-pointer" onClick={props.deconnexion}><i className="feather icon-power"></i> Déconnexion</span>
                                 </div>
                             </li>
                         </ul>
@@ -162,5 +62,19 @@ export default function HeaderSide(props){
                 </div>
             </div>
         </nav>
-)
+    )
 }
+
+const deconnexion = AuthRx.logout
+
+const mapDispatchToProps = {
+    deconnexion
+}
+
+const mapStateToProps = state => {
+    return {
+        utilisateur: state.user,
+    }
+}
+  
+export default connect(mapStateToProps, mapDispatchToProps) (HeaderSide)

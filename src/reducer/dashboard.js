@@ -6,7 +6,6 @@ export function getRecentCommandes(){
   return dispatch => {
     return axios.get(`/backoffice/dashboard/commandes/recentes`)
       .then((response) => {
-        console.log(response)
         dispatch({
           type: DASHBOARD_COMMANDES,
           payload: response.data

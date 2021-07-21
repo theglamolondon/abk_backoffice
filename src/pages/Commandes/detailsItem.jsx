@@ -57,7 +57,7 @@ function CommandeCardDetails({commande}){
                             <div className="col-md-2 text-right">Téléphone :</div>
                             <div className="col-md-4"><b>{commande.adresse.client.telephone}</b></div>
                             <div className="col-md-2 text-right">Montant :</div>
-                            <div className="col-md-4"><b>{commande.montant + commande.prixLivraison} F</b></div>
+                            <div className="col-md-4"><b>{commande.montant} F</b></div>
                         </div>
                         <hr/>
                         <div className="row">

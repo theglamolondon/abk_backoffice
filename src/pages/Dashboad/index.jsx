@@ -19,6 +19,7 @@ function DashboardPage(props) {
           <HistoriqueCard data={props.data.historique} />
         </div>
       </div>
+      <br/>
       <CommandeListeDetails getData={props.getCmdRecentes} data={props.data.commandes}/> 
     </React.Fragment>
   )

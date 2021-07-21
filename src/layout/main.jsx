@@ -6,24 +6,27 @@ import LoginPage from '../pages/Auth/Login';
 import { connect } from 'react-redux';
 import useToken from '../pages/Auth/useToken';
 import NotificationManager from '../notification/messaging'
+import AuthRx from '../reducer/auth';
 
 function AppLayout(props) {
 
-    const { token, setToken } = useToken();
+  const { user, setUser } = useToken();
 
-    if(!token) {
-      return <LoginPage handleLoginSuccess={setToken} />
-    }
+  if(!user) {
+    return <LoginPage handleLoginSuccess={setUser} />
+  }else{
+    //props.autoLogin(user)
+  }
 
-    return(
-        <React.Fragment>
-            <HeaderSide />
-            <MenuLeftSide />
-            <ContentPage />
-            <Footer />
-            <NotificationManager />
-        </React.Fragment>
-    )
+  return(
+    <React.Fragment>
+      <HeaderSide />
+      <MenuLeftSide />
+      <ContentPage />
+      <Footer />
+      <NotificationManager />
+    </React.Fragment>
+  )
 }
 
 function Footer(props){
@@ -37,10 +40,16 @@ function Footer(props){
     )
 }
 
+const autoLogin = AuthRx.autologin
+
+const mapDispactchToProps = {
+    autoLogin
+}
+
 const mapStateToProps = store => {
     return {
         user : store.user
     }
 }
 
-export default connect(mapStateToProps)(AppLayout)
+export default connect(mapStateToProps, mapDispactchToProps)(AppLayout)

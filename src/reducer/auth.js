@@ -1,21 +1,39 @@
 import axios from "../enabler/Axios"
 
 const USER_LOGIN = "USER_LOGIN"
-const USER_LISTE = "USER_LISTE"
+const USER_LOGOUT = "USER_LOGOUT"
 
 export function login(credentials){
+  return dispatch => {
+    return axios.post(`/backoffice/auth/login`, credentials)
+      .then((response) => {
+        dispatch({
+          type: USER_LOGIN,
+          payload: response.data
+        })
+        return response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+export function logout(){
+  return dispatch => {
+    dispatch({
+      type: USER_LOGOUT,
+      payload: {}
+    })
+  }
+}
+
+export function autoLogin(data){
     return dispatch => {
-        return axios.post(`/backoffice/auth/login`, credentials)
-            .then((response) => {
-                dispatch({
-                    type: USER_LOGIN,
-                    payload: response.data
-                })
-                return response.data.token
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        dispatch({
+            type: USER_LOGIN,
+            payload: data
+        })
     }
 }
 
@@ -24,6 +42,8 @@ export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case USER_LOGIN :
             return { ...action.payload }
+        case USER_LOGOUT :
+            return {}
         default :
             return {...state}
     }
@@ -32,6 +52,8 @@ export const reducer = (state = initialState, action) => {
 const AuthRx = {
     reducer : reducer,
     login: login,
+    autologin: autoLogin,
+    logout: logout,
 }
 
 export default AuthRx;

@@ -1,35 +1,57 @@
 import React from 'react';
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
 
 function CourbeCommande(props){
+  const options = {
+    lang: {
+      months: [
+          'Janvier', 'Février', 'Mars', 'Avril',
+          'Mai', 'Juin', 'Juillet', 'Août',
+          'Septembre', 'Octobre', 'Novembre', 'Décembre'
+      ],
+      weekdays: [
+          'Dimanche', 'Lundi', 'Mardi', 'Mercredi',
+          'Jeudi', 'Vendredi', 'Samedi'
+      ],
+      shortMonths: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Dec'],
+    },
+    title: {
+      text: 'Evolution des commandes'
+    },
+    chart: {
+      type: "spline"
+    },
+    series: [{
+        name: "Commandes",
+        data: [[new Date("2021-05-11").getTime(),1],[new Date("2021-05-13").getTime(), 2], [new Date("2021-05-14").getTime(), 3]]
+      },
+      {
+        name: "Livrées",
+        data: [[new Date("2021-05-11").getTime(),6], [new Date("2021-05-13").getTime(), 4], [new Date("2021-05-14").getTime(),3]]
+      },
+      {
+        name: "Annulées",
+        data: [[new Date("2021-05-11").getTime(),3], [new Date("2021-05-13").getTime(), 4], [new Date("2021-05-14").getTime(),2]]
+      }
+    ],
+    xAxis: {
+      type: 'datetime',
+        //categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    }
+
+  }
+
+  const afterChartCreated = (chart) => {
+    console.log("Charts",chart);
+  }
 
   return (
-    <div className="card">
-        <div className="card-header border-0-bottom">
-            <h4 className="card-title">Activity Chart <span className="text-muted text-bold-400">Weekly</span></h4>
-            <a className="heading-elements-toggle" href="#"><i className="fa fa-ellipsis-v font-medium-3"></i></a>
-            <div className="heading-elements">
-                <ul className="list-inline mb-0">
-                    <li><a data-action="reload"><i className="feather icon-rotate-cw"></i></a></li>
-                </ul>
-            </div>
-        </div>
-        <div className="card-content">
-            <div className="card-body">
-                <div id="weekly-activity-chart" className="height-250"></div>
-                <ul className="list-inline text-center m-0">
-                    <li>
-                        <h6><i className="feather icon-circle danger"></i> Runnig</h6>
-                    </li>
-                    <li className="ml-1">
-                        <h6><i className="feather icon-circle success"></i> Walking</h6>
-                    </li>
-                    <li className="ml-1">
-                        <h6><i className="feather icon-circle warning"></i> Cycling</h6>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      callback={afterChartCreated}
+    />
   )
 }
 

@@ -12,17 +12,18 @@ function UtilisateurPage(props){
         <UtilisateursListe 
           data={props.data.liste} 
           getData={props.getListe} 
-          title="à affecter à un restaurant"
+          addUser={props.addUser}
+          title="Liste des utilisateurs"
           />
       </Route>            
     </Switch>)
 }
 
-
 const getListe = UtilisateurRx.liste
+const addUser  = UtilisateurRx.ajouter
 
 const mapDispatchToProps = {
-    getListe
+    getListe, addUser
 }
 
 const mapStateToProps = state => {

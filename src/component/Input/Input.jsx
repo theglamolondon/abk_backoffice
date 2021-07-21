@@ -22,7 +22,7 @@ function InputFile({name, placeholder}){
                     <label className="custom-file-label">{placeholder}</label>
                 </div>
             </fieldset>
-            <ErrorMessage name={name} component="div" />
+            <ErrorMessage name={name} component="div" className="text-danger"/>
         </React.Fragment>
     )
 }

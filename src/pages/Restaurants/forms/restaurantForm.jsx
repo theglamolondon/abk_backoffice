@@ -37,6 +37,7 @@ function FormViewRestaurant({handleClose, resto, submitHandler}){
                 if(!values.duree === "" || values.duree === 0){
                     errors.duree = "La duree est requise"
                 }
+                return errors
             }}
             onSubmit={(values, {setSubmitting}) => { 
                 let data = new FormData(document.forms[0]);
@@ -50,8 +51,8 @@ function FormViewRestaurant({handleClose, resto, submitHandler}){
                 <fieldset className="form-group position-relative mb-2">
                     <label>Nom du restaurant</label>
                     <Field type="text" className="form-control" name="nom" placeholder="Nom du restaurant" />
+                    <ErrorMessage name="nom" component="div" className="text-danger"/>
                 </fieldset>
-                <ErrorMessage name="nom" component="div" />
 
                 <div className="row">
                     <div className="col-md-6">
@@ -64,7 +65,7 @@ function FormViewRestaurant({handleClose, resto, submitHandler}){
                                 </div>
                             </div>
                         </fieldset>
-                        <ErrorMessage name="duree" component="div" />
+                        <ErrorMessage name="duree" component="div" className="text-danger"/>
                     </div>
                     <div className="col-md-6">
                         <fieldset className="form-group position-relative">
@@ -76,7 +77,7 @@ function FormViewRestaurant({handleClose, resto, submitHandler}){
                                 </div>
                             </div>
                         </fieldset>
-                        <ErrorMessage name="prixLivraison" component="div" />
+                        <ErrorMessage name="prixLivraison" component="div" className="text-danger"/>
                     </div>
                 </div>                
 

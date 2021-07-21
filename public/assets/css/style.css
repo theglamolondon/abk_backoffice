@@ -43,3 +43,10 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     width: 70%;
     max-width: none!important;
 }
+.modal-60w {
+    width: 50%;
+    max-width: none!important;
+}
+.abk-pointer{
+	cursor: pointer;
+}

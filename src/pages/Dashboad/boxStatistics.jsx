@@ -13,7 +13,7 @@ export default function BoxStatistics(props) {
                     <i className="icon p-1 icon-bar-chart customize-icon font-large-2 p-1"></i>
                   </span>
                   <div className="stats-amount mr-3">
-                    <h3 className="heading-text text-bold-600">$95k</h3>
+                    <h3 className="heading-text text-bold-600">95k</h3>
                     <p className="sub-heading">CA mensuel</p>
                   </div>
                   <span className="inc-dec-percentage">
@@ -38,7 +38,7 @@ export default function BoxStatistics(props) {
                     <i className="icon p-1 icon-graph customize-icon font-large-2 p-1"></i>
                   </span>
                   <div className="stats-amount mr-3">
-                    <h3 className="heading-text text-bold-600">$27k</h3>
+                    <h3 className="heading-text text-bold-600">27k</h3>
                     <p className="sub-heading">Livrées</p>
                   </div>
                   <span className="inc-dec-percentage">
