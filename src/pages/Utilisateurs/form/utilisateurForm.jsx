@@ -1,8 +1,10 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
+import SwitchInput from '../../../component/Input/Switch'
 
-function UtilisateurForm({show, title, handleClose, submitAction, user}){
+function UtilisateurForm({show, title, handleClose, addHandler, updateHandler, user, refresh, mode}){
+  console.log("mode : ", mode)
 
   return (
   <React.Fragment>
@@ -16,13 +18,25 @@ function UtilisateurForm({show, title, handleClose, submitAction, user}){
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <FormViewUtilisateur handleClose={handleClose} submitHandler={submitAction} data={user}/>
+        <FormViewUtilisateur 
+          handleClose={handleClose} 
+          addHandler={addHandler} 
+          updateHandler={updateHandler} 
+          data={user}
+          refresh={refresh}
+          mode={mode}
+          />
       </Modal.Body>
     </Modal>
   </React.Fragment>)
 }
 
-function FormViewUtilisateur({submitHandler, handleClose, data}){
+export const UtilisateurFormMode = {
+  EDIT_INFO : 0,
+  EDIT_PASSWORD: 1, 
+}
+
+function FormViewUtilisateur({addHandler, updateHandler, handleClose, data, refresh, mode}){
   return(
     <Formik
       initialValues = {{...data, confirm: ""}}
@@ -58,11 +72,19 @@ function FormViewUtilisateur({submitHandler, handleClose, data}){
     }}
     onSubmit={(values, { setSubmitting }) => { 
       console.log(values)
-      submitHandler(values)
+      if(values.id === 0 && UtilisateurFormMode.EDIT_INFO === mode){
+        addHandler(values).then( () => refresh())
+      }else if (values.id !== 0 && UtilisateurFormMode.EDIT_INFO === mode){
+        updateHandler(values).then( () => refresh())
+      }else if (values.id !== 0 && UtilisateurFormMode.EDIT_PASSWORD === mode){
+        //
+      }
       handleClose()
     }}
   >
     <Form className="form-horizontal form-simple" noValidate>
+      { UtilisateurFormMode.EDIT_INFO === mode &&
+      <React.Fragment>
         <fieldset className="form-group position-relative mb-2">
             <label>Nom</label>   
             <Field type="text" className="form-control " name="nom" placeholder="Nom de l'utilisateur" />
@@ -90,7 +112,13 @@ function FormViewUtilisateur({submitHandler, handleClose, data}){
             <Field type="text" className="form-control " name="login" placeholder="Login de connexion" />
             <ErrorMessage name="login" component="div" className="text-danger"/>
         </fieldset>
-        {data.id === 0 &&
+
+        <fieldset className="form-group pb-1">
+          <Field as={SwitchInput} id="statut" className="switchery" name="statut" label="Activer le compte"/>
+        </fieldset>
+        </React.Fragment>}
+
+        { (mode === UtilisateurFormMode.EDIT_PASSWORD || data.id === 0) &&
         <React.Fragment>
           <fieldset className="form-group position-relative mb-2">
               <label>Mot de passe</label>   
@@ -108,10 +136,8 @@ function FormViewUtilisateur({submitHandler, handleClose, data}){
 
         <hr/>
         <Button variant="primary" type="submit">Enregistrer</Button>
-    </Form>
-    
-  </Formik>
-  )
+    </Form>    
+  </Formik>)
 }
 
 

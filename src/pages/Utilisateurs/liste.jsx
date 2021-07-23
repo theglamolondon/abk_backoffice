@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
-import UtilisateurForm from './form/utilisateurFrom';
+import UtilisateurForm, { UtilisateurFormMode } from './form/utilisateurForm';
 
-function UtilisateursListe({getData, data, title, addUser}){
+function UtilisateursListe({getData, data, title, addUser, majUser}){
 
   useEffect(() => {
     getData()
@@ -11,15 +11,24 @@ function UtilisateursListe({getData, data, title, addUser}){
   const defaultUser = {id: 0, nom: "", prenoms:"", login: "", password: "", status: 0, role: ""}
   const [user, setUser] = useState(defaultUser);
   const [showUser, setShowUser] = useState(false);
+  const [mode, setMode] = useState(UtilisateurFormMode.EDIT_INFO);
 
   const createUser = () => {
     setShowUser(true);
+    setMode(UtilisateurFormMode.EDIT_INFO)
     setUser(defaultUser)
   }
 
   const updateUser = (user) => {
-    setShowUser(true);
+    setMode(UtilisateurFormMode.EDIT_INFO)
     setUser(user)
+    setShowUser(true);
+  }
+
+  const changeMdp = (user) => { 
+    setMode(UtilisateurFormMode.EDIT_PASSWORD)
+    setUser(user)   
+    setShowUser(true);
   }
 
   return (
@@ -47,8 +56,11 @@ function UtilisateursListe({getData, data, title, addUser}){
                 show={showUser} 
                 title= {user.id === 0 ? "Nouvel utilisateur" : "Modification utilisateur"}
                 handleClose={()=> setShowUser(false)}
-                submitAction={addUser}
+                addHandler={addUser}
+                updateHandler={majUser}
+                refresh={getData}
                 user={user}
+                mode={mode}
               />
 
             </div>
@@ -63,7 +75,7 @@ function UtilisateursListe({getData, data, title, addUser}){
                 </tr>
               </thead>
               <tbody>
-              {data.map( (item, key) => <LigneUtilisateur line={item} key={key} update={updateUser} />)}   
+              {data.map( (item, key) => <LigneUtilisateur line={item} key={key} update={updateUser} changeMdp={changeMdp}/>)}   
               </tbody>
             </table>
           </div>
@@ -74,7 +86,7 @@ function UtilisateursListe({getData, data, title, addUser}){
   )
 }
 
-function LigneUtilisateur({line, update}){
+function LigneUtilisateur({line, update, changeMdp}){
   return (
     <tr>
       <td>{line.nom}</td>
@@ -84,7 +96,7 @@ function LigneUtilisateur({line, update}){
       <td>
       <div className="btn-group" role="group" aria-label="First Group">
         <button onClick={() => update(line)} type="button" className="btn btn-icon btn-success" title="Modififer l'utilisateur"><i className="fa fa-edit"></i></button>
-        <button onClick={() => {}} type="button" className="btn btn-icon btn-warning" title="Changer de mot de passe"><i className="fa fa-lock"></i></button>
+        {line.role !== "ADMIN" && <button onClick={() => changeMdp(line)} type="button" className="btn btn-icon btn-warning" title="Changer de mot de passe"><i className="fa fa-lock"></i></button>}
         <button onClick={() => {}} type="button" className="btn btn-icon btn-danger"  title="Supprimer l'utilisateur"><i className="fa fa-trash"></i></button>
       </div>
       </td>

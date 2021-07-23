@@ -29,9 +29,10 @@ function LoginPage(props) {
                                 if(values.login === ""){
                                     errors.login = "Nom utilisateur requis"
                                 }
-                                if(!values.password === ""){
+                                if(values.password === ""){
                                     errors.password = "Mot de passe requis"
                                 }
+                                return errors
                             }}
                             onSubmit={(values, { setSubmitting }) => { 
                                 props.login(values).then(value => {
@@ -39,26 +40,26 @@ function LoginPage(props) {
                                 }); 
                             }}
                         >
-                            {({isSubmitting}) => (
-                                <Form className="form-horizontal form-simple" noValidate>
+                         
+                            <Form className="form-horizontal form-simple" noValidate>
                                 <fieldset className="form-group position-relative has-icon-left mb-0">
                                     <Field type="text" className="form-control form-control-lg" name="login" id="user-name" placeholder="Your Username" />
                                     <div className="form-control-position">
                                         <i className="feather icon-user"></i>
                                     </div>
+                                    <ErrorMessage name="login" component="div" className="text-danger"/>
                                 </fieldset>
-                                <ErrorMessage name="login" component="div" />
                                 <br/>
                                 <fieldset className="form-group position-relative has-icon-left">
                                     <Field type="password" className="form-control form-control-lg" name="password" id="user-password" placeholder="Enter Password" />
                                     <div className="form-control-position">
                                         <i className="fa fa-key"></i>
                                     </div>
+                                    <ErrorMessage name="password" component="div"  className="text-danger"/>
                                 </fieldset>
-                                <ErrorMessage name="password" component="div" />
-                                <button disabled={isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block"><i className="feather icon-unlock"></i> Login</button>
+                                <button type="submit" className="btn btn-primary btn-lg btn-block"><i className="feather icon-unlock"></i> Login</button>
                             </Form>
-                            )}
+                        
                         </Formik>
                     </div>
                 </div>

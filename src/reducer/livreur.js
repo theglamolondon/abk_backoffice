@@ -1,8 +1,10 @@
 import axios from "../enabler/Axios"
 
 const LIVREUR_POSITION = "LIVREUR_POSITION"
-const LIVREUR_LISTE = "LIVREUR_LISTE"
-const LIVREUR_ADD = "LIVREUR_ADD"
+const LIVREUR_LISTE    = "LIVREUR_LISTE"
+const LIVREUR_ADD      = "LIVREUR_ADD"
+const LIVREUR_UPDATE   = "LIVREUR_UPDATE"
+const LIVREUR_MAJ      = "LIVREUR_MAJ"
 
 export function handleLivreurPosition(data){
   return dispatch => {
@@ -14,32 +16,58 @@ export function handleLivreurPosition(data){
 }
 
 export function listeLivreur(){
-  return dispatch => {
-    return axios.get(`/backoffice/livreur/`)
-      .then((response) => {
-        dispatch({
-          type: LIVREUR_LISTE,
-          payload: response.data
-        })
+  return async dispatch => {
+    try {
+      const response = await axios.get(`/backoffice/livreur/`)
+      dispatch({
+        type: LIVREUR_LISTE,
+        payload: response.data
       })
-      .catch((error) => {
-        console.log(error)
-      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
 export function ajouter(data){
-  return dispatch => {
-    return axios.post(`/backoffice/livreur/save`, data)
-      .then((response) => {
-        dispatch({
-          type: LIVREUR_ADD,
-          payload: response.data
-        })
+  return async dispatch => {
+    try {
+      const response = await axios.post(`/backoffice/livreur/save`, data)
+      dispatch({
+        type: LIVREUR_ADD,
+        payload: response.data
       })
-      .catch((error) => {
-        console.log(error)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function modifier(data){
+  return async dispatch => {
+    try {
+      const response = await axios.put(`/backoffice/livreur/update`, data)
+      dispatch({
+        type: LIVREUR_MAJ,
+        payload: response.data
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function changeMdp(data){
+  return async dispatch => {
+    try {
+      const response = await axios.post(`/backoffice/livreur/change/password`, data)
+      dispatch({
+        type: LIVREUR_UPDATE,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
@@ -63,6 +91,8 @@ const LivreurRx = {
   handleLivreurPosition: handleLivreurPosition,
   liste: listeLivreur,
   ajouter: ajouter,
+  changeMdp: changeMdp,
+  modifier: modifier,
 }
 
 export default LivreurRx

@@ -1,8 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import SwitchInput from '../../../component/Input/Switch'
 
-function LivreurForm({show, title, handleClose, submitAction, livreur}){
+function LivreurForm({show, title, handleClose, add, update, changeMdp, livreur, mode, refresh}){
 
   return (
   <React.Fragment>
@@ -17,13 +18,26 @@ function LivreurForm({show, title, handleClose, submitAction, livreur}){
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <FormViewLivreur handleClose={handleClose} submitHandler={submitAction} data={livreur}/>
+        <FormViewLivreur 
+          handleClose={handleClose} 
+          add={add} 
+          update={update} 
+          changeMdp={changeMdp} 
+          data={livreur} 
+          mode={mode}
+          refresh={refresh}
+          />
       </Modal.Body>
     </Modal>
   </React.Fragment>)
 }
 
-function FormViewLivreur({submitHandler, handleClose, data}){
+export const LivreurFormMode = {
+  EDIT_INFO : 0,
+  EDIT_PASSWORD: 1, 
+}
+
+function FormViewLivreur({add, update, changeMdp, handleClose, data, mode, refresh}){
   return(
     <Formik
       initialValues = {{...data, confirm: ""}}
@@ -60,19 +74,27 @@ function FormViewLivreur({submitHandler, handleClose, data}){
             errors.confirm = "Les deux mot de passes ne peuvent pas être vides"
           }
           if(values.confirm !== values.password){
-            errors.confirm = "Les deux mot de passes ne correspondent pas"
-            errors.password = "Les deux mot de passes ne correspondent pas"
+            errors.confirm = "Les deux mots de passe ne correspondent pas"
+            errors.password = "Les deux mots de passe ne correspondent pas"
           }
         }
         
         return errors
     }}
     onSubmit={(values, { setSubmitting }) => { 
-      submitHandler(values)
+      if(mode === LivreurFormMode.EDIT_INFO && values.id === 0){
+        add(values).then(() => refresh())
+      }else if (values.id !== 0 && mode === LivreurFormMode.EDIT_INFO){
+        update(values).then(() => refresh())
+      }else if(values.id !== 0 && mode === LivreurFormMode.EDIT_PASSWORD){
+        changeMdp(values)
+      }
       handleClose()
     }}
   >
     <Form className="form-horizontal form" noValidate>
+      {(mode === LivreurFormMode.EDIT_INFO) && 
+      <React.Fragment>
       <h4 className="form-section"><i className="fa fa-eye"></i>Informations livreur</h4>
 
       <div className="row">
@@ -143,7 +165,16 @@ function FormViewLivreur({submitHandler, handleClose, data}){
         </div>
       </div>
       
-      {data.id === 0 &&
+      <div className="row"> 
+        <div className="col-md-6">
+          <fieldset className="form-group pb-1">
+            <Field as={SwitchInput} id="statut" className="switchery" name="statut" label="Activer le compte"/>
+           </fieldset>
+        </div>
+      </div>
+      </React.Fragment>}
+
+      {(data.id === 0 || mode === LivreurFormMode.EDIT_PASSWORD) &&
       <div className="row">
         <div className="col-md-6">
           <fieldset className="form-group position-relative mb-2">

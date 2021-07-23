@@ -12,7 +12,10 @@ function LivreurPage(props){
           getData={props.getListe}
           data={props.data.liste}
           title="Liste des livreurs"
-          addLivreur={addLivreur}
+          addLivreur={props.addLivreur}
+          handleUpdate={props.majLivreur}
+          changeMdp={props.changeMdp}
+          refresh={props.getListe}
           />
       </Route>            
     </Switch>
@@ -21,9 +24,11 @@ function LivreurPage(props){
 
 const getListe = LivreurRx.liste
 const addLivreur = LivreurRx.ajouter
+const changeMdp = LivreurRx.changeMdp
+const majLivreur = LivreurRx.modifier
 
 const mapDispatchToProps = {
-  getListe, addLivreur
+  getListe, addLivreur, changeMdp, majLivreur
 }
 
 const mapStateToProps = state => {
