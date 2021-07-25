@@ -3,7 +3,7 @@ import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import SwitchInput from '../../../component/Input/Switch'
 
-function UtilisateurForm({show, title, handleClose, addHandler, updateHandler, user, refresh, mode}){
+function UtilisateurForm({show, title, handleClose, addHandler, updateHandler, user, refresh, mode, connected}){
   console.log("mode : ", mode)
 
   return (
@@ -36,7 +36,7 @@ export const UtilisateurFormMode = {
   EDIT_PASSWORD: 1, 
 }
 
-function FormViewUtilisateur({addHandler, updateHandler, handleClose, data, refresh, mode}){
+function FormViewUtilisateur({addHandler, updateHandler, handleClose, data, refresh, mode, connected}){
   return(
     <Formik
       initialValues = {{...data, confirm: ""}}

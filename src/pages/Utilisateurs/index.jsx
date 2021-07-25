@@ -14,6 +14,7 @@ function UtilisateurPage(props){
           getData={props.getListe} 
           addUser={props.addUser}
           majUser={props.majUser}
+          connected={props.user}
           title="Liste des utilisateurs"
           />
       </Route>            
@@ -28,9 +29,10 @@ const mapDispatchToProps = {
   getListe, addUser, majUser
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = store => {
   return {
-    data: state.context.utilisateurs
+    data: store.context.utilisateurs,
+    user: store.user,
   }
 }
 

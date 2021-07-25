@@ -6,15 +6,15 @@ export default function useToken() {
         return (userRaw === "undefined") ? false : JSON.parse(userRaw);
     };
 
-    const [user, setUser] = useState(getUser());
+    const [userSession, setUserSession] = useState(getUser());
 
     const saveUser = user => {
         sessionStorage.setItem('abk_user', JSON.stringify(user));
-        setUser(user);
+        setUserSession(user);
     };
 
     return {
-        setUser: saveUser,
-        user
+        setUserSession: saveUser,
+        userSession
     }
 }

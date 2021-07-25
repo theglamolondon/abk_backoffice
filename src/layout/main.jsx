@@ -1,4 +1,4 @@
-import  React from 'react'
+import  React, { useEffect } from 'react'
 import HeaderSide from "./header";
 import MenuLeftSide from "./menu";
 import ContentPage from "./content";
@@ -7,25 +7,37 @@ import { connect } from 'react-redux';
 import useToken from '../pages/Auth/useToken';
 import NotificationManager from '../notification/messaging'
 import AuthRx from '../reducer/auth';
+import { useState } from 'react';
 
 function AppLayout(props) {
 
-  const { user, setUser } = useToken();
+  const { userSession, setUserSession } = useToken();
+  const [connected, setConnected] = useState(false)
 
-  if(!user) {
-    return <LoginPage handleLoginSuccess={setUser} />
-  }else{
-    //props.autoLogin(user)
-  }
+  useEffect(() =>{
+    if(userSession === null) {
+      setConnected(false) 
+    }else{
+      props.autoLogin(userSession)
+      setConnected(true) 
+    }
+  },[userSession])
 
   return(
+    
     <React.Fragment>
-      <HeaderSide />
-      <MenuLeftSide />
-      <ContentPage />
-      <Footer />
-      <NotificationManager />
-    </React.Fragment>
+      {connected && 
+        <React.Fragment>
+          <HeaderSide />
+          <MenuLeftSide />
+          <ContentPage />
+          <Footer />
+          <NotificationManager />
+        </React.Fragment> }
+
+        { !connected && <LoginPage handleLoginSuccess={setUserSession} /> }
+    </React.Fragment> 
+      
   )
 }
 
@@ -43,13 +55,13 @@ function Footer(props){
 const autoLogin = AuthRx.autologin
 
 const mapDispactchToProps = {
-    autoLogin
+  autoLogin
 }
 
 const mapStateToProps = store => {
-    return {
-        user : store.user
-    }
+  return {
+    user : store.user
+  }
 }
 
 export default connect(mapStateToProps, mapDispactchToProps)(AppLayout)

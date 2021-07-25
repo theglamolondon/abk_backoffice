@@ -7,9 +7,9 @@ const COMMANDES_ALL         = "COMMANDES_ALL"
 const COMMANDES_PREPAREES   = "COMMANDES_PREPAREES"
 const LIVREUR_POSITION      = "LIVREUR_POSITION"
 
-export function getAllCommandes(){
+export function getAllCommandes(page){
     return dispatch => {
-        return axios.get(`/backoffice/commandes/liste`)
+        return axios.get(`/backoffice/commandes/liste?page=${page}`)
             .then((response) => {
                 dispatch({
                     type: COMMANDES_ALL,
@@ -22,9 +22,9 @@ export function getAllCommandes(){
     }
 }
 
-export function getCommandesPayees(){
+export function getCommandesPayees(page){
     return dispatch => {
-        return axios.get(`/backoffice/commandes/payees`)
+        return axios.get(`/backoffice/commandes/payees?page=${page}`)
             .then((response) => {
                 dispatch({
                     type: COMMANDES_PAYEES,
@@ -37,9 +37,9 @@ export function getCommandesPayees(){
     }
 }
 
-export function getCommandesPreparees(){
+export function getCommandesPreparees(page){
     return dispatch => {
-        return axios.get(`/backoffice/commandes/a-recuperer`)
+        return axios.get(`/backoffice/commandes/a-recuperer?page=${page}`)
             .then((response) => {
                 dispatch({
                     type: COMMANDES_PREPAREES,
@@ -52,9 +52,9 @@ export function getCommandesPreparees(){
     }
 }
 
-export function getCommandesLivrees(){
+export function getCommandesLivrees(page){
     return dispatch => {
-        return axios.get(`/backoffice/commandes/livrees`)
+        return axios.get(`/backoffice/commandes/livrees?page=${page}`)
             .then((response) => {
                 dispatch({
                     type: COMMANDES_LIVREES,
@@ -110,7 +110,7 @@ export function putCommandeAffectation(data){
     }
 }
 
-const initialState = {liste : [], details: {data : {}, livreurs: []}};
+const initialState = {liste : {data: [], nombrePage: 0}, details: {data : {}, livreurs: []}};
 export const reducer = (oldState = initialState, action) => {
     
     switch (action.type) {

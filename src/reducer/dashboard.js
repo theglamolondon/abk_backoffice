@@ -2,9 +2,9 @@ import axios from "../enabler/Axios"
 
 const DASHBOARD_COMMANDES = "DASHBOARD_COMMANDES"
 
-export function getRecentCommandes(){
+export function getRecentCommandes(page){
   return dispatch => {
-    return axios.get(`/backoffice/dashboard/commandes/recentes`)
+    return axios.get(`/backoffice/dashboard/commandes/recentes?page=${page}`,)
       .then((response) => {
         dispatch({
           type: DASHBOARD_COMMANDES,
@@ -17,7 +17,7 @@ export function getRecentCommandes(){
   }
 }
 
-const initialState = {commandes:[], statistics:{}, historique:{}};
+const initialState = {commandes: {data: [], nombrePage: 0}, statistics:{}, historique:{}};
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case DASHBOARD_COMMANDES :

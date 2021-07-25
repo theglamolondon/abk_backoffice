@@ -5,22 +5,28 @@ import CourbeCommande from "./graphe";
 import HistoriqueCard from "./historique";
 import DashboardRx from "../../reducer/dashboard";
 import { connect } from "react-redux";
+import { AUTH_ROLE } from "../../reducer/auth";
 
 function DashboardPage(props) {
-    
+  const {user} = props
+
   return (
     <React.Fragment>
-      <BoxStatistics data={props.data.statistics}/>      
-      <div className="row match-height">
-        <div className="col-xl-8 col-lg-8">
-          <CourbeCommande />
-        </div>
-        <div className="col-xl-4 col-lg-4">
-          <HistoriqueCard data={props.data.historique} />
-        </div>
-      </div>
-      <br/>
-      <CommandeListeDetails getData={props.getCmdRecentes} data={props.data.commandes}/> 
+      {user.role === AUTH_ROLE.ADMIN &&     
+      <React.Fragment>   
+        <BoxStatistics data={props.data.statistics}/>
+        <div className="row match-height">
+          <div className="col-xl-8 col-lg-8">
+            <CourbeCommande />
+          </div>
+          <div className="col-xl-4 col-lg-4">
+            <HistoriqueCard data={props.data.historique} />
+          </div>
+        </div> 
+        <br/>
+      </React.Fragment>}
+
+      <CommandeListeDetails getData={props.getCmdRecentes} commandes={props.data.commandes}/> 
     </React.Fragment>
   )
 }
@@ -31,10 +37,11 @@ const mapDispatchToProps = {
   getCmdRecentes, 
 }
 
-const mapStateToProps = state => {
-    return {
-        data: state.context.dashboard,
-    }
+const mapStateToProps = store => {
+  return {
+    data: store.context.dashboard,
+    user: store.user,
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps) (DashboardPage)

@@ -9,64 +9,64 @@ import CommandeListe from './liste';
 
 function CommandePage (props){
     
-    return (
-        <Switch>
-            <Route path="/commandes/a-affecter" exact strict>
-                <CommandeListe 
-                    data={props.data.liste} 
-                    getData={props.getCommandePayees} 
-                    title="à affecter à un restaurant"
-                    />
-            </Route>            
-            <Route path="/commandes/a-recuperer" exact strict>
-                <CommandeListe 
-                    data={props.data.liste} 
-                    getData={props.getCommandePreparees} 
-                    title="à recupérer par un livreur"
-                    />
-            </Route>
-            <Route path="/commandes/livrees" exact strict>
-                <CommandeListe 
-                    data={props.data.liste} 
-                    getData={props.getCommandeLivrees} 
-                    title="Livrées"
-                    />
-            </Route>
-            <Route path="/commandes/liste" exact strict>
-                <CommandeListe 
-                    data={props.data.liste} 
-                    getData={props.getAllCommandes} 
-                    title="Toutes les commandes"
-                    />
-            </Route>
-            <Route path="/commandes/affecter/:reference" exact strict>
-                <AffectCommande 
-                    restaurant={props.resto} 
-                    details={props.data.details} 
-                    getData={props.getCommandeAffectation} 
-                    getEmplacement={props.getRestoEmplacements}
-                    affecter={props.affecterCommande}
-                    mode={ModeAffectation.RESTAURANT}
-                    />
-            </Route>            
-            <Route path="/commandes/recuperer/:reference" exact strict>
-                <AffectCommande 
-                    restaurant={props.resto} 
-                    details={props.data.details} 
-                    getData={props.getCommandeAffectation} 
-                    getEmplacement={props.getRestoEmplacements}
-                    affecter={props.affecterCommande}
-                    mode={ModeAffectation.LIVREUR}
-                    />
-            </Route>
-            <Route path="/commandes/details/:reference" exact strict>
-                <DetailsCommande 
-                    data={props.data.details} 
-                    getData={props.getCommandeDetails} 
-                    />
-            </Route>
-        </Switch>
-    )
+  return (
+    <Switch>
+      <Route path="/commandes/a-affecter" exact strict>
+        <CommandeListe 
+          commandes={props.data.liste} 
+          getData={props.getCommandePayees} 
+          title="à affecter à un restaurant"
+          />
+      </Route>            
+      <Route path="/commandes/a-recuperer" exact strict>
+        <CommandeListe 
+          commandes={props.data.liste} 
+          getData={props.getCommandePreparees} 
+          title="à recupérer par un livreur"
+          />
+      </Route>
+      <Route path="/commandes/livrees" exact strict>
+        <CommandeListe 
+          commandes={props.data.liste} 
+          getData={props.getCommandeLivrees} 
+          title="Livrées"
+          />
+      </Route>
+      <Route path="/commandes/liste" exact strict>
+        <CommandeListe 
+          commandes={props.data.liste} 
+          getData={props.getAllCommandes} 
+          title="Toutes les commandes"
+          />
+      </Route>
+      <Route path="/commandes/affecter/:reference" exact strict>
+        <AffectCommande 
+          restaurant={props.resto} 
+          details={props.data.details} 
+          getData={props.getCommandeAffectation} 
+          getEmplacement={props.getRestoEmplacements}
+          affecter={props.affecterCommande}
+          mode={ModeAffectation.RESTAURANT}
+          />
+      </Route>            
+      <Route path="/commandes/recuperer/:reference" exact strict>
+        <AffectCommande 
+          restaurant={props.resto} 
+          details={props.data.details} 
+          getData={props.getCommandeAffectation} 
+          getEmplacement={props.getRestoEmplacements}
+          affecter={props.affecterCommande}
+          mode={ModeAffectation.LIVREUR}
+          />
+      </Route>
+      <Route path="/commandes/details/:reference" exact strict>
+        <DetailsCommande 
+          data={props.data.details} 
+          getData={props.getCommandeDetails} 
+          />
+      </Route>
+    </Switch>
+  )
 }
 
 const getCommandePayees = CommandesRx.commandesPayees

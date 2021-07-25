@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
 import UtilisateurForm, { UtilisateurFormMode } from './form/utilisateurForm';
 
-function UtilisateursListe({getData, data, title, addUser, majUser}){
+function UtilisateursListe({getData, data, title, addUser, majUser, connected}){
 
   useEffect(() => {
     getData()
@@ -61,6 +61,7 @@ function UtilisateursListe({getData, data, title, addUser, majUser}){
                 refresh={getData}
                 user={user}
                 mode={mode}
+                connected={connected}
               />
 
             </div>
@@ -75,7 +76,12 @@ function UtilisateursListe({getData, data, title, addUser, majUser}){
                 </tr>
               </thead>
               <tbody>
-              {data.map( (item, key) => <LigneUtilisateur line={item} key={key} update={updateUser} changeMdp={changeMdp}/>)}   
+              {data.map( (item, key) => <LigneUtilisateur 
+                                          line={item} 
+                                          key={key} 
+                                          update={updateUser} 
+                                          changeMdp={changeMdp}/>
+                                          )}   
               </tbody>
             </table>
           </div>

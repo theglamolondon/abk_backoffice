@@ -3,6 +3,11 @@ import axios from "../enabler/Axios"
 const USER_LOGIN = "USER_LOGIN"
 const USER_LOGOUT = "USER_LOGOUT"
 
+export const AUTH_ROLE = {
+  ADMIN : "ADMIN",
+  NUSER: "NUSER"
+}
+
 export function login(credentials){
   return dispatch => {
     return axios.post(`/backoffice/auth/login`, credentials)
@@ -20,6 +25,8 @@ export function login(credentials){
 }
 
 export function logout(){
+  sessionStorage.removeItem('abk_user')
+  window.location.href = "/"
   return dispatch => {
     dispatch({
       type: USER_LOGOUT,
