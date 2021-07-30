@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { URL_BASE_API } from '../../enabler/Axios';
 import PlatForm from './forms/platForm';
 import RestaurantForm from './forms/restaurantForm';
 
 function ListeRestaurant({data, accompagnements, getData, addNewResto, updateResto, addNewPlat, getAccompagnements}) {
     useEffect(()=>{
-        getData()
+      getData()
     }, [])
     
     const defaultResto = {id: 0, nom: "", image:"", duree: 0, prixLivraison: 100, ranking: "", actif: true}
@@ -21,63 +22,63 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, updateRes
     const handleShowResto = () => setShowResto(true);
 
     const createNewResto = () => {
-        setResto(defaultResto)
-        handleShowResto()
+      setResto(defaultResto)
+      handleShowResto()
     }
 
     const editRestoHandle = (resto) => {
-        setResto(resto)
-        handleShowResto()
+      setResto(resto)
+      handleShowResto()
     }
 
     //Plat actions
     const [showPlat, setShowPlat] = useState(false);
     const handleClosePlat = () => setShowPlat(false);
     const createNewPlat = (arg) => {
-        getAccompagnements()
-        setResto(arg);
-        setPlat(defaultPlat)
-        setShowPlat(true);
+      getAccompagnements()
+      setResto(arg);
+      setPlat(defaultPlat)
+      setShowPlat(true);
     }
 
     const platControls = {
-        show: showPlat,
-        handleClose: handleClosePlat,
-        createNewPlat: createNewPlat
+      show: showPlat,
+      handleClose: handleClosePlat,
+      createNewPlat: createNewPlat
     }
     
     return (
     <div className="col-xl-12 col-lg-12">
-        <div className="mb-2">
-            <Button variant="primary" onClick={createNewResto}> Ajouter un restaurant </Button>
+      <div className="mb-2">
+        <Button variant="primary" onClick={createNewResto}> Ajouter un restaurant </Button>
 
-            <RestaurantForm
-                handleClose={handleCloseResto}
-                handleShow={handleShowResto}
-                show={showResto}
-                title={resto.id === 0 ? "Ajouter un restaurant" : "Modifier un restaurant"}
-                resto={resto}
-                submitAction={resto.id === 0 ? addNewResto : updateResto}
-                />
+        <RestaurantForm
+          handleClose={handleCloseResto}
+          handleShow={handleShowResto}
+          show={showResto}
+          title={resto.id === 0 ? "Ajouter un restaurant" : "Modifier un restaurant"}
+          resto={resto}
+          submitAction={resto.id === 0 ? addNewResto : updateResto}
+          />
 
-            <PlatForm 
-                show={platControls.show} 
-                handleClose={platControls.handleClose} 
-                title="Ajouter un plat" 
-                resto={resto} 
-                plat={plat}
-                accompagnements={accompagnements}
-                submitAction={plat.id === 0 ? addNewPlat : ()=>{}}
-                />
-        </div>
+        <PlatForm 
+          show={platControls.show} 
+          handleClose={platControls.handleClose} 
+          title="Ajouter un plat" 
+          resto={resto} 
+          plat={plat}
+          accompagnements={accompagnements}
+          submitAction={plat.id === 0 ? addNewPlat : ()=>{}}
+          />
+      </div>
 
-        <div className="row match-height">
-            {data.map( (item, key) => <RestaurantCard 
-                line={item} 
-                key={key} 
-                platActions={platControls} 
-                restoEdit={editRestoHandle}
-            />)}
+      <div className="row match-height">
+        {data.map( (item, key) => <RestaurantCard 
+          line={item} 
+          key={key} 
+          platActions={platControls} 
+          restoEdit={editRestoHandle}
+        />)}
 		</div>
     </div>
     );
@@ -85,39 +86,38 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, updateRes
 
 function RestaurantCard({line, platActions, restoEdit}) {
     const clickPlatHandle = () =>{
-        platActions.createNewPlat(line)
+      platActions.createNewPlat(line)
     }
     const clickRestoHandle = () =>{
-        restoEdit(line)
+      restoEdit(line)
     }
 
     return (
     <div className="col-xl-3 col-md-6 col-sm-12">
-        <div className="card">
-            <div className="card-content">
-                <div className="card-body">
-                    <h4 className="card-title">{line.nom}</h4>
-                </div>
-                <Link to={`/restaurants/${line.id}/details`} >
-                    <img className="img-fluid" src={line.image} alt={line.nom} style={{height:"158px", width:"30em"}}/>
-                </Link>
-                <div className="card-body">
-                    <div className="form-group text-center">
-                        <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={clickRestoHandle}>
-                            <i className="fa fa-pencil" />
-                        </Link>
-                        <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
-                            <i className="fa fa-cutlery" />
-                        </Link>
-                        <Link to={`/restaurants/${line.id}/emplacements`} className="btn btn-float btn-square btn-secondary" title="Les emplacements">
-                            <i className="fa fa-map-marker" />
-                        </Link>
-                    </div>
-                </div>
+      <div className="card">
+        <div className="card-content">
+          <div className="card-body">
+            <h4 className="card-title">{line.nom}</h4>
+          </div>
+          <Link to={`/restaurants/${line.id}/details`} >
+            <img className="img-fluid" src={`${URL_BASE_API}/${line.image}`} alt={line.nom} style={{height:"158px", width:"30em"}}/>
+          </Link>
+          <div className="card-body">
+            <div className="form-group text-center">
+              <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={clickRestoHandle}>
+                <i className="fa fa-pencil" />
+              </Link>
+              <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
+                <i className="fa fa-cutlery" />
+              </Link>
+              <Link to={`/restaurants/${line.id}/emplacements`} className="btn btn-float btn-square btn-secondary" title="Les emplacements">
+                <i className="fa fa-map-marker" />
+              </Link>
             </div>
+          </div>
         </div>
-    </div>
-    )
+      </div>
+    </div>)
   }
 
   export default ListeRestaurant

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function PaginateView({actualPage, totalPage}){
 
   let previous = false
-  let next = false
+  let next     = false
 
   if(totalPage > 1){
 

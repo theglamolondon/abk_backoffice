@@ -1,4 +1,5 @@
 import axios from "axios";
+export const URL_BASE_API = "http://localhost:8080"
 
 //const token = localStorage.getItem("NVL_TK");
 
@@ -25,7 +26,7 @@ axios.interceptors.request.use(
     */
     config.headers['Content-Type'] = config.headers['Content-Type'] === undefined ? 'application/json' : config.headers['Content-Type'];
     config.headers['Access-Control-Allow-Origin'] = '*';
-    config.baseURL = "http://localhost:8080"
+    config.baseURL = URL_BASE_API
     return config;
   },
   error => {

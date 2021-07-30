@@ -41,6 +41,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl}) {
                                 show={showEmpl}
                                 title={emplacement.id === 0 ? "Ajouter un emplacement" : "Modifier un emplacement"}
                                 resto={data.restaurant}
+                                refresh={getData}
                                 submitAction={emplacement.id === 0 ? addNewEmpl : updtEmpl}
                                 />
 

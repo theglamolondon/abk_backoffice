@@ -19,7 +19,14 @@ export function login(credentials){
         return response.data
       })
       .catch((error) => {
-        console.log(error)
+        console.log("*****LOGIN ERROR*****",error)
+
+        let message = "Une erreur est survenue"
+        if(!navigator.onLine) {
+          message = "Vous ne semblez pas être connecté à internet..."
+        }
+        
+        return {error: true, message: message}
       })
   }
 }

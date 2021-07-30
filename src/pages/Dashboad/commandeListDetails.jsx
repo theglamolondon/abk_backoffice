@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PaginateView from '../../component/pagination';
-import {StatutCommande} from '../Commandes/liste'
+import {StatutCommande, StatutCommandeEnum} from '../Commandes/liste'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -115,80 +115,99 @@ export default function CommandeListeDetails({getData, commandes}){
 
 function DetailsCommande({display, close, commande}) {
 
+  let link;
+
+  if(display){
+    switch(commande.statut){
+      case StatutCommandeEnum.PAYEE :
+        link = "/commandes/affecter/" + commande.reference
+        break;
+      case StatutCommandeEnum.PRETE :
+      case StatutCommandeEnum.PREPARATION :
+        link = "/commandes/recuperer/" + commande.reference
+        break;
+      default :
+        link = "/commandes/details/" + commande.reference
+    }
+  }
+  
+
     return (display &&
-        <div className="col-xl-4 col-lg-4">
-        <div className="card">
-          <div className="card-header border-0">
-            <h4 className="card-title">Détails #{commande.reference}</h4>
-            <div className="heading-elements">
-              <ul className="list-inline mb-0">
-                <li className="abk-pointer"><span data-action="reload"><i className="feather icon-eye-off" onClick={close}></i></span></li>
-              </ul>
-            </div>
+    <div className="col-xl-4 col-lg-4">
+      <div className="card">
+        <div className="card-header border-0">
+          <h4 className="card-title">Détails #{commande.reference}</h4>
+          <div className="heading-elements">
+            <ul className="list-inline mb-0">
+              <li className="abk-pointer"><span data-action="reload"><i className="feather icon-eye-off" onClick={close}></i></span></li>
+            </ul>
           </div>
-          <div className="card-content">
-            <div className="card-body">
-              <div className="widget-timeline">
-                <ul>
-                  <li className="timeline-items timeline-icon-success">
-                    <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
+        </div>
+        <div className="card-content">
+          <div className="card-body">
+            <div className="widget-timeline">
+              <ul>
+                <li className="timeline-items timeline-icon-success">
+                  <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric'
+                    }).format(Date.parse(commande.dateCommande))}</p>
+                  <div className="timeline-title">Nouvelle commande</div>
+                  <div className="timeline-subtitle">Restaurant : {commande.emplacement.restaurant.nom}</div>
+                </li>
+                {commande.statut >= StatutCommandeEnum.PREPARATION && 
+                <li className="timeline-items timeline-icon-danger">
+                  <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
                         year: "numeric",
                         month: "2-digit",
                         day: "2-digit",
                         hour: 'numeric',
                         minute: 'numeric',
                         second: 'numeric'
-                      }).format(Date.parse(commande.dateCommande))}</p>
-                    <div className="timeline-title">Nouvelle commande</div>
-                    <div className="timeline-subtitle">Restaurant : {commande.emplacement.restaurant.nom}</div>
-                  </li>
-                  <li className="timeline-items timeline-icon-danger">
-                    <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                          hour: 'numeric',
-                          minute: 'numeric',
-                          second: 'numeric'
-                        }).format(Date.parse(commande.dateReception))}</p>
-                    <div className="timeline-title">Commande acceptée</div>
-                    <div className="timeline-subtitle">Emplacement :{commande.emplacement.adresse} </div>
-                  </li>
-                  <li className="timeline-items timeline-icon-warning">
-                    <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                          hour: 'numeric',
-                          minute: 'numeric',
-                          second: 'numeric'
-                        }).format(Date.parse(commande.dateAffectation))}</p>
-                    <div className="timeline-title">
-                      <span>Commande récupérée</span>
-                    </div>
-                    <div className="timeline-subtitle">Livreur : {commande.emplacement.restaurant.nom}</div>
-                  </li>
+                      }).format(Date.parse(commande.datePreparation))}</p>
+                  <div className="timeline-title">Commande acceptée</div>
+                  <div className="timeline-subtitle">Emplacement :{commande.emplacement.adresse} </div>
+                </li>}
+                {commande.statut >= StatutCommandeEnum.RECUPEREE && 
+                <li className="timeline-items timeline-icon-warning">
+                  <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                      }).format(Date.parse(commande.dateAffectation))}</p>
+                  <div className="timeline-title">
+                    <span>Commande récupérée</span>
+                  </div>
+                  <div className="timeline-subtitle">Livreur : {commande.emplacement.restaurant.nom}</div>
+                </li>}
+                {commande.statut >= StatutCommandeEnum.LIVREE && 
                   <li className="timeline-items timeline-icon-info">
-                    <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
-                          year  : "numeric",
-                          month : "2-digit",
-                          day   : "2-digit",
-                          hour  : 'numeric',
-                          minute: 'numeric',
-                          second: 'numeric'
-                        }).format(Date.parse(commande.dateLivraison))}</p>
-                    <div className="timeline-title">Commande livrée</div>
-                    <div className="timeline-subtitle">Adresse : </div>
-                  </li>
-                </ul>
-              </div>
+                  <p className="timeline-time">{new Intl.DateTimeFormat("fr-FR", {
+                        year  : "numeric",
+                        month : "2-digit",
+                        day   : "2-digit",
+                        hour  : 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                      }).format(Date.parse(commande.dateLivraison))}</p>
+                  <div className="timeline-title">Commande livrée</div>
+                  <div className="timeline-subtitle">Adresse : </div>
+                </li>}
+              </ul>
+            </div>
 
-              <div className="chart-stats text-center">
-                <Link to={``} className="btn btn-sm btn-primary mr-1">... plus détails sur la commande <i className="feather icon-eye"></i></Link> 
-              </div>
+            <div className="chart-stats text-center">
+              <Link to={link} className="btn btn-sm btn-primary mr-1">... plus détails sur la commande <i className="feather icon-eye"></i></Link> 
             </div>
           </div>
         </div>
       </div>
-    )
+    </div>)
 }

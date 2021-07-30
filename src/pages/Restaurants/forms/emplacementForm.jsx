@@ -8,7 +8,7 @@ import MapIcon from '../../../component/Map/icons';
 
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
-function EmplacementForm({show, handleClose, title, resto, submitAction}){
+function EmplacementForm({show, handleClose, title, resto, submitAction, refresh}){
 
   return (
     <React.Fragment>
@@ -23,14 +23,14 @@ function EmplacementForm({show, handleClose, title, resto, submitAction}){
           <Modal.Title>{title} - {resto.nom}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormViewEmplacement handleClose={handleClose} submitHandler={submitAction} resto={resto} />
+          <FormViewEmplacement handleClose={handleClose} submitHandler={submitAction} resto={resto} refresh={refresh}/>
         </Modal.Body>
       </Modal>
     </React.Fragment>
   )
 }
 
-function FormViewEmplacement({resto, handleClose, submitHandler}){
+function FormViewEmplacement({resto, handleClose, submitHandler, refresh}){
 
     const [position, setPosition] = useState(null)
 
@@ -70,7 +70,7 @@ function FormViewEmplacement({resto, handleClose, submitHandler}){
       onSubmit={(values, { setSubmitting }) => {
           let data = {...values, longitude: position.latlng.lng, lattitude: position.latlng.lat}
           console.log(data)
-          submitHandler(data)
+          submitHandler(data).then( () => refresh())
           handleClose()
       }}
     >        
