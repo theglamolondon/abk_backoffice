@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+const PAGINATION_MORE = '...'
+
 function PaginateView({actualPage, totalPage}){
 
   let previous = false
@@ -69,7 +71,7 @@ function BoxPage({nombre, current}){
           }
 
           if(i === current - 2){
-            liste.push({isActive: false, value: "..."})
+            liste.push({isActive: false, value: PAGINATION_MORE})
           }
 
           if(i === (current - 1)){
@@ -87,7 +89,7 @@ function BoxPage({nombre, current}){
           }
 
           if(i === current + 2){
-            liste.push({isActive: false, value: "..."})
+            liste.push({isActive: false, value: PAGINATION_MORE})
           }
         }        
         
@@ -112,7 +114,12 @@ function PaginationBox({isActiveClass, stepValue}){
 
   return (
     <li className={`paginate_button page-item ${isActiveClass ? 'active' : ''}`}>
-      <Link to={`?page=${stepValue}`} className="page-link">{stepValue}</Link>
+      {stepValue !== PAGINATION_MORE ? 
+        <Link to={`?page=${stepValue}`} className="page-link">{stepValue}</Link>
+        :
+        <span to={`?page=${stepValue}`} className="page-link abk-pointer">{stepValue}</span>
+      }
+      
     </li>
   )
 }

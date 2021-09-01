@@ -5,6 +5,7 @@ import DashboardPage from "../pages/Dashboad";
 import RestaurantPage from "../pages/Restaurants";
 import UtilisateurPage from "../pages/Utilisateurs";
 import LivreurPage from "../pages/Livreurs";
+import AccompagnementPage from "../pages/Accompagnements";
 
 export default function AppRouter(props) {
     return(
@@ -23,6 +24,9 @@ export default function AppRouter(props) {
             </Route>            
             <Route path="/livreurs" >
                 <LivreurPage/>
+            </Route>         
+            <Route path="/accompagnements" >
+                <AccompagnementPage/>
             </Route>
         </Switch>
     )

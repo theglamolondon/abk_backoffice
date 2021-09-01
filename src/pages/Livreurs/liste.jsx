@@ -8,7 +8,7 @@ function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdat
     getData()
   }, [])
 
-  const defaultLivreur = {id: 0, nom: "", prenoms:"", email: "", telephone: "", typePiece: "", numeroPiece: "", validitePiece: "", password: "", status: 0}
+  const defaultLivreur = {id: 0, nom: "", prenoms:"", email: "", telephone: "", typePiece: "", numeroPiece: "", validitePiece: "", password: "", statut: 0}
   const [livreur, setLivreur] = useState(defaultLivreur);
   const [showLivreur, setShowLivreur] = useState(false);
   const [modeForm, setModeForm] = useState(LivreurFormMode.EDIT_INFO);
