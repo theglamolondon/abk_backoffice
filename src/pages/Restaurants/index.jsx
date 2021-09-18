@@ -37,6 +37,7 @@ function RestaurantPage(props) {
                 getData={props.getEmplacements}
                 addNewEmpl={props.addEmplmt}
                 updtEmpl={()=>{}}
+                razPassword={props.razPassword}
                 />
         </Route>
         <Route path="/restaurants/:id/plats" exact strict>
@@ -57,9 +58,10 @@ const updateResto = RestaurantRx.modifier
 const addPlat = RestaurantRx.ajouterPlat
 const addEmplmt = RestaurantRx.ajouterEmpl
 const getAccompagnements = AccompagnementRx.liste
+const razPassword = RestaurantRx.razEmpl
 
 const mapDispatchToProps = {
-    getListe, getEmplacements, getDetails, addNewResto, addPlat, getAccompagnements,updateResto, addEmplmt
+    getListe, getEmplacements, getDetails, addNewResto, addPlat, getAccompagnements,updateResto, addEmplmt, razPassword
 }
 const mapStateToProps = state => {
     return {

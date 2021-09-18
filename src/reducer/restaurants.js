@@ -7,6 +7,7 @@ const RESTO_ADD             = "RESTO_ADD"
 const RESTO_UPDATE          = "RESTO_UPDATE"
 const PLAT_ADD              = "PLAT_ADD"
 const EMPLACEMENT_ADD       = "EMPLACEMENT_ADD"
+const EMPLACEMENT_RAZ       = "EMPLACEMENT_ADD"
 
 export function getEmplacements(restaurantId){
   return async dispatch => {
@@ -96,11 +97,23 @@ export function addNewPlat(data){
   }
 }
 
+export function razEmplacementPassword(data){
+  return async dispatch => {
+    try {
+      const response = await axios.put(`backoffice/restaurant/emplacement/password/reset`, data)
+      dispatch({
+        type: EMPLACEMENT_RAZ,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 export function addEmplacement(data){
   return async dispatch => {
     try {
       const response = await axios.post(`backoffice/restaurant/emplacement/save`, data)
-      console.log("response add emplacement", response)
       dispatch({
         type: EMPLACEMENT_ADD,
         payload: response.data
@@ -120,7 +133,7 @@ export const reducer = (oldState = initialState, action) => {
     case RESTO_DETAILS :
       return {...initialState, restaurant: action.payload }
     case RESTO_EMPLACEMENTS :
-      return action.payload
+      return {...initialState, ...action.payload};
     case "@@router/LOCATION_CHANGE" :
       return initialState
     default :
@@ -137,6 +150,7 @@ const RestaurantRx = {
   modifier: updateRestaurant,
   ajouterPlat: addNewPlat,
   ajouterEmpl: addEmplacement,
+  razEmpl: razEmplacementPassword,
 }
 
 export default RestaurantRx;
