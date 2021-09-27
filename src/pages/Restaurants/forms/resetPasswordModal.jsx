@@ -25,7 +25,7 @@ function ModalResetPasswordForm({show, handleClose, handleRaz, emplacement}){
 function ResetPasswordForm({closer, handler, emplacement}){
 
   const handleClick = () => {
-    handler({id: emplacement.id, restaurandId: emplacement.restaurant.id, force: false, password: ""}).then( () => {
+    handler({id: emplacement.id, restaurantId: emplacement.restaurant.id, force: false, password: ""}).then( () => {
       closer(false)
     })
   }
