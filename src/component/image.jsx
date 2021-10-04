@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {URL_BASE_API} from '../enabler/Axios'
+
 
 function AbkImage(props) {
-    return (<img src={`http://localhost:8080/${props.source}`} {...props} />)
+    return (<img src={`${URL_BASE_API}/${props.source}`} {...props} alt="image" />)
 }
 
 AbkImage.propTypes = {
