@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 import ModalResetPasswordForm from './forms/resetPasswordModal';
 
 function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
-    let { id } = useParams();
+    const { id } = useParams();
 
     useEffect( () =>{
       getData(id)
     }, [])
 
-    const defaultEmplacement = {id: 0, adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0}
+    const defaultEmplacement = {id: 0, adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0, username: ""}
     const [emplacement, setEmplacement] = useState(defaultEmplacement);
 
     //Emplacements actions

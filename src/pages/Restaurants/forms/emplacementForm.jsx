@@ -76,7 +76,7 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
       }}
       onSubmit={(values, { setSubmitting }) => {
           let data = {...values, longitude: position.latlng.lng, lattitude: position.latlng.lat, idRestaurant: resto.id}
-          submitHandler(data).then( () => refresh())  
+          submitHandler(data).then( () => refresh(resto.id))  
           handleClose()
       }}
     >        
@@ -105,7 +105,7 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
         <div className="col-md-3">
           <fieldset className="form-group">
             <label>Nom utilisateur</label>   
-            <Field type="tel" className="form-control" name="username" placeholder="Login" />
+            <Field type="text" className="form-control" name="username" placeholder="Login" />
             <ErrorMessage name="username" component="div" className="text-danger" />
           </fieldset>
         </div>   
