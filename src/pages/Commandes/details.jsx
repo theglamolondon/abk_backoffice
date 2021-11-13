@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import DetailsCommandeItem from './detailsItem'
+import ChatManager from '../../component/chat';
 
 function DetailsCommande({data, getData}) {
     
@@ -12,6 +13,7 @@ function DetailsCommande({data, getData}) {
   return (
   <React.Fragment>
     <DetailsCommandeItem commande={data}/>
+    <ChatManager />
   </React.Fragment>
   )
 }

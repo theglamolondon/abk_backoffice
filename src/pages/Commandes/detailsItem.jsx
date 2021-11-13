@@ -7,8 +7,8 @@ function DetailsCommandeItem({commande}){
   return (commande.data.emplacement !== undefined &&
   <div className="row match-height">
     <br/>
-    <RestoCardDetails emplacement={commande.data.emplacement} statut={commande.data.statut} />
     <CommandeCardDetails commande={commande.data}/>
+    <RestoCardDetails emplacement={commande.data.emplacement} statut={commande.data.statut} />
   </div>
   )
 }

@@ -51,7 +51,7 @@ function LoginPage(props) {
 						>
 										
 							<Form className="form-horizontal form-simple" noValidate>
-								{error !== "" && <div class="alert alert-danger" role="alert">{error}</div> }
+								{error !== "" && <div className="alert alert-danger" role="alert">{error}</div> }
 								<fieldset className="form-group position-relative has-icon-left mb-0">
 									<Field type="text" className="form-control form-control-lg" name="login" id="user-name" placeholder="Your Username" />
 									<div className="form-control-position">
