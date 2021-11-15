@@ -63,6 +63,7 @@ function CommandePage (props){
         <DetailsCommande 
           data={props.data.details} 
           getData={props.getCommandeDetails} 
+          sendChat={props.sendChat}
           />
       </Route>
     </Switch>
@@ -77,10 +78,11 @@ const getCommandeDetails = CommandesRx.commandeDetails
 const getCommandeAffectation = CommandesRx.getCommandeAffectation 
 const getRestoEmplacements = RestaurantRx.emplacement
 const affecterCommande = CommandesRx.affecterCommande
+const sendChat = CommandesRx.commandeChat
 
 const mapDispatchToProps = {
     getAllCommandes, getCommandePayees, getCommandePreparees, getCommandeLivrees, getCommandeDetails, 
-    getCommandeAffectation, getRestoEmplacements, affecterCommande
+    getCommandeAffectation, getRestoEmplacements, affecterCommande, sendChat
 }
 
 const mapStateToProps = state => {

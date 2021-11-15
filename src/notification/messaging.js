@@ -4,6 +4,7 @@ import axios from "axios";
 import { Toast } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import LivreurRx from '../reducer/livreur';
+import CommandesRx from '../reducer/commandes';
 
 
 class NotificationManager extends React.Component {
@@ -50,17 +51,26 @@ class NotificationManager extends React.Component {
           message: payload.notification.body
         })
       }else{
-        if(payload.data.action === "responseLocate"){ //Cas de réponse à un broadcast de locatiation des livreurs
-          this.props.handleLocation(payload)
-        }        
+        switch (payload.data.action){
+          case "responseLocate" :
+            this.props.handleLocation(payload)
+            break;
+          case "commandeChat" :
+            payload.data.author = "hdg"
+            this.props.handleChatMsg(payload.data)
+            break;
+          default: 
+            console.log("Firebase notification not handle", payload.data)
+            break;
+        }       
       }
       
     });
   }
   
   getToken = (callback, _messaging) => {
-    return _messaging.getToken({vapidKey: 'BHyIMfO0vYPFRjZzob31FJ-w-fq65ltJzQf1XAeViM4fRJ8SX5UPTiiD2hSIRLT9SWveff7e8tp4NT2dhC7SVj0'}
-
+    return _messaging.getToken(
+      {vapidKey: 'BHyIMfO0vYPFRjZzob31FJ-w-fq65ltJzQf1XAeViM4fRJ8SX5UPTiiD2hSIRLT9SWveff7e8tp4NT2dhC7SVj0'}
     ).then((currentToken) => {
         console.log(currentToken)
       if (currentToken) {
@@ -108,8 +118,9 @@ class NotificationManager extends React.Component {
 }
 
 const handleLocation = LivreurRx.handleLivreurPosition
+const handleChatMsg = CommandesRx.commandeMsg
 const mapDispatchToProps = {
-  handleLocation
+  handleLocation, handleChatMsg
 }
 
 export default connect(undefined, mapDispatchToProps) (NotificationManager);

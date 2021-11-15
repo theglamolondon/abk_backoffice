@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-export const ChatMessage = ({ autor, message, time }) => {
-  const classe = autor === 'BO' ? 'abk-backoffice-msg' : 'abk-resto-msg';
+export const ChatMessage = ({ author, message, time }) => {
+  const classe = author === 'BO' ? 'abk-backoffice-msg' : 'abk-resto-msg';
 
   return (
     <div className="">

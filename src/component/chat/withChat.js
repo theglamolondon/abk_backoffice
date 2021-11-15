@@ -1,17 +1,21 @@
+import { useEffect, useState } from "react";
 
-const withChat = (Component) => (props) => {
+const withChat = (Component) => ({reference, handleChat, chatMessages}) => {
 
-  let data = [
-    {autor: 'BO', message: "hgyrr eryutryureyrt er ruyrer", time: "10h02"},
-    {autor: 'raea', message: "azazazazo  hfjdf ffhfigtf ", time: "10h05"},
-    {autor: 'ghgre', message: "hdgyr ruryeru reruy ", time: "10h10"},
-    {autor: 'BO', message: "reyretr ryrtrter  yrtrete ", time: "10h20"},
-    {autor: 'eyr', message: "hjezj e zeuezuz e", time: "10h22"},
-  ];
+  const [messages, setMessages] = useState([]);
 
+  useEffect(()=>{
+    setMessages(chatMessages)
+  }, [chatMessages])
 
-  const handleNewMessage = (message) => {data.push(message)}
-  return <Component data={data} addMessage={handleNewMessage} />
+  const handleNewMessage = (message) => {
+    message.reference = reference
+    messages.push(message)
+    console.log("handler add message", message)
+    handleChat(message)
+    setMessages([...messages])
+  }
+  return <Component data={messages} addMessage={handleNewMessage} />
 }
 
 export default withChat

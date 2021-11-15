@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 export const ChatTextZone = ({sendMessage}) => {
   const [message,setMessage] = useState("")
   const handleSubmit = (event) => {
-    console.log("submit data", event)
     event.preventDefault()
-    sendMessage({autor: 'BO', message: message, time: "10h12"})
+    sendMessage({author: 'BO', message: message, createdAt: null})
     setMessage("")
   }
   return (
