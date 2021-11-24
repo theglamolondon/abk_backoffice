@@ -4,10 +4,11 @@ import { Redirect, useParams } from 'react-router';
 import PropTypes from 'prop-types';
 import OpenMap from '../../component/Map/OpenMap';
 import MapIcon from '../../component/Map/icons';
+import ChatManager from '../../component/chat';
 import DetailsCommandeItem from './detailsItem'
 import { Button, Card, Form } from 'react-bootstrap';
 
-function AffectCommande({details, getData, getEmplacement, restaurant, affecter, mode}) {
+function AffectCommande({details, getData, getEmplacement, restaurant, affecter, mode, sendChat}) {
 
   const [livreur,setLivreur] = useState({id: 0, label: ''})
   const [emplacement,setEmplacement] = useState({id: 0, label: ''})
@@ -119,6 +120,13 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
       </div>
       <br />
       <DetailsCommandeItem commande={details}/>
+      { mode === ModeAffectation.LIVREUR && 
+        <ChatManager 
+          reference={details.data.reference} 
+          handleChat={sendChat} 
+          chatMessages={details.data.commentaires}
+          /> 
+      }
     </React.Fragment>)
   )
 }

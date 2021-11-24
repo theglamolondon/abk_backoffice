@@ -47,6 +47,7 @@ function CommandePage (props){
           getEmplacement={props.getRestoEmplacements}
           affecter={props.affecterCommande}
           mode={ModeAffectation.RESTAURANT}
+          sendChat={props.sendChat}
           />
       </Route>            
       <Route path="/commandes/recuperer/:reference" exact strict>
@@ -57,6 +58,7 @@ function CommandePage (props){
           getEmplacement={props.getRestoEmplacements}
           affecter={props.affecterCommande}
           mode={ModeAffectation.LIVREUR}
+          sendChat={props.sendChat}
           />
       </Route>
       <Route path="/commandes/details/:reference" exact strict>
