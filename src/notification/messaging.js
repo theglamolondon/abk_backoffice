@@ -16,8 +16,21 @@ class NotificationManager extends React.Component {
   }
 
   constructor(){
-    super();
+    super()
+    this.askPermission()    
     this.setupNotification()
+  }
+
+  askPermission(){
+
+    if(Notification.permission === 'denied' || Notification.permission === 'default'){
+      if (document.location.protocol === 'https' || document.location.hostname === 'localhost'){
+        Notification.requestPermission().then((permission) => {
+          console.log("PERMISSION",permission)
+          if(permission !== 'granted') {alert("Veuillez accepter les notification pour avoi une utilisation optimale de votre back office")}
+        });
+      }
+    }
   }
 
   showNotification = (show) => {
@@ -50,13 +63,13 @@ class NotificationManager extends React.Component {
           title: payload.notification.title,
           message: payload.notification.body
         })
-      }else{
+      }
+      if(payload.data?.action) {
         switch (payload.data.action){
           case "responseLocate" :
             this.props.handleLocation(payload)
             break;
           case "commandeChat" :
-            payload.data.author = "hdg"
             this.props.handleChatMsg(payload.data)
             break;
           default: 
