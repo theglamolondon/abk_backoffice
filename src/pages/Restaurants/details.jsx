@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import {Link} from 'react-router-dom';
+import AbkImage from '../../component/image';
 import MapIcon from '../../component/Map/icons';
 import OpenMap from '../../component/Map/OpenMap';
 import { URL_BASE_API } from '../../enabler/Axios';
 import PlatForm from './forms/platForm';
 
-function DetailsCommande({data, getData, accompagnements, getAccompagnements, addNewPlat}) {
+function DetailsCommande({data, getData, accompagnements, getAccompagnements, addNewPlat, updatePlat}) {
     
   let { id } = useParams();
   
@@ -26,6 +27,12 @@ function DetailsCommande({data, getData, accompagnements, getAccompagnements, ad
     setPlat(defaultPlat)
     setShowPlat(true);
   }
+  
+  const modifiyPlat = (plat) => {
+    getAccompagnements()
+    setPlat(plat)
+    setShowPlat(true);
+  }
 
   const clickPlatHandle = () =>{
     createNewPlat(data)
@@ -39,16 +46,16 @@ function DetailsCommande({data, getData, accompagnements, getAccompagnements, ad
       <StatisticsBox id={id} clickPlatHandle={clickPlatHandle}/>
     </div>
     <br />
-    <ListePlat plats={data.plats} />
+    <ListePlat plats={data.plats} updateClickHandler={modifiyPlat}/>
 
     <PlatForm
       show={showPlat} 
       handleClose={handleClosePlat} 
-      title="Ajouter un plat"
+      title={plat.id == 0 ? "Ajouter un plat" : "Modifier un plat"}
       resto={data} 
       plat={plat}
       accompagnements={accompagnements}
-      submitAction={plat.id === 0 ? addNewPlat : ()=>{}}
+      submitAction={plat.id === 0 ? addNewPlat : updatePlat}
       />
   </React.Fragment>
   )
@@ -110,7 +117,8 @@ function RestaurantBanner({resto}){
   </div>)
 }
 
-function ListePlat({plats}) {
+function ListePlat({plats, updateClickHandler}) {
+
   return( plats !== undefined &&
     <div className="card">
       <div className="card-header">
@@ -126,6 +134,7 @@ function ListePlat({plats}) {
                   <th>Description</th>
                   <th>Prix</th>
                   <th>Accompagnements</th>
+                  <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -133,13 +142,18 @@ function ListePlat({plats}) {
               <tr key={k}>
                 <td>
                   <div className="avatar avatar-xl">
-                    <img src={`${URL_BASE_API}/${plat.image}`} alt="Card" />
+                    <AbkImage source={plat.image} alt="Card" />
                   </div>
                 </td>
                 <td>{plat.titre}</td>
                 <td>{plat.description}</td>
                 <td>{plat.prix}</td>
                 <td>{plat.accompagnements.map((accmp, j) => {return <span key={j}> {accmp.nom}, </span>})}</td>
+                <td>
+                  <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={()=>{updateClickHandler(plat)}}>
+                    <i className="fa fa-pencil" />
+                  </Link>
+                </td>
               </tr>)
               })}
             </tbody>

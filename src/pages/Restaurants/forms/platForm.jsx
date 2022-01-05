@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import InputFile from '../../../component/Input/Input';
 import SelectMultiple from '../../../component/Input/selectMultiple';
 
-function PlatForm({show, handleClose, title, resto, submitAction, accompagnements}){
+function PlatForm({show, handleClose, title, resto, plat, submitAction, accompagnements}){
 
   return (
     <React.Fragment>
@@ -20,17 +20,17 @@ function PlatForm({show, handleClose, title, resto, submitAction, accompagnement
           <Modal.Title>{title} - {resto.nom}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormViewPlat handleClose={handleClose} submitHandler={submitAction} accompagnements={accompagnements} resto={resto} />
+          <FormViewPlat plat={plat} handleClose={handleClose} submitHandler={submitAction} accompagnements={accompagnements} resto={resto} />
         </Modal.Body>
       </Modal>
     </React.Fragment>)
 }
 
-function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
+function FormViewPlat({plat, resto, handleClose, submitHandler, accompagnements}){
     
     return (
         <Formik
-            initialValues = {{id: 0, titre: "", image:"", description: "", prix: 100, actif: true}}
+            initialValues = {plat}
             validate = { values => {
                 const errors = {}
                 if(values.titre === ""){
@@ -45,6 +45,8 @@ function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
                 return errors
             }}
             onSubmit={(values, { setSubmitting }) => { 
+                console.log("Plat Accompagnements : ",plat.accompagnements)
+                console.log("Accompagnements : ",values.accompagnements)
                 let data = new FormData(document.forms[0]);
                 data.append("idRestaurant", resto.id)
                 data.append("accompagnements", values.accompagnements.map(item => item.id))
@@ -53,6 +55,7 @@ function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
             }}
         >
             <Form className="form-horizontal form-simple" noValidate>
+                <Field type="hidden" name="id" />
                 <fieldset className="form-group position-relative mb-2">
                     <label>Nom du plat</label>   
                     <Field type="text" className="form-control " name="titre" placeholder="Nom du plat" />
@@ -67,7 +70,7 @@ function FormViewPlat({resto, handleClose, submitHandler, accompagnements}){
 
                 <fieldset className="form-group position-relative mb-2">
                     <label>Accompagnements</label>
-                    <SelectMultiple data={accompagnements} name="accompagnements" display="nom" />
+                    <SelectMultiple data={accompagnements} name="accompagnements" display="nom" selected={[...plat.accompagnements]} />
                 </fieldset>
                 <ErrorMessage name="description" component="div" className="text-danger"/>
 

@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 
 
 function SelectMultiple({name, data, selected, display}){
-    const [items, setItems]  = useState([])
+    const [items, setItems]  = useState([...selected    ])
     const {setFieldValue} = useFormikContext()
     const onSelect = (selectedList, selectedItem) => {
         items.push(selectedItem)

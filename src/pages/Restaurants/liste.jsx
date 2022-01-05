@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import AbkImage from '../../component/image';
 import { URL_BASE_API } from '../../enabler/Axios';
 import PlatForm from './forms/platForm';
 import RestaurantForm from './forms/restaurantForm';
@@ -100,7 +101,7 @@ function RestaurantCard({line, platActions, restoEdit}) {
             <h4 className="card-title">{line.nom}</h4>
           </div>
           <Link to={`/restaurants/${line.id}/details`} >
-            <img className="img-fluid" src={`${URL_BASE_API}/${line.image}`} alt={line.nom} style={{height:"158px", width:"30em"}}/>
+            <AbkImage source={line.image} alt={line.nom} style={{height:"158px", width:"100%"}} />
           </Link>
           <div className="card-body">
             <div className="form-group text-center">

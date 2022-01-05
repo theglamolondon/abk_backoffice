@@ -27,6 +27,7 @@ function RestaurantPage(props) {
                 accompagnements={props.accompagnements.liste}
                 getAccompagnements={props.getAccompagnements}
                 addNewPlat={props.addPlat}
+                updatePlat={props.updatePlat}
                 data={props.data.restaurant} 
                 getData={props.getDetails}
                 />
@@ -55,13 +56,14 @@ const getEmplacements = RestaurantRx.emplacement
 const getDetails = RestaurantRx.details
 const addNewResto = RestaurantRx.ajouter
 const updateResto = RestaurantRx.modifier
-const addPlat = RestaurantRx.ajouterPlat
+const addPlat = RestaurantRx.ajouterPlat 
+const updatePlat = RestaurantRx.modifierPlat
 const addEmplmt = RestaurantRx.ajouterEmpl
 const getAccompagnements = AccompagnementRx.liste
 const razPassword = RestaurantRx.razEmpl
 
 const mapDispatchToProps = {
-    getListe, getEmplacements, getDetails, addNewResto, addPlat, getAccompagnements,updateResto, addEmplmt, razPassword
+    getListe, getEmplacements, getDetails, addNewResto, addPlat, updatePlat, getAccompagnements,updateResto, addEmplmt, razPassword
 }
 const mapStateToProps = state => {
     return {
