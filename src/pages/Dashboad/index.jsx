@@ -16,12 +16,12 @@ function DashboardPage(props) {
       <React.Fragment>   
         <BoxStatistics data={props.data.statistics}/>
         <div className="row match-height">
-          <div className="col-xl-8 col-lg-8">
-            <CourbeCommande />
+          <div className="col-xl-12 col-lg-12">
+            <CourbeCommande getData={props.getStatistiques} data={props.data.statistics.graphe} />
           </div>
-          <div className="col-xl-4 col-lg-4">
+          {/*<div className="col-xl-4 col-lg-4">
             <HistoriqueCard data={props.data.historique} />
-          </div>
+          </div> */}
         </div> 
         <br/>
       </React.Fragment>}
@@ -32,9 +32,10 @@ function DashboardPage(props) {
 }
 
 const getCmdRecentes = DashboardRx.getRecents
+const getStatistiques = DashboardRx.getStatistics
 
 const mapDispatchToProps = {
-  getCmdRecentes, 
+  getCmdRecentes, getStatistiques
 }
 
 const mapStateToProps = store => {

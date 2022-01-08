@@ -1,8 +1,14 @@
 import React from 'react';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+import { useEffect } from 'react';
 
-function CourbeCommande(props){
+function CourbeCommande({getData, data}){
+
+  useEffect( () =>{
+    getData()
+  }, [])
+
   const options = {
     lang: {
       months: [
@@ -24,22 +30,21 @@ function CourbeCommande(props){
     },
     series: [{
         name: "Commandes",
-        data: [[new Date("2021-05-11").getTime(),1],[new Date("2021-05-13").getTime(), 2], [new Date("2021-05-14").getTime(), 3]]
+        data: data.map(item => [new Date(item.date).getTime(), item.nombre])
       },
-      {
+      /*{
         name: "Livrées",
         data: [[new Date("2021-05-11").getTime(),6], [new Date("2021-05-13").getTime(), 4], [new Date("2021-05-14").getTime(),3]]
       },
       {
         name: "Annulées",
         data: [[new Date("2021-05-11").getTime(),3], [new Date("2021-05-13").getTime(), 4], [new Date("2021-05-14").getTime(),2]]
-      }
+      }*/
     ],
     xAxis: {
       type: 'datetime',
         //categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     }
-
   }
 
   const afterChartCreated = (chart) => {

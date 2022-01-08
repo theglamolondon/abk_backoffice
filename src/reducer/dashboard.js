@@ -1,6 +1,7 @@
 import axios from "../enabler/Axios"
 
 const DASHBOARD_COMMANDES = "DASHBOARD_COMMANDES"
+const DASHBOARD_STATISTICS = "DASHBOARD_STATISTICS"
 
 export function getRecentCommandes(page){
   return dispatch => {
@@ -17,7 +18,22 @@ export function getRecentCommandes(page){
   }
 }
 
-const initialState = {commandes: {data: [], nombrePage: 0}, statistics:{}, historique:{}};
+export function getStatistiques(page){
+  return dispatch => {
+    return axios.get(`backoffice/dashboard/commandes/statistics`,)
+      .then((response) => {
+        dispatch({
+          type: DASHBOARD_STATISTICS,
+          payload: response.data
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+const initialState = {commandes: {data: [], nombrePage: 0}, statistics:{graphe:[]}, historique:{}};
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case DASHBOARD_COMMANDES :
@@ -25,6 +41,11 @@ export const reducer = (state = initialState, action) => {
         ...state,
         commandes: action.payload
       }
+    case DASHBOARD_STATISTICS :
+        return {
+          ...state,
+          statistics: {graphe: action.payload}
+        }
     case "@@router/LOCATION_CHANGE" :
       return initialState
     default :
@@ -34,6 +55,7 @@ export const reducer = (state = initialState, action) => {
 
 const DashboardRx = {
   getRecents: getRecentCommandes,
+  getStatistics: getStatistiques,
   reducer : reducer,
 }
 
