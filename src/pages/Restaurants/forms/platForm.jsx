@@ -45,8 +45,6 @@ function FormViewPlat({plat, resto, handleClose, submitHandler, accompagnements}
                 return errors
             }}
             onSubmit={(values, { setSubmitting }) => { 
-                console.log("Plat Accompagnements : ",plat.accompagnements)
-                console.log("Accompagnements : ",values.accompagnements)
                 let data = new FormData(document.forms[0]);
                 data.append("idRestaurant", resto.id)
                 data.append("accompagnements", values.accompagnements.map(item => item.id))
