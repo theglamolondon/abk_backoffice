@@ -11,7 +11,7 @@ function DetailsCommande({data, getData, accompagnements, getAccompagnements, ad
     
   let { id } = useParams();
   
-  const defaultPlat = {id: 0, titre: "", image:"", description: 0, prix: 0, actif: true}
+  const defaultPlat = {id: 0, titre: "", image:"", description: "", prix: 0, actif: true, accompagnements: []}
   const [plat, setPlat] = useState(defaultPlat);
 
   useEffect(()=>{
@@ -66,9 +66,11 @@ function StatisticsBox({id, clickPlatHandle}){
     <div className="col-md-3">
       <div className="card">
         <div className="card-body">
-          <h1>{id}</h1>
           <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
-            <i className="fa fa-cutlery" /> 
+            <i className="fa fa-cutlery" /> Ajouter un plat
+          </Link>
+          <Link to={`/restaurants/${id}/commandes`} className="btn btn-float btn-square btn-secondary" title="Liste des commandes du resto">
+            <i className="fa fa-cutlery" /> Consulter les commandes
           </Link>
         </div>
       </div>
@@ -109,7 +111,7 @@ function CarteEmplacements({emplacements}){
 function RestaurantBanner({resto}){
   return(
   <div className="card profile-with-cover">
-    <div className="card-img-top img-fluid bg-cover height-200" style={{background: `url('${URL_BASE_API}/${resto.image}') 50%`}} >
+    <div className="card-img-top img-fluid bg-cover height-200" style={{background: `url('${URL_BASE_API}/storage/${resto.image}') 50%`}} >
       <h1 style={{position: "relative", width: "400px", margin: "0px auto", textAlign: "center", color: "white", fontSize: "3.2em", fontWeight: "bold", top: "40%"}}>
         {resto.nom}
       </h1>

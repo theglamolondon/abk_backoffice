@@ -14,7 +14,6 @@ export default function MenuLeftSide(props){
             <Link className="menu-item" to="/" >
               <i className="feather icon-home" />
               <span className="menu-title" data-i18n="Dashboard">Dashboard</span>
-              <span className="badge badge badge-primary badge-pill float-right mr-2">3</span>
             </Link>
           </li>
           <li className="nav-item has-sub open">

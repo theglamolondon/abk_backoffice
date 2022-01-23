@@ -14,7 +14,7 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, updateRes
     const defaultResto = {id: 0, nom: "", image:"", duree: 0, prixLivraison: 100, ranking: "", actif: true}
     const [resto, setResto] = useState(defaultResto);
     
-    const defaultPlat = {id: 0, titre: "", image:"", description: 0, prix: 0, actif: true, accompagnements:[]}
+    const defaultPlat = {id: 0, titre: "", image:"", description: "", prix: 0, actif: true, accompagnements:[]}
     const [plat, setPlat] = useState(defaultPlat);
 
     //Restaurant actions

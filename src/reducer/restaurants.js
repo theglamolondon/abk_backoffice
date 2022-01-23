@@ -9,6 +9,7 @@ const PLAT_ADD              = "PLAT_ADD"
 const PLAT_UPDATE           = "PLAT_UPDATE"
 const EMPLACEMENT_ADD       = "EMPLACEMENT_ADD"
 const EMPLACEMENT_RAZ       = "EMPLACEMENT_ADD"
+const COMMANDE_RESTO_LIST   = "COMMANDE_RESTO_LIST"
 
 export function getEmplacements(restaurantId){
   return async dispatch => {
@@ -140,17 +141,31 @@ export function addEmplacement(data){
     }
   }
 }
-
-const initialState = {liste : [], emplacements: [], details: {}};
+export function getCommandeByResto(id, data){
+  return async dispatch => {
+    try {
+      const response = await axios.get(`backoffice/restaurant/${id}/commandes`, data)
+      dispatch({
+        type: COMMANDE_RESTO_LIST,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+const initialState = {liste : [], emplacements: [], details: {}, commandes: {data: [], nombrePage: 0}};
 export const reducer = (oldState = initialState, action) => {
     
   switch (action.type) {
     case RESTO_LISTE :
       return { ...oldState, liste:  action.payload }
     case RESTO_DETAILS :
-      return {...initialState, restaurant: action.payload }
+      return { ...initialState, restaurant: action.payload }
     case RESTO_EMPLACEMENTS :
-      return {...initialState, ...action.payload};
+      return { ...initialState, ...action.payload };
+    case COMMANDE_RESTO_LIST :
+      return { ...initialState, commandes: action.payload }
     case "@@router/LOCATION_CHANGE" :
       return initialState
     default :
@@ -169,6 +184,7 @@ const RestaurantRx = {
   modifierPlat: updatePlat,
   ajouterEmpl: addEmplacement,
   razEmpl: razEmplacementPassword,
+  commandes: getCommandeByResto,
 }
 
 export default RestaurantRx;

@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import PaginateView from '../../component/pagination';
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import useQuery from '../../enabler/useQuery';
 
 function CommandeListe({title, commandes, getData}) {
   
@@ -69,6 +66,7 @@ function LigneCommande({line}) {
   let link;
   switch(line.statut){
     case StatutCommandeEnum.PAYEE :
+    case StatutCommandeEnum.AFFECTEE :
       link = <Link to={`/commandes/affecter/${line.reference}`}> {`#${line.reference}`}</Link>
       break;
     case StatutCommandeEnum.PRETE :
