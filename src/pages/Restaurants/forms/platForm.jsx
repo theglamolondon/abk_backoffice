@@ -90,6 +90,12 @@ function FormViewPlat({plat, resto, handleClose, submitHandler, accompagnements}
               </div>
             </div>
 
+            <div className="form-group">
+              <label>
+                <Field type="checkbox" name="actif" /> Activer le plat
+              </label>
+            </div>
+            
             <hr/>
             <Button variant="primary" type="submit">Enregistrer</Button>
               

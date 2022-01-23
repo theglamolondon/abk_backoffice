@@ -79,7 +79,13 @@ function FormViewRestaurant({handleClose, resto, submitHandler}){
             </fieldset>
             <ErrorMessage name="prixLivraison" component="div" className="text-danger"/>
           </div>
-        </div>                
+        </div>  
+
+        <div className="form-group">
+          <label>
+            <Field type="checkbox" name="actif" /> Activer le restaurant
+          </label>
+        </div>
 
         <InputFile name="image" placeholder="Image du plat" />
 

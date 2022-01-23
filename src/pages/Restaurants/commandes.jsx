@@ -50,19 +50,12 @@ function SearchBox({}){
       </div>
       <div className="card-content">
         <div className="card-body">
-          <form className="form form-horizontal">
-            <div className="form-group row">
-              <label className="col-md-3 label-control" for="eventRegInput1">Full Name</label>
-              <div className="col-md-9">
-                <Calendar
-                  onChange={setDateValue}
-                  value={dateValue}
-                  locale="FR-fr"
-                  selectRange={true}
-                />
-              </div>
-            </div>
-          </form>
+          <Calendar
+            onChange={setDateValue}
+            value={dateValue}
+            locale="FR-fr"
+            selectRange={true}
+          />
         </div>
       </div>
     </div>
@@ -81,7 +74,7 @@ function GrapheBox({}){
         text: 'Répartition des commandes'
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f} commandes</b>'
+      pointFormat: '{series.name}: <b>{point.percentage:.0f} commandes</b>'
     },
     accessibility: {
       point: {
@@ -94,7 +87,7 @@ function GrapheBox({}){
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} cmdes'
+          format: '<b>{point.name}</b>: {point.percentage:.0f} cmdes'
         }
       }
     },
@@ -105,18 +98,18 @@ function GrapheBox({}){
         data: [
           {
             name: 'Livrées',
-            y: 61.41,
+            y: 61,
             sliced: true,
             selected: true
           }, {
             name: 'Affectées',
-            y: 11.84
+            y: 11
           }, {
             name: 'En cours de préparation',
-            y: 10.85
+            y: 10
           }, {
             name: 'Recupérées',
-            y: 2.61
+            y: 8
           }
         ]
       }
