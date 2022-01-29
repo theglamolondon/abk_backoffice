@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import './Map.css'
+import { useState } from 'react';
 
 const token = "pk.eyJ1IjoiZ2xhbW9sb25kb24iLCJhIjoiY2tudmtra2Q4MG5tazJwcnZhdTVoanA3NiJ9.uhDiwzTLS_BbPRv17_HBYg"
 
 function OpenMap(props) {    
   const {data, location, handleMarkerClick, controls, handleClickEvent} = props
+
+  const [coordGps, setCoordGps] = useState(location);
 
   return (
     <MapContainer center={[3.8306364,11.3703662]} zoom={13} scrollWheelZoom={false}>
@@ -24,21 +27,31 @@ function OpenMap(props) {
               <Popup onOpen={() => {handleMarkerClick(point)}} >{point.title}</Popup>
             </Marker>) 
         })}
-      <LocationMarker coordonnees={location} clickEventHandler={handleClickEvent} />
+      <LocationMarker 
+        setCoordGps={setCoordGps} 
+        coordonnees={coordGps} 
+        clickEventHandler={handleClickEvent}
+        locateEventHandler={handleClickEvent} 
+        />
+        
   </MapContainer>)
 }
 
-function LocationMarker({coordonnees, clickEventHandler}) {
+function LocationMarker({setCoordGps, coordonnees, clickEventHandler, locateEventHandler}) {
     let clickFlag = false
 
     const map = useMapEvents({
       click(e) {
         clickFlag = true
         clickEventHandler(e, map) //map.locate()
+        setCoordGps(e.latlng)
       },
       locationfound(e) {
         if(coordonnees === null){
           map.flyTo(e.latlng, map.getZoom())
+          locateEventHandler(e, map)
+          setCoordGps(e.latlng)
+          console.log("Found loaation")
         }        
       },
     })

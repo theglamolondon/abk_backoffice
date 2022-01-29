@@ -142,7 +142,6 @@ function EmplacementMap({marker, geocoder, positionHandler}){
               results => {
                 setFieldValue("adresse", results[0].name)
               })
-              console.log(e, map); 
             }
           }
         />

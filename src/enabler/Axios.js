@@ -1,7 +1,6 @@
 import axios from "axios";
-export const URL_BASE_API = "http://localhost:8080"
-//export const URL_BASE_API = "http://localhost:35729"
-//export const URL_BASE_API = "https://abk-web-api.herokuapp.com"
+//export const URL_BASE_API = "http://localhost:8080"
+export const URL_BASE_API = "https://abk-web-api.herokuapp.com"
 
 //const token = localStorage.getItem("NVL_TK");
 
