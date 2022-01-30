@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import AccompagnementRx from '../../reducer/accompagnement';
 import RestaurantRx from '../../reducer/restaurants';
 import CommandeRestoPage from './commandes';

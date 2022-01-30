@@ -1,7 +1,10 @@
+import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import AuthRx from '../reducer/auth';
+import ClientRx from '../reducer/client';
 
 function HeaderSide(props){
 	return(
@@ -32,9 +35,7 @@ function HeaderSide(props){
 						<ul className="nav navbar-nav mr-auto float-left">
 							<li className="nav-item">
 								<div className="row">
-									<fieldset className="form-group mt-1 col-md-12">
-										<input type="text" id="roundText" className="form-control" placeholder="Rechercher un client ici..." />
-									</fieldset>
+									<SearchBox handleSearch={props.recherche} />
 									<ul className="search-list" />
 								</div>
 							</li>
@@ -64,9 +65,10 @@ function HeaderSide(props){
 }
 
 const deconnexion = AuthRx.logout
+const recherche = ClientRx.recherche
 
 const mapDispatchToProps = {
-	deconnexion
+	deconnexion, recherche
 }
 
 const mapStateToProps = state => {
@@ -76,3 +78,29 @@ const mapStateToProps = state => {
 }
   
 export default connect(mapStateToProps, mapDispatchToProps) (HeaderSide)
+
+const SearchBox = ({handleSearch}) => {
+	const navigator = useHistory()
+
+	return (
+		<Formik
+		 initialValues={{search : ""}}
+		 onSubmit={(values, { setSubmitting, resetForm }) => {
+				handleSearch(values.search)
+				navigator.push(`/client/recherche?query=${values.search}`)
+				resetForm()
+			}}
+		>			 
+			<Form className="form-horizontal form-simple" noValidate>
+				<fieldset className="mt-1 col-md-12">
+					<div className='input-group'>
+						<Field type="text" name="search" id="search" className="form-control" placeholder="Rechercher un client ici..." />
+						<div className='input-group-append'>
+							<button className='btn btn-primary' type='submit'><i className='fa fa-search'/></button>
+						</div>
+					</div>
+				</fieldset>
+			</Form>
+		</Formik>
+	)
+}

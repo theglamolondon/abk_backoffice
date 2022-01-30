@@ -1,8 +1,7 @@
 import React, { useEffect, useState }  from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import {Link} from 'react-router-dom'
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { useParams } from 'react-router-dom'
 import PaginateView from '../../component/pagination'
 import useQuery from '../../enabler/useQuery'
 import Calendar from 'react-calendar'
@@ -140,7 +139,7 @@ function CommandeTab({commandes,page}){
       <div className="card-content">
         <div className="card-body">
           <div id="audience-list-scroll" className="table-responsive position-relative">
-            <table className="table">
+            <table className="table table-hover">
               <thead>
                 <tr>
                   <th>Date</th>

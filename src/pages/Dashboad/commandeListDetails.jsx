@@ -56,7 +56,7 @@ export default function CommandeListeDetails({getData, commandes}){
           </div>
           <div className="card-content">
             <div id="audience-list-scroll" className="table-responsive position-relative">
-              <table className="table">
+              <table className="table table-hover">
                 <thead>
                   <tr>
                     <th>Date</th>

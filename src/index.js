@@ -5,19 +5,19 @@ import AppLayout from "./layout/main";
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 import configureStore from './store/configureStore';
-import { BrowserRouter as Router } from 'react-router-dom';
 import history from "./store/history";
+import {  BrowserRouter as Router,  Routes,  Route} from "react-router-dom";
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
-const store = configureStore();
+const store = configureStore(history);
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <React.StrictMode>
         <Router>
-          <AppLayout />
-        </Router>        
+          <AppLayout />    
+        </Router>
       </React.StrictMode>
     </ConnectedRouter>
   </Provider>,

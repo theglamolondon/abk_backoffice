@@ -36,7 +36,7 @@ function CommandeListe({title, commandes, getData}) {
             </div>
             <div className="card-content">
               <div id="audience-list-scroll" className="table-responsive position-relative">
-                <table className="table">
+                <table className="table table-hover">
                   <thead>
                     <tr>
                       <th>Commande</th>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import OpenMap from '../../component/Map/OpenMap';
 import MapIcon from '../../component/Map/icons';
@@ -9,10 +9,11 @@ import DetailsCommandeItem from './detailsItem'
 import { Button, Card, Form } from 'react-bootstrap';
 
 function AffectCommande({details, getData, getEmplacement, restaurant, affecter, mode, sendChat}) {
+  
+	const navigator = useHistory()
 
   const [livreur,setLivreur] = useState({id: 0, label: ''})
   const [emplacement,setEmplacement] = useState({id: 0, label: ''})
-  const [afterSubmit,setAfterSubmit] = useState(false)
 
   const affecterSubmit = () =>{
     affecter({
@@ -20,7 +21,7 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
       IdLivreur: livreur.id,
       IdEmplacement: emplacement.id,
     }).then(flag => {
-        setAfterSubmit(flag)
+        
     })
   }
     
@@ -97,8 +98,7 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
   
   let clientPosition = details.data.adresse !== undefined ? [details.data.adresse.lattitude, details.data.adresse.longitude] : null  
 
-  return ( afterSubmit ? <Redirect to="/commandes/liste" /> : 
-    (details.data !== undefined && <React.Fragment>
+  return (details.data !== undefined && <React.Fragment>
       <div className="col-md-12"></div>      
       <div style={{position: 'relative'}}>
         <div>
@@ -128,7 +128,6 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
           /> 
       }
     </React.Fragment>)
-  )
 }
 
 AffectCommande.propTypes = {

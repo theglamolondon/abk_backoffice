@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import LivreurRx from '../../reducer/livreur';
 import LivreursListe from './liste';
 
@@ -22,9 +22,9 @@ function LivreurPage(props){
   )
 }
 
-const getListe = LivreurRx.liste
+const getListe   = LivreurRx.liste
 const addLivreur = LivreurRx.ajouter
-const changeMdp = LivreurRx.changeMdp
+const changeMdp  = LivreurRx.changeMdp
 const majLivreur = LivreurRx.modifier
 
 const mapDispatchToProps = {
