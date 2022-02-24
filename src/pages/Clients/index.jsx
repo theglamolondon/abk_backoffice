@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
+import DetailsPage from './details'
 import SearchPage from './search'
 
 const ClientPage = (props) => {
@@ -11,7 +12,7 @@ const ClientPage = (props) => {
       <SearchPage searchData={props.client.recherche} />
     </Route>
     <Route path="/client/:id/details" exact strict>
-      <h1>Details client</h1>
+      <DetailsPage getData={() => {}}/>
     </Route>
   </Switch>
   )

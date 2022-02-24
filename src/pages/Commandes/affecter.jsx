@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import OpenMap from '../../component/Map/OpenMap';
 import MapIcon from '../../component/Map/icons';
@@ -9,8 +9,6 @@ import DetailsCommandeItem from './detailsItem'
 import { Button, Card, Form } from 'react-bootstrap';
 
 function AffectCommande({details, getData, getEmplacement, restaurant, affecter, mode, sendChat}) {
-  
-	const navigator = useHistory()
 
   const [livreur,setLivreur] = useState({id: 0, label: ''})
   const [emplacement,setEmplacement] = useState({id: 0, label: ''})
@@ -96,7 +94,7 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
     }
   }
   
-  let clientPosition = details.data.adresse !== undefined ? [details.data.adresse.lattitude, details.data.adresse.longitude] : null  
+  //let clientPosition = details.data.adresse !== undefined ? [details.data.adresse.lattitude, details.data.adresse.longitude] : null  
 
   return (details.data !== undefined && <React.Fragment>
       <div className="col-md-12"></div>      

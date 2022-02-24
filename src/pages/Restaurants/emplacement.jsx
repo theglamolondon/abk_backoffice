@@ -12,7 +12,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
       getData(id)
     }, [])
 
-    const defaultEmplacement = {id: 0, adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0, username: ""}
+    const defaultEmplacement = {id: 0, nomEmplacement: "", adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0, username: ""}
     const [emplacement, setEmplacement] = useState(defaultEmplacement);
 
     //Emplacements actions
@@ -64,9 +64,10 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
                     <thead>
                       <tr>
                         <th width="9">#</th>
+                        <th>Nom</th>
                         <th>Adresses</th>
-                        <th width="230">Téléphone</th>
-                        <th width="250">Username</th>
+                        <th width="">Téléphone</th>
+                        <th width="">Username</th>
                         <th width="50">Actions</th>
                       </tr>
                     </thead>
@@ -74,6 +75,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
                       {data.emplacements.map( (item, k) => {
                       return (<tr key={k}>
                         <th scope="row">{k+1}</th>
+                        <td>{item.nomEmplacement}</td>
                         <td>{item.adresse}</td>
                         <td>{item.telephone1} / {item.telephone2}</td>
                         <td>@{item.username}</td>

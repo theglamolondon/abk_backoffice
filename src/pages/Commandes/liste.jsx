@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import PaginateView from '../../component/pagination';
@@ -119,6 +119,28 @@ export const StatutCommandeEnum = {
   PRETE: 5,
   RECUPEREE: 6, 
   LIVREE: 7
+}
+
+export function SelectStatutCommande({onChangeTrigger}){
+  
+  const onChange = (e) => {
+    onChangeTrigger(e.target.value)
+  }
+
+  return <Fragment>
+    <div className='form'>
+      <select className='form-control' onChange={onChange}>
+        <option value={0}>Initiée</option>
+        <option value={1}>Payée</option>
+        <option value={2}>Annulée</option>
+        <option value={3}>Affectée</option>
+        <option value={4}>Préparation</option>
+        <option value={5}>Prête</option>
+        <option value={6}>Récupérée</option>
+        <option value={7}>Livrée</option>
+      </select>
+    </div>
+  </Fragment>
 }
 
 export function StatutCommande({statut}) {

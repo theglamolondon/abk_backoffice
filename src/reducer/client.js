@@ -5,16 +5,8 @@ const CLIENT_DETAILS = "CLIENT_DETAILS"
 
 export function searchClientByTermes(data){
   return async dispatch => {
-    dispatch({
-      type: CLIENT_SEARCH,
-      payload: {
-        termes: data,
-        clients: []
-      }
-    })
-
-    /*try {
-      const response = await axios.get(`/backoffice/client/recherche?query=${data}`)
+    try {
+      const response = await axios.get(`/backoffice/clients/recherche?query=${data}`)
       dispatch({
         type: CLIENT_SEARCH,
         payload: {
@@ -24,7 +16,7 @@ export function searchClientByTermes(data){
       })
     } catch (error) {
       console.log(error)
-    }*/
+    }
   }
 }
 

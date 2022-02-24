@@ -13,7 +13,7 @@ function AppLayout(props) {
 
   const { userSession, setUserSession } = useToken();
   const [connected, setConnected] = useState(false)
-
+  
   useEffect(() =>{
     if(userSession === null) {
       setConnected(false) 

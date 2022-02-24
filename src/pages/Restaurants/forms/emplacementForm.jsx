@@ -72,6 +72,9 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
         if(values.username === ""){
           errors.username = "Le nom d'utilisateur est requis"
         }
+        if(values.nomEmplacement === ""){
+          errors.nomEmplacement = "Le nom de l'emplacement est requis"
+        }
         return errors
       }}
       onSubmit={(values, { setSubmitting }) => {
@@ -84,8 +87,15 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
         <div className="col-md-12">
           <fieldset className="form-group">
             <label>Adresse</label>   
-            <Field type="text" className="form-control" name="adresse" placeholder="Adresse" />
+            <Field component="textarea" className="form-control" name="adresse" placeholder="Adresse" />
             <ErrorMessage name="adresse" component="div" className="text-danger"/>
+          </fieldset>
+        </div>
+        <div className="col-md-3">
+          <fieldset className="form-group">
+            <label>Nom de l'emplacement</label>   
+            <Field type="text" className="form-control" name="nomEmplacement" placeholder="Nom emplacement" />
+            <ErrorMessage name="nomEmplacement" component="div" className="text-danger"/>
           </fieldset>
         </div>
         <div className="col-md-3">

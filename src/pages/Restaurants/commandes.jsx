@@ -1,30 +1,44 @@
 import React, { useEffect, useState }  from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import PaginateView from '../../component/pagination'
 import useQuery from '../../enabler/useQuery'
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
+import { StatutCommande, SelectStatutCommande } from '../Commandes/liste'
+import ReactDatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function CommandeRestoPage({data, getData}){
   let { id } = useParams();
   let page = useQuery().get("page");
+  
+  const [dateRange, setDateRange] = useState([null, null]);
 
   if(page === undefined || page === null){
     page = 1
   }
 
-  useEffect(()=>{
-    getData(id, {params :{dateDebut: '2021-01-01 00:00:00', dateFin: '2022-01-23 23:59:59', statut: 'PAYEE', page: page-1}})
-  }, [page])
+  const searchData = (statut) => {
+    let startDate = dateRange[0].toISOString().split('T')[0];
+    let endDate   = dateRange[1].toISOString().split('T')[0];
 
-  console.log(data)
+    getData(id, {
+      params :{
+        dateDebut : `${startDate} 00:00:00`, 
+        dateFin   : `${endDate} 23:59:59`, 
+        statut: statut, page: page-1
+      }
+    })
+  }
 
   return <React.Fragment>
     <h3>Liste commande par restaurant</h3>
     <section className="row">
-      <SearchBox />
+      <SearchBox 
+        range={dateRange} 
+        setRange={setDateRange} 
+        handleClick={searchData}
+        />
       <GrapheBox />
     </section>
     <section className='row'>
@@ -36,25 +50,41 @@ export default function CommandeRestoPage({data, getData}){
   </React.Fragment>
 }
 
-function SearchBox({}){
+function SearchBox({range, setRange, handleClick}){
 
-  const [dateValue, setDateValue] = useState([new Date(2022,0,1), new Date()])
+  const [startDate, endDate] = range;
+  const [statut, setStatut] = useState(0);
 
   return <div className="col-xl-6 col-lg-12 col-md-12">
     <div className="card">
       <div className="card-head">
           <div className="card-header">
-            <h4 className="card-title">Période</h4>
+            <h4 className="card-title">Recherche</h4>
           </div>
       </div>
       <div className="card-content">
         <div className="card-body">
-          <Calendar
-            onChange={setDateValue}
-            value={dateValue}
-            locale="FR-fr"
-            selectRange={true}
-          />
+          <div className='col-12'>
+            <label>Période</label>
+            <ReactDatePicker
+              selectsRange={true}
+              dateFormat="yyyy-MM-dd"                                                                                 
+              startDate={startDate}
+              endDate={endDate}
+              className="form-control"
+              monthsShown={2}
+              onChange={(update) => { setRange(update); console.log(update) }}
+              isClearable={true}
+            />
+          </div>
+          <div className='col-12'>
+            <label>Statut</label>
+            <SelectStatutCommande onChangeTrigger={(_statut) => {setStatut(_statut)}}/>
+          </div>  
+          <div className='col-12'>
+            <br/>
+            <button className='btn btn-primary' onClick={() => {handleClick(statut)}}>Rechercher</button>
+          </div>          
         </div>
       </div>
     </div>
@@ -136,24 +166,34 @@ function GrapheBox({}){
 function CommandeTab({commandes,page}){
   return(
     <div className="card">
+      <div className="card-header">
+        <div className='heading-elements'>
+          <ul className='list-inline mb-0'>
+            <li>
+              <a href={`/backoffice/exportJasperReport?`} target='_blank' rel='noreferrer' title='Télécharger le document'>
+                <i className='feather icon-download' />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div className="card-content">
         <div className="card-body">
           <div id="audience-list-scroll" className="table-responsive position-relative">
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Commande</th>
+                  <th>Date commande</th>
+                  <th>Référence</th>
                   <th>Satut</th>
                   <th>Montant</th>
                   <th>Restaurant</th>
-                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
               {commandes.data.map((item, k) => { 
                 return (
-                <tr>
+                <tr key={k}>
                   <td>
                     {new Intl.DateTimeFormat("fr-FR", {
                       year: "numeric",
@@ -164,11 +204,10 @@ function CommandeTab({commandes,page}){
                       second: 'numeric'
                     }).format(Date.parse(item.dateCommande))}
                   </td>
-                  <td>{item.reference}</td>
-                  <td></td>
+                  <td><Link to={`/commandes/details/${item.reference}`}>{item.reference}</Link></td>
+                  <td><StatutCommande statut={item.statut} /></td>
                   <td>{item.montant}</td>
-                  <td>Emplacement</td>
-                  <td></td>
+                  <td>{item.emplacement.nomEmplacement}</td>
                 </tr>)
               })}
               </tbody>

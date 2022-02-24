@@ -27,27 +27,28 @@ export default function SearchPage({searchData}) {
                   <tr>
                     <th>Nom</th>
                     <th>Prénoms</th>
-                    <th>Client</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>Actions</th>
+                    <th width={'110'}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                 {searchData.clients.length > 0 && searchData.clients.map( (item, key) => 
                   (<tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{item.nom}</td>
+                    <td>{item.prenoms}</td>
+                    <td>{item.email}</td>
+                    <td>{item.telephone}</td>
+                    <td>
+                    <Link to={"#"} className="primary edit mr-1"><i className="fa fa-pencil"></i></Link>
+										<Link to={`/client/${item.id}/details`} className="secondary mr-1"><i className="fa fa-eye"></i></Link>
+                    </td>
                   </tr>)
                 )}   
 
                 {searchData.clients.length === 0 && 
                   <tr>
-                    <td colSpan={6}>
+                    <td colSpan={5}>
                       <p className='h1 text-center'>
                         <i className='fa fa-exclamation-triangle' />
                       </p>
