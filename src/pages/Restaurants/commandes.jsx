@@ -13,7 +13,7 @@ export default function CommandeRestoPage({data, getData}){
   let { id } = useParams();
   let page = useQuery().get("page");
   
-  const [dateRange, setDateRange] = useState([null, null]);
+  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
   const [status, setStatus] = useState(0);
 
   if(page === undefined || page === null){
@@ -179,7 +179,7 @@ function CommandeTab({commandes, page, range, resto, status}){
         <div className='heading-elements'>
           <ul className='list-inline mb-0'>
             <li>
-              <a href={`${URL_BASE_API}/backoffice//export/restaurant/commandes?dateDebut=${range[0]}&dateFin=${range[1]}&idRestaurant=${resto}&statut=${status}`} 
+              <a href={`${URL_BASE_API}/backoffice/export/restaurant/commandes?dateDebut=${range[0] != null ? range[0].toISOString().split('T')[0] : null} 00:00:00&dateFin=${range[1] != null ? range[1].toISOString().split('T')[0] : null} 23:59:59&idRestaurant=${resto}&statut=${status}`} 
                  target='_blank' rel='noreferrer' title='Télécharger le document'>
                 <i className='feather icon-download' />
               </a>
