@@ -7,12 +7,14 @@ import useQuery from '../../enabler/useQuery'
 import { StatutCommande, SelectStatutCommande } from '../Commandes/liste'
 import ReactDatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import { URL_BASE_API } from '../../enabler/Axios'
 
 export default function CommandeRestoPage({data, getData}){
   let { id } = useParams();
   let page = useQuery().get("page");
   
   const [dateRange, setDateRange] = useState([null, null]);
+  const [status, setStatus] = useState(0);
 
   if(page === undefined || page === null){
     page = 1
@@ -21,6 +23,7 @@ export default function CommandeRestoPage({data, getData}){
   const searchData = (statut) => {
     let startDate = dateRange[0].toISOString().split('T')[0];
     let endDate   = dateRange[1].toISOString().split('T')[0];
+    setStatus(statut)
 
     getData(id, {
       params :{
@@ -43,7 +46,13 @@ export default function CommandeRestoPage({data, getData}){
     </section>
     <section className='row'>
       <div className='col-md-12'>
-        <CommandeTab commandes={data} page={page}/>
+        <CommandeTab 
+          commandes={data} 
+          page={page} 
+          range={dateRange} 
+          resto={id} 
+          status={status}
+          />
       </div>
     </section>
 
@@ -163,14 +172,15 @@ function GrapheBox({}){
   )
 }
 
-function CommandeTab({commandes,page}){
+function CommandeTab({commandes, page, range, resto, status}){
   return(
     <div className="card">
       <div className="card-header">
         <div className='heading-elements'>
           <ul className='list-inline mb-0'>
             <li>
-              <a href={`/backoffice/exportJasperReport?`} target='_blank' rel='noreferrer' title='Télécharger le document'>
+              <a href={`${URL_BASE_API}/backoffice//export/restaurant/commandes?dateDebut=${range[0]}&dateFin=${range[1]}&idRestaurant=${resto}&statut=${status}`} 
+                 target='_blank' rel='noreferrer' title='Télécharger le document'>
                 <i className='feather icon-download' />
               </a>
             </li>
