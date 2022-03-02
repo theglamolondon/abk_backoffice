@@ -45,14 +45,14 @@ function FormViewPlat({plat, resto, handleClose, submitHandler, accompagnements}
         return errors
       }}
       onSubmit={(values, { setSubmitting }) => { 
-        let data = new FormData(document.forms[0]);
+        let data = new FormData(document.getElementById("platForm"));
         data.append("idRestaurant", resto.id)
         data.append("accompagnements", values.accompagnements.map(item => item.id))
         submitHandler(data)
         handleClose()
       }}
     >
-          <Form className="form-horizontal form-simple" noValidate>
+          <Form className="form-horizontal form-simple" noValidate id="platForm">
             <Field type="hidden" name="id" />
             <fieldset className="form-group position-relative mb-2">
               <label>Nom du plat</label>   

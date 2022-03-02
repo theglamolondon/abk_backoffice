@@ -40,12 +40,12 @@ function FormViewRestaurant({handleClose, resto, submitHandler}){
         return errors
       }}
       onSubmit={(values, {setSubmitting}) => { 
-        let data = new FormData(document.forms[0]);
+        let data = new FormData(document.getElementById("restoForm"));
         submitHandler(data)
         handleClose()
       }}
     >
-      <Form className="form-horizontal form-simple" noValidate encType="multipart/form-data">
+      <Form className="form-horizontal form-simple" id="restoForm" noValidate encType="multipart/form-data">
         <Field type="hidden" name="id" />
             
         <fieldset className="form-group position-relative mb-2">

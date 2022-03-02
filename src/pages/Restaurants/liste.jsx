@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AbkImage from '../../component/image';
-import { URL_BASE_API } from '../../enabler/Axios';
 import PlatForm from './forms/platForm';
 import RestaurantForm from './forms/restaurantForm';
 
