@@ -8,7 +8,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export default function CommandeListeDetails({getData, commandes}){
+export default function CommandeListeDetails({commandes}){
 
   const [nbColTbl, setNbColTbl] = useState(12)
   const [showDetails, setShowDetails] = useState(false)
@@ -28,10 +28,6 @@ export default function CommandeListeDetails({getData, commandes}){
     }
   }, [nbColTbl])
 
-  useEffect(() => {
-    getData(page)
-  },[page])
-
   const handleClick = (item)=>{
     setNbColTbl(8)
     setCurrentCommand(item)
@@ -50,7 +46,7 @@ export default function CommandeListeDetails({getData, commandes}){
             <h4 className="card-title">Commandes récentes</h4>
             <div className="heading-elements">
               <ul className="list-inline mb-0">
-                <li className="abk-pointer"><span data-action="reload"><i className="feather icon-rotate-cw" onClick={getData}/></span></li>
+                <li className="abk-pointer"><span data-action="reload"><i className="feather icon-rotate-cw" /></span></li>
               </ul>
             </div>
           </div>

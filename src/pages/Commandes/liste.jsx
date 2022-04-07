@@ -1,8 +1,34 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import PaginateView from '../../component/pagination';
 import useQuery from '../../enabler/useQuery';
+import ReactDatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+
+function SearchCommandeBox(){
+
+  const [startDate, endDate] = [new Date()];
+  const [statut, setStatut] = useState(0);
+  const [range, setRange] = useState([startDate, endDate]);
+
+  return (<Fragment>
+    <div className='col-md-4 col-sm-6 col-xs-12'>
+      <ReactDatePicker
+        selectsRange={true}
+        dateFormat="yyyy-MM-dd"                                                                                 
+        startDate={startDate}
+        endDate={endDate}
+        className="form-control"
+        monthsShown={2}
+        onChange={(update) => { setRange(update); console.log(update) }}
+        isClearable={true}
+      />
+    </div>
+
+  </Fragment>
+  )
+}
 
 function CommandeListe({title, commandes, getData}) {
   
@@ -24,6 +50,7 @@ function CommandeListe({title, commandes, getData}) {
               <a className="heading-elements-toggle" href="#aaaaaaaaaaa">
                 <i className="fa fa-ellipsis-v font-medium-3"></i>
               </a>
+              <SearchCommandeBox />
               <div className="heading-elements">
                 <ul className="list-inline mb-0">
                   <li>

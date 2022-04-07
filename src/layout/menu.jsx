@@ -41,6 +41,12 @@ export default function MenuLeftSide(props){
               <i className="feather icon-grid" />
               <span className="menu-title" data-i18n="Starter kit">Restaurants</span>
             </Link>
+          </li> 
+          <li className="has-sub nav-item open">
+            <Link to="/rapports">
+              <i className="feather icon-printer" />
+              <span className="menu-title" data-i18n="Report">Rapports</span>
+            </Link>
           </li>                    
           <li className="has-sub nav-item open">
             <Link to="#1">

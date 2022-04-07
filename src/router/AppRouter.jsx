@@ -7,6 +7,7 @@ import UtilisateurPage from "../pages/Utilisateurs";
 import LivreurPage from "../pages/Livreurs";
 import AccompagnementPage from "../pages/Accompagnements";
 import ClientPage from "../pages/Clients";
+import Rapports from "../pages/Rapports";
 
 export default function AppRouter(props) {
   return(
@@ -31,6 +32,9 @@ export default function AppRouter(props) {
       </Route>     
       <Route path="/client" >
         <ClientPage/>
+      </Route>   
+      <Route path="/rapports" >
+        <Rapports/>
       </Route>
     </Switch>
   )

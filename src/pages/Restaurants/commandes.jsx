@@ -1,12 +1,11 @@
-import React, { useEffect, useState }  from 'react'
+import React, {useState}  from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+import SearchBox from '../Restaurants/forms/searchBox'
 import { Link, useParams } from 'react-router-dom'
 import PaginateView from '../../component/pagination'
 import useQuery from '../../enabler/useQuery'
-import { StatutCommande, SelectStatutCommande } from '../Commandes/liste'
-import ReactDatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
+import { StatutCommande} from '../Commandes/liste'
 import { URL_BASE_API } from '../../enabler/Axios'
 
 export default function CommandeRestoPage({data, getData}){
@@ -37,11 +36,13 @@ export default function CommandeRestoPage({data, getData}){
   return <React.Fragment>
     <h3>Liste commande par restaurant</h3>
     <section className="row">
-      <SearchBox 
-        range={dateRange} 
-        setRange={setDateRange} 
-        handleClick={searchData}
+      <div className="col-xl-6 col-lg-12 col-md-12">
+        <SearchBox 
+          range={dateRange} 
+          setRange={setDateRange} 
+          handleClick={searchData}
         />
+      </div>
       <GrapheBox />
     </section>
     <section className='row'>
@@ -59,46 +60,6 @@ export default function CommandeRestoPage({data, getData}){
   </React.Fragment>
 }
 
-function SearchBox({range, setRange, handleClick}){
-
-  const [startDate, endDate] = range;
-  const [statut, setStatut] = useState(0);
-
-  return <div className="col-xl-6 col-lg-12 col-md-12">
-    <div className="card">
-      <div className="card-head">
-          <div className="card-header">
-            <h4 className="card-title">Recherche</h4>
-          </div>
-      </div>
-      <div className="card-content">
-        <div className="card-body">
-          <div className='col-12'>
-            <label>Période</label>
-            <ReactDatePicker
-              selectsRange={true}
-              dateFormat="yyyy-MM-dd"                                                                                 
-              startDate={startDate}
-              endDate={endDate}
-              className="form-control"
-              monthsShown={2}
-              onChange={(update) => { setRange(update); console.log(update) }}
-              isClearable={true}
-            />
-          </div>
-          <div className='col-12'>
-            <label>Statut</label>
-            <SelectStatutCommande onChangeTrigger={(_statut) => {setStatut(_statut)}}/>
-          </div>  
-          <div className='col-12'>
-            <br/>
-            <button className='btn btn-primary' onClick={() => {handleClick(statut)}}>Rechercher</button>
-          </div>          
-        </div>
-      </div>
-    </div>
-  </div>
-}
 
 function GrapheBox({}){
   const options = {

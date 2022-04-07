@@ -42,9 +42,7 @@ axios.interceptors.response.use(
   },
   (error) => {
     console.log("request error response")
-
     const originalRequest = error.config;
-
     /*
     if (error.response.status === 401 && originalRequest.url === "https://localhost:44328/auth/token") {
       document.location.href = "https://localhost:44328/";

@@ -3,11 +3,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { useEffect } from 'react';
 
-function CourbeCommande({getData, data}){
-
-  useEffect( () =>{
-    getData()
-  }, [])
+function CourbeCommande({data}){
 
   const options = {
     lang: {
