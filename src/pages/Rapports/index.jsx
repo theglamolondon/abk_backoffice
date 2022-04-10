@@ -5,6 +5,7 @@ import RapportRx from "../../reducer/rapport";
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import DateObject from 'react-date-object';
+import { URL_BASE_API } from '../../enabler/Axios';
 
 
 const RapportPage = ({title, getRapport, report}) => {
@@ -96,7 +97,7 @@ const LigneRapport = ({data, start, end}) => {
       <td>{new DateObject(start).format('DD/MM/YYYY')}</td>
       <td>{new DateObject(end).format('DD/MM/YYYY')}</td>
       <td>{new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XAF' }).format(data.montant)}</td>
-      <td><a href='https://google.com' target='_blank'><i className='fa fa-print'> </i></a></td>
+      <td><a href={`${URL_BASE_API}/backoffice/export/restaurant/commandes?dateDebut=${new DateObject(start).format('YYYY-MM-DD')} 00:00:00&dateFin=${new DateObject(end).format('YYYY-MM-DD')} 23:59:59&idRestaurant=${data.id}`} target='_blank'><i className='fa fa-print'> </i></a></td>
     </tr>
   </React.Fragment>
 }
