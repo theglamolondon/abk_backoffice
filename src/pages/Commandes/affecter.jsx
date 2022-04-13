@@ -118,7 +118,7 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
       </div>
       <br />
       <DetailsCommandeItem commande={details}/>
-      { mode === ModeAffectation.LIVREUR && 
+      { details.statut > 1 && 
         <ChatManager 
           reference={details.data.reference} 
           handleChat={sendChat} 
