@@ -7,6 +7,7 @@ import MapIcon from '../../component/Map/icons';
 import ChatManager from '../../component/chat';
 import DetailsCommandeItem from './detailsItem'
 import { Button, Card, Form } from 'react-bootstrap';
+import { StatutCommandeEnum } from './liste';
 
 function AffectCommande({details, getData, getEmplacement, restaurant, affecter, mode, sendChat}) {
 
@@ -95,7 +96,7 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
   }
   
   //let clientPosition = details.data.adresse !== undefined ? [details.data.adresse.lattitude, details.data.adresse.longitude] : null  
-
+  
   return (details.data !== undefined && <React.Fragment>
       <div className="col-md-12"></div>      
       <div style={{position: 'relative'}}>
@@ -118,7 +119,7 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
       </div>
       <br />
       <DetailsCommandeItem commande={details}/>
-      { details.statut > 1 && 
+      { details.data.statut >= StatutCommandeEnum.AFFECTEE && 
         <ChatManager 
           reference={details.data.reference} 
           handleChat={sendChat} 

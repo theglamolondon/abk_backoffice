@@ -1,10 +1,11 @@
 import axios from "../enabler/Axios"
 
-const LIVREUR_POSITION = "LIVREUR_POSITION"
-const LIVREUR_LISTE    = "LIVREUR_LISTE"
-const LIVREUR_ADD      = "LIVREUR_ADD"
-const LIVREUR_UPDATE   = "LIVREUR_UPDATE"
-const LIVREUR_MAJ      = "LIVREUR_MAJ"
+const LIVREUR_POSITION   = "LIVREUR_POSITION"
+const LIVREUR_LISTE      = "LIVREUR_LISTE"
+const LIVREUR_ADD        = "LIVREUR_ADD"
+const LIVREUR_UPDATE     = "LIVREUR_UPDATE"
+const LIVREUR_MAJ        = "LIVREUR_MAJ"
+const LIVREUR_DISCONNECT = "LIVREUR_DISCONNECT"
 
 export function handleLivreurPosition(data){
   return dispatch => {
@@ -71,6 +72,21 @@ export function changeMdp(data){
   }
 }
 
+export function disconnect(data){
+  axios.post(`/backoffice/auth/signout/livreur`, {id: data})
+  return async dispatch => {
+    try {
+      const response = await axios.post(`/backoffice/auth/signout/livreur`, {id: data})
+      dispatch({
+        type: LIVREUR_DISCONNECT,
+        payload: response.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 const initialState = {liste: []}
 export const reducer = (oldState = initialState, action) => {
   switch (action.type) {
@@ -93,6 +109,7 @@ const LivreurRx = {
   ajouter: ajouter,
   changeMdp: changeMdp,
   modifier: modifier,
+  logout: disconnect,
 }
 
 export default LivreurRx

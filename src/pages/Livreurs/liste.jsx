@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import LivreurForm, { LivreurFormMode } from './forms/LivreurForm';
 
-function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdate, refresh}){
+function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdate, refresh, disconnect}){
 
   useEffect(() => {
     getData()
@@ -75,7 +75,7 @@ function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdat
                 </tr>
               </thead>
               <tbody>
-              {data.map( (item, key) => <LigneUtilisateur line={item} key={key} update={updateLivreur} changePassword={changePassword}/>)}   
+              {data.map( (item, key) => <LigneLivreur line={item} key={key} logout={disconnect} update={updateLivreur} changePassword={changePassword}/>)}   
               </tbody>
             </table>
           </div>
@@ -86,7 +86,7 @@ function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdat
   )
 }
 
-function LigneUtilisateur({line, update, changePassword}){
+function LigneLivreur({line, update, changePassword, logout}){
   return (
     <tr>
       <td>{line.nom}</td>
@@ -96,6 +96,7 @@ function LigneUtilisateur({line, update, changePassword}){
       <div className="btn-group" role="group" aria-label="First Group">
         <button onClick={() => update(line)} type="button" className="btn btn-icon btn-success" title="Modififer le livreur"><i className="fa fa-edit"></i></button>
         <button onClick={() => changePassword(line)} type="button" className="btn btn-icon btn-warning" title="Changer de mot de passe"><i className="fa fa-lock"></i></button>
+        <button onClick={() => logout(line.id)} type="button" className="btn btn-icon btn-defaut" title="Forcer la déconnexion"><i className="fa fa-sign-out"></i></button>
         <button onClick={() => {}} type="button" className="btn btn-icon btn-danger"  title="Supprimer le livreur"><i className="fa fa-trash"></i></button>
       </div>
       </td>

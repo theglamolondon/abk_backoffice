@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import SwitchInput from '../../../component/Input/Switch'
+import { UserRoleEnum } from '../../../enabler/userStatus'
 
 function UtilisateurForm({show, title, handleClose, addHandler, updateHandler, user, refresh, mode, connected}){
   console.log("mode : ", mode)
@@ -101,8 +102,8 @@ function FormViewUtilisateur({addHandler, updateHandler, handleClose, data, refr
             <label>Type d'utilisateur</label>   
             <Field as="select" className="form-control " name="role" placeholder="Role de l'utilisateur">
               <option value="">Choisir le rôle...</option>
-              <option value="NUSER">Utilisateur simple</option>
-              <option value="ADMIN">Administrateur</option>
+              <option value={UserRoleEnum.USER}>Utilisateur simple</option>
+              <option value={UserRoleEnum.ADMIN}>Administrateur</option>
             </Field>
             <ErrorMessage name="role" component="div" className="text-danger"/>
         </fieldset>

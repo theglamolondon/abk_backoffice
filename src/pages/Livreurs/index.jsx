@@ -16,6 +16,7 @@ function LivreurPage(props){
           handleUpdate={props.majLivreur}
           changeMdp={props.changeMdp}
           refresh={props.getListe}
+          disconnect={disconnect}
           />
       </Route>            
     </Switch>
@@ -26,9 +27,10 @@ const getListe   = LivreurRx.liste
 const addLivreur = LivreurRx.ajouter
 const changeMdp  = LivreurRx.changeMdp
 const majLivreur = LivreurRx.modifier
+const disconnect = LivreurRx.logout
 
 const mapDispatchToProps = {
-  getListe, addLivreur, changeMdp, majLivreur
+  getListe, addLivreur, changeMdp, majLivreur, disconnect
 }
 
 const mapStateToProps = state => {

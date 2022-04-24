@@ -29,7 +29,7 @@ function AppLayout(props) {
       {connected && 
         <React.Fragment>
           <HeaderSide />
-          <MenuLeftSide />
+          <MenuLeftSide user={props.user} />
           <ContentPage />
           <Footer />
           <NotificationManager />
