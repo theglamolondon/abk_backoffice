@@ -73,11 +73,14 @@ function MenuConfiguration(){
     <li className="has-sub nav-item open">
       <Link to="#1">
         <i className="feather icon-box" />
-        <span className="menu-title" data-i18n="Gallery">Paramètres généraux</span>
+        <span className="menu-title" data-i18n="Gallery">Paramètres</span>
       </Link>
       <ul className="menu-content">
         <li>
-          <Link className="menu-item" to="/accompagnements" >Accompagnements</Link>
+          <Link className="menu-item" to="/parametres/accompagnements" >Accompagnements</Link>
+        </li>
+        <li>
+          <Link className="menu-item" to="/parametres/villes" >Villes</Link>
         </li>
       </ul>
     </li>

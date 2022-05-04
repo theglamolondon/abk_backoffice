@@ -41,7 +41,7 @@ function AccompagnementListe({getData, data, add, update}){
                     </tr>
                   </thead>
                   <tbody>
-                  {data.liste.map( (item, key) => <LignePlat line={item} key={key}/>)}   
+                  {data.liste.map( (item, key) => <LigneAccompagnement line={item} key={key}/>)}   
                   </tbody>
                 </table>
               </div>
@@ -56,7 +56,7 @@ function AccompagnementListe({getData, data, add, update}){
 
 export default AccompagnementListe
 
-function LignePlat({line}){
+function LigneAccompagnement({line}){
 
   return (<tr>
     <td>{line.nom}</td>

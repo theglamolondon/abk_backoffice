@@ -7,7 +7,7 @@ import MapIcon from '../../../component/Map/icons';
 
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
-function EmplacementForm({show, handleClose, title, resto, submitAction, refresh, emplacement}){
+function EmplacementForm({show, handleClose, title, resto, submitAction, refresh, emplacement, villes}){
 
   return (
     <React.Fragment>
@@ -26,6 +26,7 @@ function EmplacementForm({show, handleClose, title, resto, submitAction, refresh
             handleClose={handleClose} 
             submitHandler={submitAction} 
             resto={resto} 
+            villes={villes}
             refresh={refresh}
             data={emplacement}
             />
@@ -40,7 +41,7 @@ export const EmplacementFormMode = {
   EDIT_PASSWORD: 1, 
 }
 
-function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, data}){
+function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, data, villes}){
 
   const latlng = data.id !== 0 ? {latlng:{lat: data.lattitude,lng: data.longitude }} : null
   const [position, setPosition] = useState(latlng)
@@ -64,7 +65,7 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
       validate = { values => {
         const errors = {}
         if(values.adresse === ""){
-          errors.adresse = "L'adresse de l'emplacement est requis"
+          errors.adresse = "L'adresse de l'emplacement est requise"
         }
         if(values.telephone1 === ""){
           errors.telephone1 = "Le numéro de téléphone est requis"
@@ -74,6 +75,9 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
         }
         if(values.nomEmplacement === ""){
           errors.nomEmplacement = "Le nom de l'emplacement est requis"
+        }
+        if(values.idVille === "" || 0){
+          errors.idVille = "La ville de l'emplacement est requise"
         }
         return errors
       }}
@@ -89,6 +93,16 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
             <label>Adresse</label>   
             <Field component="textarea" className="form-control" name="adresse" placeholder="Adresse" />
             <ErrorMessage name="adresse" component="div" className="text-danger"/>
+          </fieldset>
+        </div>
+        <div className="col-md-3">
+          <fieldset className="form-group">
+            <label>Ville</label>   
+            <Field as="select" className="form-control " name="idVille" placeholder="Ville de l'emplacement">
+              {villes.map((ville, k) => {
+                return <option value={ville.id}>{ville.libelle}</option>
+              })}
+            </Field>
           </fieldset>
         </div>
         <div className="col-md-3">

@@ -8,6 +8,7 @@ import LivreurRx from "../reducer/livreur";
 import RapportRx from "../reducer/rapport";
 import RestaurantRx from "../reducer/restaurants";
 import UtilisateurRx from "../reducer/utilisateurs";
+import VilleRx from "../reducer/ville";
 
 let rootReducers = {
   context: combineReducers({
@@ -19,6 +20,7 @@ let rootReducers = {
     livreurs : LivreurRx.reducer,
     clients : ClientRx.reducer,
     rapport : RapportRx.reducer,
+    villes : VilleRx.reducer,
   }),
   user : AuthRx.reducer
 }

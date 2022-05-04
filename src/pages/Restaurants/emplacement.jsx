@@ -5,14 +5,15 @@ import EmplacementForm from './forms/emplacementForm'
 import { useEffect } from 'react';
 import ModalResetPasswordForm from './forms/resetPasswordModal';
 
-function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
+function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword, villes, getVilles}) {
     const { id } = useParams();
 
     useEffect( () =>{
       getData(id)
+      getVilles()
     }, [])
 
-    const defaultEmplacement = {id: 0, nomEmplacement: "", adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0, username: ""}
+    const defaultEmplacement = {id: 0, nomEmplacement: "", adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0, username: "", idVille: 0}
     const [emplacement, setEmplacement] = useState(defaultEmplacement);
 
     //Emplacements actions
@@ -49,6 +50,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
                   title={emplacement.id === 0 ? "Ajouter un emplacement" : "Modifier un emplacement"}
                   resto={data.restaurant}
                   refresh={getData}
+                  villes={villes}
                   submitAction={emplacement.id === 0 ? addNewEmpl : updtEmpl}
                   />
 
@@ -65,7 +67,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
                       <tr>
                         <th width="9">#</th>
                         <th>Nom</th>
-                        <th>Adresses</th>
+                        <th>Ville</th>
                         <th width="">Téléphone</th>
                         <th width="">Username</th>
                         <th width="50">Actions</th>
@@ -76,7 +78,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword}) {
                       return (<tr key={k}>
                         <th scope="row">{k+1}</th>
                         <td>{item.nomEmplacement}</td>
-                        <td>{item.adresse}</td>
+                        <td>{item.ville.libelle}</td>
                         <td>{item.telephone1} / {item.telephone2}</td>
                         <td>@{item.username}</td>
                         <td>

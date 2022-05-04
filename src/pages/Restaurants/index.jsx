@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import AccompagnementRx from '../../reducer/accompagnement';
 import RestaurantRx from '../../reducer/restaurants';
+import VilleRx from '../../reducer/ville';
 import CommandeRestoPage from './commandes';
 import DetailsCommande from './details';
 import EmplacementPage from './emplacement';
@@ -39,6 +40,8 @@ function RestaurantPage(props) {
           getData={props.getEmplacements}
           addNewEmpl={props.addEmplmt}
           updtEmpl={()=>{}}
+          villes={props.villes}
+          getVilles={props.getVilles}
           razPassword={props.razPassword}
           />
       </Route>
@@ -69,14 +72,16 @@ const addEmplmt = RestaurantRx.ajouterEmpl
 const getAccompagnements = AccompagnementRx.liste
 const razPassword = RestaurantRx.razEmpl
 const getCommandeByResto = RestaurantRx.commandes
+const getVilles = VilleRx.liste
 
 const mapDispatchToProps = {
     getListe, getEmplacements, getDetails, addNewResto, addPlat, updatePlat, getAccompagnements,updateResto, 
-    addEmplmt, razPassword, getCommandeByResto
+    addEmplmt, razPassword, getCommandeByResto, getVilles
 }
 const mapStateToProps = state => {
     return {
         data: state.context.restaurants,
+        villes: state.context.villes.liste,
         accompagnements: state.context.accompagnements,
     }
 }

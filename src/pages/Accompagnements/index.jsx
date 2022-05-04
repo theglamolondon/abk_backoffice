@@ -7,7 +7,7 @@ import AccompagnementRx from '../../reducer/accompagnement'
 function AccompagnementPage(props){
   return (
     <Switch>
-      <Route path="/accompagnements" exact strict>
+      <Route path="/parametres/accompagnements" exact strict>
         <AccompagnementListe 
           data={props.data} 
           getData={props.getListe} 

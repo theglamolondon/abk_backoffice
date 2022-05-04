@@ -5,7 +5,6 @@ import SwitchInput from '../../../component/Input/Switch'
 import { UserRoleEnum } from '../../../enabler/userStatus'
 
 function UtilisateurForm({show, title, handleClose, addHandler, updateHandler, user, refresh, mode, connected}){
-  console.log("mode : ", mode)
 
   return (
   <React.Fragment>
@@ -72,7 +71,6 @@ function FormViewUtilisateur({addHandler, updateHandler, handleClose, data, refr
         return errors;
     }}
     onSubmit={(values, { setSubmitting }) => { 
-      console.log(values)
       if(values.id === 0 && UtilisateurFormMode.EDIT_INFO === mode){
         addHandler(values).then( () => refresh())
       }else if (values.id !== 0 && UtilisateurFormMode.EDIT_INFO === mode){
@@ -140,6 +138,5 @@ function FormViewUtilisateur({addHandler, updateHandler, handleClose, data, refr
     </Form>    
   </Formik>)
 }
-
 
 export default UtilisateurForm
