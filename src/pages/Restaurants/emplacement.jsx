@@ -13,7 +13,7 @@ function EmplacementPage({getData, data, addNewEmpl, updtEmpl, razPassword, vill
       getVilles()
     }, [])
 
-    const defaultEmplacement = {id: 0, nomEmplacement: "", adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0, username: "", idVille: 0}
+    const defaultEmplacement = {id: 0, nomEmplacement: "", adresse: "", longitude:"", lattitude: "", telephone1: "", telephone2: "", idRestaurant: 0, username: "", idVille: 1}
     const [emplacement, setEmplacement] = useState(defaultEmplacement);
 
     //Emplacements actions

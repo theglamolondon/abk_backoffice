@@ -100,7 +100,7 @@ function FormViewEmplacement({resto, handleClose, submitHandler, refresh, mode, 
             <label>Ville</label>   
             <Field as="select" className="form-control " name="idVille" placeholder="Ville de l'emplacement">
               {villes.map((ville, k) => {
-                return <option value={ville.id}>{ville.libelle}</option>
+                return <option key={k} value={ville.id}>{ville.libelle}</option>
               })}
             </Field>
           </fieldset>
