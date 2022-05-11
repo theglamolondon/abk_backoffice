@@ -96,8 +96,8 @@ function LigneLivreur({line, update, changePassword, logout}){
       <div className="btn-group" role="group" aria-label="First Group">
         <button onClick={() => update(line)} type="button" className="btn btn-icon btn-success" title="Modififer le livreur"><i className="fa fa-edit"></i></button>
         <button onClick={() => changePassword(line)} type="button" className="btn btn-icon btn-warning" title="Changer de mot de passe"><i className="fa fa-lock"></i></button>
-        <button onClick={() => logout(line.id)} type="button" className="btn btn-icon btn-defaut" title="Forcer la déconnexion"><i className="fa fa-sign-out"></i></button>
-        <button onClick={() => {}} type="button" className="btn btn-icon btn-danger"  title="Supprimer le livreur"><i className="fa fa-trash"></i></button>
+        <button onClick={() => logout(line.id)} type="button" className="btn btn-icon btn-secondary" title="Forcer la déconnexion"><i className="fa fa-sign-out"></i></button>
+        <button onClick={() => {}} type="button" className="btn btn-icon btn-danger" title="Supprimer le livreur"><i className="fa fa-trash"></i></button>
       </div>
       </td>
     </tr>

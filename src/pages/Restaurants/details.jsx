@@ -5,37 +5,63 @@ import AbkImage from '../../component/image';
 import MapIcon from '../../component/Map/icons';
 import OpenMap from '../../component/Map/OpenMap';
 import { URL_BASE_API } from '../../enabler/Axios';
+import BoissonForm from './forms/boissonForm';
 import PlatForm from './forms/platForm';
+import SupplementForm from './forms/supplementForm';
 
-function DetailsCommande({data, getData, accompagnements, getAccompagnements, addNewPlat, updatePlat}) {
+function DetailsRestaurant({data, getData, accompagnements, getAccompagnements, addNewPlat, updatePlat, 
+                            addNewBoisson, addNewSupplement, updateBoisson, updateSupplement}) 
+{
     
   let { id } = useParams();
   
   const defaultPlat = {id: 0, titre: "", image:"", description: "", prix: 0, actif: true, accompagnements: []}
   const [plat, setPlat] = useState(defaultPlat);
+  
+  const defaultBoisson = {id: 0, libele: "", prix: 0, actif: true}
+  const [boisson, setBoisson] = useState(defaultBoisson);
 
-  useEffect(()=>{
-    getData(id) 
-  },[])
+  const defaultSupplement = {id: 0, libelle: "", image:"", prix: 0, actif: true}
+  const [supplement, setSupplement] = useState(defaultSupplement);
+
+  useEffect(()=>{ getData(id) },[])
 
   //Plat actions
   const [showPlat, setShowPlat] = useState(false);
   const handleClosePlat = () => setShowPlat(false);
 
   const createNewPlat = (arg) => {
-    getAccompagnements()
+    getAccompagnements(data.id)
     setPlat(defaultPlat)
     setShowPlat(true);
   }
   
   const modifiyPlat = (plat) => {
-    getAccompagnements()
+    getAccompagnements(data.id)
     setPlat(plat)
     setShowPlat(true);
   }
 
-  const clickPlatHandle = () =>{
-    createNewPlat(data)
+  //Boisson actions
+  const [showBoisson, setShowBoisson] = useState(false);
+  const handleCloseBoisson = () => setShowBoisson(false);
+  const boissonControls = {
+    handleClose: handleCloseBoisson,
+    createBoisson: (boisson) => {
+      setBoisson(boisson)
+      setShowBoisson(true);
+    }
+  }
+
+  //Supplement actions
+  const [showSupplement, setShowSupplement] = useState(false);
+  const handleCloseSupplement = () => setShowSupplement(false);
+  const supplementControls = {
+    handleClose: handleCloseSupplement,
+    createSupplement: (supplement) => {
+      setSupplement(supplement)
+      setShowSupplement(true);
+    }
   }
 
   return ( data !== undefined &&
@@ -43,10 +69,26 @@ function DetailsCommande({data, getData, accompagnements, getAccompagnements, ad
     <RestaurantBanner resto={data}/>        
     <div className="row" >
       <CarteEmplacements emplacements={data.emplacements} />
-      <StatisticsBox id={id} clickPlatHandle={clickPlatHandle}/>
+      <StatisticsBox 
+        id={id} 
+        clickPlatHandle={() => createNewPlat(data)}
+        supplementActions={supplementControls}
+        boissonActions={boissonControls}
+        boisson={defaultBoisson}
+        supplement={defaultSupplement}
+        />
     </div>
     <br />
-    <ListePlat plats={data.plats} updateClickHandler={modifiyPlat}/>
+    <ListeOffre 
+      boissons={data.boissons} 
+      supplements={data.supplements} 
+      plats={data.plats} 
+      updatePlatHandler={modifiyPlat}
+      updateSupplementHandler={supplementControls.createSupplement}
+      updateBoissonHandler={boissonControls.createBoisson}
+      supplementActions={supplementControls}
+      boissonActions={boissonControls}
+      />
 
     <PlatForm
       show={showPlat} 
@@ -57,20 +99,44 @@ function DetailsCommande({data, getData, accompagnements, getAccompagnements, ad
       accompagnements={accompagnements}
       submitAction={plat.id === 0 ? addNewPlat : updatePlat}
       />
+
+      <BoissonForm
+        title={boisson.id === 0 ? "Ajouter une boisson" : "Modifier une boisson"}
+        show={showBoisson} 
+        handleClose={boissonControls.handleClose} 
+        resto={data} 
+        boisson={boisson}
+        submitAction={boisson.id === 0 ? addNewBoisson : updateBoisson}
+        />
+
+      <SupplementForm
+        show={showSupplement} 
+        handleClose={supplementControls.handleClose} 
+        title={supplement.id === 0 ? "Ajouter un supplément" : "Modifier un supplément"} 
+        resto={data} 
+        supplement={supplement}
+        submitAction={supplement.id === 0 ? addNewSupplement : updateSupplement}
+        />
   </React.Fragment>
   )
 }
 
-function StatisticsBox({id, clickPlatHandle}){
+function StatisticsBox({id, boisson, supplement, clickPlatHandle, supplementActions, boissonActions}){
   return (
     <div className="col-md-3">
       <div className="card">
         <div className="card-body">
           <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
-            <i className="fa fa-cutlery" /> Ajouter un plat
+            <i className="fa fa-cutlery" />
           </Link>
           <Link to={`/restaurants/${id}/commandes`} className="btn btn-float btn-square btn-secondary" title="Liste des commandes du resto">
-            <i className="fa fa-cutlery" /> Consulter les commandes
+            <i className="fa fa-shopping-basket" />
+          </Link>
+          <Link to="#addSuppelement" className="btn btn-float btn-square btn-warning" title="Ajouter des suppléments" onClick={() => supplementActions.createSupplement(supplement)} >
+            <i className="fa fa-spoon" />
+          </Link>
+          <Link to="#addBoisson" className="btn btn-float btn-square btn-grey-blue" title="Ajouter des boissons" onClick={() => boissonActions.createBoisson(boisson)} >
+            <i className="fa fa-beer" />
           </Link>
         </div>
       </div>
@@ -119,50 +185,122 @@ function RestaurantBanner({resto}){
   </div>)
 }
 
-function ListePlat({plats, updateClickHandler}) {
-
-  return( plats !== undefined &&
+function ListeOffre({plats, boissons, supplements, updatePlatHandler, updateSupplementHandler, updateBoissonHandler}) {
+  return( 
     <div className="card">
       <div className="card-header">
         <h4>Liste des plats</h4>
       </div>
       <div className="card-body">
-        <div className="table-responsive">
-          <table className="table table-hover mb-0">
-            <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Nom du plat</th>
-                  <th>Description</th>
-                  <th>Prix</th>
-                  <th>Accompagnements</th>
-                  <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-              {plats.map((plat, k) => {return (
-              <tr key={k}>
-                <td>
-                  <div className="avatar avatar-xl">
-                    <AbkImage source={plat.image} alt="Card" />
-                  </div>
-                </td>
-                <td>{plat.titre}</td>
-                <td>{plat.description}</td>
-                <td>{plat.prix}</td>
-                <td>{plat.accompagnements.map((accmp, j) => {return <span key={j}> {accmp.nom}, </span>})}</td>
-                <td>
-                  <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={()=>{updateClickHandler(plat)}}>
-                    <i className="fa fa-pencil" />
-                  </Link>
-                </td>
-              </tr>)
-              })}
-            </tbody>
-          </table>
+        <ul className='nav nav-tabs nav-top-border no-hover-bg nav-justified'>
+          <li className="nav-item">
+            <a className="nav-link active" id="tab-plats" data-toggle="tab" href="#plats" aria-controls="plats" role="tab" aria-selected="true">Plats</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" id="tab-supplements" data-toggle="tab" href="#supplements" aria-controls="supplements" role="tab" aria-selected="false">Supplements</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" id="tab-boissons" data-toggle="tab" href="#boissons" aria-controls="boissons">Boissons</a>
+          </li>
+        </ul>
+        <div className='tab-content px-1 pt-1'>
+          <div id='plats' className='tab-pane active in'>
+            <div className="table-responsive">
+              <table className="table table-hover mb-0">
+                <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Nom du plat</th>
+                      <th>Description</th>
+                      <th>Prix</th>
+                      <th>Accompagnements</th>
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {plats.map((plat, k) => {return (
+                  <tr key={k}>
+                    <td>
+                      <div className="avatar avatar-xl">
+                        <AbkImage source={plat.image} alt="Card" />
+                      </div>
+                    </td>
+                    <td>{plat.titre}</td>
+                    <td>{plat.description}</td>
+                    <td>{plat.prix}</td>
+                    <td>{plat.accompagnements.map((accmp, j) => {return <span key={j}> {accmp.nom}, </span>})}</td>
+                    <td>
+                      <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={()=>{updatePlatHandler(plat)}}>
+                        <i className="fa fa-pencil" />
+                      </Link>
+                    </td>
+                  </tr>)
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id='supplements' className='tab-pane'>
+            <div className="table-responsive">
+              <table className="table table-hover mb-0">
+                <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Nom du supplément</th>
+                      <th>Prix</th>
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {supplements.map((supplement, k) => {return (
+                  <tr key={k}>
+                    <td>
+                      <div className="avatar avatar-xl">
+                        <AbkImage source={supplement.image} alt="Card" />
+                      </div>
+                    </td>
+                    <td>{supplement.libelle}</td>
+                    <td>{supplement.prix}</td>
+                    <td>
+                      <Link to="#editSupplement" className="btn btn-float btn-square btn-secondary" title="Modifier le supplément" onClick={()=>{updateSupplementHandler(supplement)}}>
+                        <i className="fa fa-pencil" />
+                      </Link>
+                    </td>
+                  </tr>)
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id='boissons' className='tab-pane'>
+            <div className="table-responsive">
+              <table className="table table-hover mb-0">
+                <thead>
+                    <tr>
+                      <th>Nom de la boisson</th>
+                      <th>Prix</th>
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {boissons.map((boisson, k) => {return (
+                  <tr key={k}>
+                    <td>{boisson.libelle}</td>
+                    <td>{boisson.prix}</td>
+                    <td>
+                      <Link to="#editSupplement" className="btn btn-float btn-square btn-secondary" title="Modifier la boisson" onClick={()=>{updateBoissonHandler(boisson)}}>
+                        <i className="fa fa-pencil" />
+                      </Link>
+                    </td>
+                  </tr>)
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>)
 }
 
-export default DetailsCommande
+export default DetailsRestaurant

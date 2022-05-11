@@ -27,7 +27,7 @@ class NotificationManager extends React.Component {
       if (document.location.protocol === 'https' || document.location.hostname === 'localhost'){
         Notification.requestPermission().then((permission) => {
           console.log("PERMISSION",permission)
-          if(permission !== 'granted') {alert("Veuillez accepter les notification pour avoi une utilisation optimale de votre back office")}
+          if(permission !== 'granted') {alert("Veuillez accepter les notifications pour avoir une utilisation optimale de votre back office")}
         });
       }
     }

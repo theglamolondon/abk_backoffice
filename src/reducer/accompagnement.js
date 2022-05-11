@@ -2,9 +2,9 @@ import axios from "../enabler/Axios"
 
 const ACCOMPAGNEMENT_LISTE = "ACCOMPAGNEMENT_LISTE"
 
-export function getAllAccompagnements(){
+export function getAllSupplements(id){
     return dispatch => {
-        return axios.get(`backoffice/restaurant/accompagnements`)
+        return axios.get(`backoffice/restaurant/${id}/supplements`)
             .then((response) => {
                 dispatch({
                     type: ACCOMPAGNEMENT_LISTE,
@@ -32,7 +32,7 @@ export const reducer = (oldState = initialState, action) => {
 
 const AccompagnementRx = {
     reducer : reducer,
-    liste : getAllAccompagnements,
+    liste : getAllSupplements,
 }
 
 export default AccompagnementRx;

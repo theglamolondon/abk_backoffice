@@ -68,7 +68,7 @@ function FormViewPlat({plat, resto, handleClose, submitHandler, accompagnements}
 
             <fieldset className="form-group position-relative mb-2">
               <label>Accompagnements</label>
-              <SelectMultiple data={accompagnements} name="accompagnements" display="nom" selected={[...plat.accompagnements]} />
+              <SelectMultiple data={accompagnements} name="accompagnements" display="libelle" selected={[...plat.accompagnements]} />
             </fieldset>
             <ErrorMessage name="description" component="div" className="text-danger"/>
 

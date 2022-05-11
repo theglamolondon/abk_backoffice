@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AbkImage from '../../component/image';
+import BoissonForm from './forms/boissonForm';
 import PlatForm from './forms/platForm';
 import RestaurantForm from './forms/restaurantForm';
+import SupplementForm from './forms/supplementForm';
 
-function ListeRestaurant({data, accompagnements, getData, addNewResto, updateResto, addNewPlat, getAccompagnements}) {
+function ListeRestaurant({data, accompagnements, getData, addNewResto, updateResto, addNewPlat, getAccompagnements, addNewBoisson, addNewSupplement}) {
     useEffect(()=>{
       getData()
     }, [])
@@ -15,6 +17,12 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, updateRes
     
     const defaultPlat = {id: 0, titre: "", image:"", description: "", prix: 0, actif: true, accompagnements:[]}
     const [plat, setPlat] = useState(defaultPlat);
+
+    const defaultBoisson = {id: 0, libele: "", prix: 0, actif: true}
+    const [boisson, setBoisson] = useState(defaultBoisson);
+
+    const defaultSupplement = {id: 0, libelle: "", image:"", prix: 0, actif: true}
+    const [supplement, setSupplement] = useState(defaultSupplement);
 
     //Restaurant actions
     const [showResto, setShowResto] = useState(false);
@@ -34,17 +42,41 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, updateRes
     //Plat actions
     const [showPlat, setShowPlat] = useState(false);
     const handleClosePlat = () => setShowPlat(false);
-    const createNewPlat = (arg) => {
-      getAccompagnements()
-      setResto(arg);
-      setPlat(defaultPlat)
-      setShowPlat(true);
-    }
-
     const platControls = {
       show: showPlat,
       handleClose: handleClosePlat,
-      createNewPlat: createNewPlat
+      createNewPlat: (arg) => {
+        getAccompagnements(arg.id)
+        setResto(arg);
+        setPlat(defaultPlat)
+        setShowPlat(true);
+      }
+    }
+
+    //Boisson actions
+    const [showBoisson, setShowBoisson] = useState(false);
+    const handleCloseBoisson = () => setShowBoisson(false);
+    const boissonControls = {
+      show: showBoisson,
+      handleClose: handleCloseBoisson,
+      createNewBoisson: (arg) => {
+        setResto(arg);
+        setBoisson(defaultBoisson)
+        setShowBoisson(true);
+      }
+    }
+
+    //Supplement actions
+    const [showSupplement, setShowSupplement] = useState(false);
+    const handleCloseSupplement = () => setShowSupplement(false);
+    const supplementControls = {
+      show: showSupplement,
+      handleClose: handleCloseSupplement,
+      createNewSupplement: (arg) => {
+        setResto(arg);
+        setSupplement(defaultBoisson)
+        setShowSupplement(true);
+      }
     }
     
     return (
@@ -70,27 +102,42 @@ function ListeRestaurant({data, accompagnements, getData, addNewResto, updateRes
           accompagnements={accompagnements}
           submitAction={plat.id === 0 ? addNewPlat : ()=>{}}
           />
+
+        <BoissonForm 
+          show={boissonControls.show} 
+          handleClose={boissonControls.handleClose} 
+          title="Ajouter une boisson" 
+          resto={resto} 
+          boisson={boisson}
+          submitAction={boisson.id === 0 ? addNewBoisson : ()=>{}}
+          />
+
+          <SupplementForm
+            show={supplementControls.show} 
+            handleClose={supplementControls.handleClose} 
+            title="Ajouter un supplément" 
+            resto={resto} 
+            supplement={supplement}
+            submitAction={supplement.id === 0 ? addNewSupplement : ()=>{}}
+            />
       </div>
 
       <div className="row match-height">
-        {data.map( (item, key) => <RestaurantCard 
-          line={item} 
-          key={key} 
-          platActions={platControls} 
-          restoEdit={editRestoHandle}
+        {data.map( (item, key) => 
+          <RestaurantCard 
+            line={item} 
+            key={key} 
+            platActions={platControls} 
+            boissonActions={boissonControls}
+            supplementActions={supplementControls}
+            restoEdit={editRestoHandle}
         />)}
 		</div>
     </div>
     );
 }
 
-function RestaurantCard({line, platActions, restoEdit}) {
-    const clickPlatHandle = () =>{
-      platActions.createNewPlat(line)
-    }
-    const clickRestoHandle = () =>{
-      restoEdit(line)
-    }
+function RestaurantCard({line, platActions, restoEdit, boissonActions, supplementActions}) {   
 
     return (
     <div className="col-xl-3 col-md-6 col-sm-12">
@@ -104,14 +151,20 @@ function RestaurantCard({line, platActions, restoEdit}) {
           </Link>
           <div className="card-body">
             <div className="form-group text-center">
-              <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={clickRestoHandle}>
+              <Link to="#editResto" className="btn btn-float btn-square btn-secondary" title="Modifier le restaurant" onClick={() => {restoEdit(line)}}>
                 <i className="fa fa-pencil" />
               </Link>
-              <Link to="#addPlat" className="btn btn-float btn-square btn-primary" title="Ajouter des plats" onClick={clickPlatHandle} >
+              <Link to="#addPlat" className="btn btn-float btn-square btn-danger" title="Ajouter des plats" onClick={()=> platActions.createNewPlat(line)} >
                 <i className="fa fa-cutlery" />
               </Link>
-              <Link to={`/restaurants/${line.id}/emplacements`} className="btn btn-float btn-square btn-secondary" title="Les emplacements">
+              <Link to={`/restaurants/${line.id}/emplacements`} className="btn btn-float btn-square btn-primary" title="Les emplacements">
                 <i className="fa fa-map-marker" />
+              </Link>
+              <Link to="#addSuppelement" className="btn btn-float btn-square btn-warning" title="Ajouter des suppléments" onClick={() => supplementActions.createNewSupplement(line)} >
+                <i className="fa fa-spoon" />
+              </Link>
+              <Link to="#addBoisson" className="btn btn-float btn-square btn-grey-blue" title="Ajouter des boissons" onClick={() => boissonActions.createNewBoisson(line)} >
+                <i className="fa fa-beer" />
               </Link>
             </div>
           </div>
