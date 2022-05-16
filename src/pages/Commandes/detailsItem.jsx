@@ -101,8 +101,8 @@ function CommandeCardDetails({commande}){
                       <tr key={k}>
                         <th scope="row">{k+1}</th>
                         <td>
-                          {ligne.plat.titre} 
-                          {ligne.accompagnement !== null ? ` - ${ligne.accompagnement.nom}` : null}
+                          {ligne.item.titre ?? ligne.item.libelle } 
+                          {ligne.accompagnement !== null ? ` - ${ligne.accompagnement.libelle}` : null}
                         </td>
                         <td className="text-center">x{ligne.quantite}</td>
                       </tr>)
