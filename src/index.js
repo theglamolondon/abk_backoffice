@@ -1,27 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import AppLayout from "./layout/main";
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router/immutable';
-import configureStore from './store/configureStore';
-import history from "./store/history";
-import {  BrowserRouter as Router,  Routes,  Route} from "react-router-dom";
+import store, { history } from './store/configureStore';
+import {  BrowserRouter as Router} from "react-router-dom";
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
-const store = configureStore(history);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <React.StrictMode>
-        <Router>
-          <AppLayout />    
-        </Router>
-      </React.StrictMode>
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root')
+root.render(
+  <Provider store={store}>   
+    <React.StrictMode>
+      <Router history={history}>
+        <QueryClientProvider client={queryClient} >
+          <AppLayout />
+        </QueryClientProvider>
+      </Router>        
+    </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

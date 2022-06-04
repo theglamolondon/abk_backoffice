@@ -1,25 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import LivreurRx from '../../reducer/livreur';
 import LivreursListe from './liste';
 
 function LivreurPage(props){
   return (
-    <Switch>
-      <Route path="/livreurs" exact strict>
-        <LivreursListe 
-          getData={props.getListe}
-          data={props.data.liste}
-          title="Liste des livreurs"
-          addLivreur={props.addLivreur}
-          handleUpdate={props.majLivreur}
-          changeMdp={props.changeMdp}
-          refresh={props.getListe}
-          disconnect={disconnect}
+    <Routes>
+      <Route path="/" exact strict 
+        element={
+          <LivreursListe 
+            getData={props.getListe}
+            data={props.data.liste}
+            title="Liste des livreurs"
+            addLivreur={props.addLivreur}
+            handleUpdate={props.majLivreur}
+            changeMdp={props.changeMdp}
+            refresh={props.getListe}
+            disconnect={disconnect}
           />
-      </Route>            
-    </Switch>
+        }
+      />           
+    </Routes>
   )
 }
 

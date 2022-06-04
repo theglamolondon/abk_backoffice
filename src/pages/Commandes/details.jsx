@@ -8,7 +8,7 @@ import ChatManager from '../../component/chat';
 function DetailsCommande({data, getData, sendChat}) {
     
   let { reference } = useParams();
-  useEffect(() => getData(reference), [])
+  useEffect(() => {getData(reference)}, [])
 
   return (
   <React.Fragment>

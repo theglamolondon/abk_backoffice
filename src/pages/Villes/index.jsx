@@ -1,22 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Route } from 'react-router-dom'
-import { Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import VilleRx from '../../reducer/ville'
 import VilleListe from './liste'
 
 const VillePage = (props) => {
   return (
-    <Switch>
-      <Route path="/parametres/villes" exact strict>
-        <VilleListe 
+    <Routes>
+      <Route path="/" exact strict 
+        element={<VilleListe 
           data={props.data} 
           getData={props.getListe} 
           ajouter={props.addVille}
           modifier={props.majVille}
-          />
-      </Route>            
-    </Switch>)
+          />} 
+        />           
+    </Routes>)
 }
 
 const getListe = VilleRx.liste

@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CommandePage from "../pages/Commandes";
 import DashboardPage from "../pages/Dashboad";
 import RestaurantPage from "../pages/Restaurants";
@@ -12,34 +12,16 @@ import VillePage from "../pages/Villes";
 
 export default function AppRouter(props) {
   return(
-    <Switch>
-      <Route path="/" exact>
-        <DashboardPage/>
-      </Route>
-      <Route path="/commandes" >
-        <CommandePage/>
-      </Route>
-      <Route path="/restaurants" >
-        <RestaurantPage/>
-      </Route>
-      <Route path="/utilisateurs" >
-        <UtilisateurPage/>
-      </Route>            
-      <Route path="/livreurs" >
-        <LivreurPage/>
-      </Route>         
-      <Route path="/parametres/accompagnements" >
-        <AccompagnementPage/>
-      </Route>       
-      <Route path="/parametres/villes" >
-        <VillePage/>
-      </Route>     
-      <Route path="/client" >
-        <ClientPage/>
-      </Route>   
-      <Route path="/rapports" >
-        <Rapports/>
-      </Route>
-    </Switch>
+    <Routes>
+      <Route path="/" exact element={<DashboardPage/>}  />
+      <Route path="/commandes/*"  element={<CommandePage/>} />
+      <Route path="/restaurants/*" element={<RestaurantPage/>} />
+      <Route path="/utilisateurs/*" element={<UtilisateurPage/>} />           
+      <Route path="/livreurs/*" element={<LivreurPage/>} />       
+      <Route path="/parametres/accompagnements/*" element={<AccompagnementPage/>} />    
+      <Route path="/parametres/villes/*" element={<VillePage/>} />   
+      <Route path="/client/*" element={<ClientPage/>} /> 
+      <Route path="/rapports/*" element={<Rapports/>} />
+    </Routes>
   )
 }

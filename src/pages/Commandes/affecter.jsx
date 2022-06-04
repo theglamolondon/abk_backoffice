@@ -8,6 +8,8 @@ import ChatManager from '../../component/chat';
 import DetailsCommandeItem from './detailsItem'
 import { Button, Card, Form } from 'react-bootstrap';
 import { StatutCommandeEnum } from './liste';
+import { useQueries } from 'react-query';
+import Loading from '../../component/Loading';
 
 function AffectCommande({details, getData, getEmplacement, restaurant, affecter, mode, sendChat}) {
 
@@ -27,18 +29,19 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
   let { reference } = useParams();
   let points = [];
 
-  useEffect(() => getData(reference), [])
+  const {isLoading} = useQueries([
+    {queryKey : ["affecter",reference], queryFn : (()=> getData(reference))},
+    {queryKey : ["emplacement",reference], queryFn : (()=>{
+      if(details.data.emplacement !== undefined && mode === ModeAffectation.RESTAURANT){ //Seulement si la commande n'est pas encore affectée
+        getEmplacement(details.data.emplacement.restaurant.id) 
+      } 
+    })},
+  ])
 
   let commande = null;
   if(details !== undefined){
     commande = details.data
   }
-
-  useEffect(() => { 
-    if(details.data.emplacement !== undefined && mode === ModeAffectation.RESTAURANT){ //Seulement si la commande n'est pas encore affectée
-      getEmplacement(details.data.emplacement.restaurant.id) 
-    }           
-  },[commande])
 
   if(details.data.emplacement !== undefined){
     if(mode === ModeAffectation.LIVREUR){
@@ -93,6 +96,11 @@ function AffectCommande({details, getData, getEmplacement, restaurant, affecter,
         }
       )
     }
+  }
+  if(isLoading) {
+    return <div className="col-md-12">
+      <Loading />
+    </div>
   }
   
   //let clientPosition = details.data.adresse !== undefined ? [details.data.adresse.lattitude, details.data.adresse.longitude] : null  

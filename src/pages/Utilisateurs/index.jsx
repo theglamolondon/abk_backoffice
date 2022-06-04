@@ -1,24 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import UtilisateurRx from '../../reducer/utilisateurs';
 import UtilisateursListe from './liste';
 
 function UtilisateurPage(props){
 
   return (
-    <Switch>
-      <Route path="/utilisateurs" exact strict>
-        <UtilisateursListe 
-          data={props.data.liste} 
-          getData={props.getListe} 
-          addUser={props.addUser}
-          majUser={props.majUser}
-          connected={props.user}
-          title="Liste des utilisateurs"
+    <Routes>
+      <Route path="/" exact strict 
+        element={
+          <UtilisateursListe 
+            data={props.data.liste} 
+            getData={props.getListe} 
+            addUser={props.addUser}
+            majUser={props.majUser}
+            connected={props.user}
+            title="Liste des utilisateurs"
           />
-      </Route>            
-    </Switch>)
+        }
+      />         
+    </Routes>)
 }
 
 const getListe = UtilisateurRx.liste

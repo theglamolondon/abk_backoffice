@@ -10,8 +10,7 @@ import PlatForm from './forms/platForm';
 import SupplementForm from './forms/supplementForm';
 
 function DetailsRestaurant({data, getData, accompagnements, getAccompagnements, addNewPlat, updatePlat, 
-                            addNewBoisson, addNewSupplement, updateBoisson, updateSupplement}) 
-{
+                      addNewBoisson, addNewSupplement, updateBoisson, updateSupplement}) {
     
   let { id } = useParams();
   
@@ -157,7 +156,7 @@ function CarteEmplacements({emplacements}){
       id: emplacement.id,
       title: emplacement.adresse
     })
-    return null
+    return undefined
     })
   }    
 

@@ -1,12 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
+import { useQuery } from 'react-query';
+import Loading from '../../component/Loading';
 import UtilisateurForm, { UtilisateurFormMode } from './form/utilisateurForm';
 
 function UtilisateursListe({getData, data, title, addUser, majUser, connected}){
 
-  useEffect(() => {
-    getData()
-  }, [])
+  const {isLoading} = useQuery("users", getData)
 
   const defaultUser = {id: 0, nom: "", prenoms:"", login: "", password: "", status: 0, role: ""}
   const [user, setUser] = useState(defaultUser);
@@ -76,7 +76,8 @@ function UtilisateursListe({getData, data, title, addUser, majUser, connected}){
                 </tr>
               </thead>
               <tbody>
-              {data.map( (item, key) => <LigneUtilisateur 
+              {isLoading && <tr><td colSpan={5}><Loading /></td></tr>}
+              {!isLoading && data.map( (item, key) => <LigneUtilisateur 
                                           line={item} 
                                           key={key} 
                                           update={updateUser} 

@@ -16,8 +16,7 @@ const RapportPage = ({title, getRapport, report}) => {
   const [dateRange, setDateRange] = useState([first.toDate(), today.toDate()]);
   const [startDate, endDate] = dateRange;
 
-  useEffect(()=>{
-
+  useEffect(() => {
     getRapport({
       dateDebut: `${today.format("YYYY-MM-DD")} 00:00:00`,
       dateFin: `${first.format("YYYY-MM-DD")} 23:59:59`,

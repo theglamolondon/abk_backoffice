@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import AuthRx from '../reducer/auth';
 import ClientRx from '../reducer/client';
@@ -80,7 +80,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, mapDispatchToProps) (HeaderSide)
 
 const SearchBox = ({handleSearch}) => {
-	const navigator = useHistory()
+	const navigator = useNavigate()
 
 	return (
 		<Formik

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import AccompagnementRx from '../../reducer/accompagnement';
 import RestaurantRx from '../../reducer/restaurants';
 import VilleRx from '../../reducer/ville';
@@ -12,21 +12,24 @@ import PlatPage from './plats';
 
 function RestaurantPage(props) {
   return (
-  <Switch>
-    <Route path="/restaurants" exact strict>
-      <ListeRestaurant 
-        data={props.data.liste} 
-        accompagnements={props.accompagnements.liste}
-        getData={props.getListe}
-        addNewResto={props.addNewResto}
-        updateResto={props.updateResto}
-        addNewPlat={props.addPlat}
-        getAccompagnements={props.getSupplements}
-        addNewBoisson={props.addBoisson}
-        addNewSupplement={props.addSuppl}
+  <Routes>
+    <Route path="/" exact strict 
+      element={
+        <ListeRestaurant 
+          data={props.data.liste} 
+          accompagnements={props.accompagnements.liste}
+          getData={props.getListe}
+          addNewResto={props.addNewResto}
+          updateResto={props.updateResto}
+          addNewPlat={props.addPlat}
+          getAccompagnements={props.getSupplements}
+          addNewBoisson={props.addBoisson}
+          addNewSupplement={props.addSuppl}
         />
-      </Route>
-      <Route path="/restaurants/:id/details" exact strict>
+      }
+    />
+    <Route path="/:id/details" exact strict 
+      element={
         <DetailsRestaurant 
           accompagnements={props.accompagnements.liste}
           getAccompagnements={props.getSupplements}
@@ -38,9 +41,11 @@ function RestaurantPage(props) {
           updateBoisson={props.updateBoisson}
           addNewSupplement={props.addSuppl}
           updateSupplement={props.updateSuppl}
-          />
-      </Route>
-      <Route path="/restaurants/:id/emplacements" exact strict>
+        />
+      }
+    />
+    <Route path="/:id/emplacements" exact strict 
+      element={
         <EmplacementPage 
           data={props.data} 
           getData={props.getEmplacements}
@@ -49,21 +54,26 @@ function RestaurantPage(props) {
           villes={props.villes}
           getVilles={props.getVilles}
           razPassword={props.razPassword}
-          />
-      </Route>
-      <Route path="/restaurants/:id/plats" exact strict>
+        />
+      }
+    />
+    <Route path="/:id/plats" exact strict 
+      element={
         <PlatPage 
           data={props.liste} 
           getData={true}
-          />
-      </Route>
-      <Route path="/restaurants/:id/commandes" exact strict>
+        />
+      }
+    />
+    <Route path="/:id/commandes" exact strict 
+      element={
         <CommandeRestoPage 
           data={props.data.commandes} 
           getData={props.getCommandeByResto}
-          />
-      </Route>
-  </Switch>
+        />
+      }
+    />
+  </Routes>
   )
 }
 

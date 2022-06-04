@@ -38,7 +38,7 @@ function CommandeListe({title, commandes, getData}) {
     page = 1
   }
 
-  useEffect(() => getData(page), [title, page])
+  useEffect(() => {getData(page)}, [title, page])
 
   return (
     <React.Fragment>

@@ -5,14 +5,14 @@ export default function DetailsPage({getData}) {
 
      
   let { id } = useParams();
-  useEffect(() => getData(id), [id])
+  useEffect(() => {getData(id)}, [id])
 
   return <React.Fragment>
     <div className='row'>
       <div className='col-12'>
         <div class="card profile-with-cover"> 
           <div class="card-img-top img-fluid bg-cover height-300">
-
+            <h3>{id}</h3>
           </div>
         </div>
       </div>

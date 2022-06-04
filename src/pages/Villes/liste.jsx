@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
+import { useQuery } from 'react-query'
+import Loading from '../../component/Loading'
 import VilleForm from './form/villeForm'
 
 function VilleListe({getData, data, ajouter, modifier}){
 
-  useEffect(() => {
-    getData()
-  }, [])
+  const {isLoading} = useQuery("villes", getData)
 
   const defaulVille = {id: 0, libelle: ""}
   const [ville, setVille] = useState(defaulVille);
@@ -62,7 +62,8 @@ function VilleListe({getData, data, ajouter, modifier}){
                     </tr>
                   </thead>
                   <tbody>
-                  {data.liste.map( (item, key) => 
+                  { isLoading && <tr><td colSpan={2}><Loading /></td></tr>}
+                  {!isLoading && data.liste.map( (item, key) => 
                     <tr key={key}>
                       <td>-</td>
                       <td>{item.libelle}</td>

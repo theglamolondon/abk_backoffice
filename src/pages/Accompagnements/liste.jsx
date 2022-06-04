@@ -12,7 +12,7 @@ function AccompagnementListe({getData, data, add, update}){
 
   if(page === undefined || page === null){ page = 1 }
 
-  useEffect(() => getData(page), [])
+  useEffect(() => { getData(page) }, [])
   return (
     <React.Fragment>
       <div className="row">

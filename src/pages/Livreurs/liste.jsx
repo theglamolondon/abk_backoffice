@@ -1,12 +1,12 @@
 import { Button } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import LivreurForm, { LivreurFormMode } from './forms/LivreurForm';
+import { useQuery } from 'react-query';
+import Loading from '../../component/Loading';
 
 function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdate, refresh, disconnect}){
 
-  useEffect(() => {
-    getData()
-  }, [])
+  const {isLoading} = useQuery("livreurs", getData)
 
   const defaultLivreur = {id: 0, nom: "", prenoms:"", email: "", telephone: "", typePiece: "", numeroPiece: "", validitePiece: "", password: "", statut: 0}
   const [livreur, setLivreur] = useState(defaultLivreur);
@@ -30,7 +30,6 @@ function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdat
     setModeForm(LivreurFormMode.EDIT_PASSWORD)
     setShowLivreur(true)
   }
-
 
   return (
     <React.Fragment>      
@@ -75,7 +74,8 @@ function LivreursListe({getData, data, title, addLivreur, changeMdp, handleUpdat
                 </tr>
               </thead>
               <tbody>
-              {data.map( (item, key) => <LigneLivreur line={item} key={key} logout={disconnect} update={updateLivreur} changePassword={changePassword}/>)}   
+              {isLoading && <tr><td colSpan={4}><Loading /></td></tr>}
+              {!isLoading && data.map( (item, key) => <LigneLivreur line={item} key={key} logout={disconnect} update={updateLivreur} changePassword={changePassword}/>)}   
               </tbody>
             </table>
           </div>

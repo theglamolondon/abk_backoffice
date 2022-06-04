@@ -117,7 +117,7 @@ class NotificationManager extends React.Component {
   render(){
     return (this.state.show && 
       <div aria-live="polite" aria-atomic="true" style={{ position: 'absolute', right: '0', top: '50px', width:'350px', minHeight: '200px', }}>
-        <div style={{ position: 'absolute', top: 0, right: 0, }} >
+        <div style={{ position: 'absolute', top: 0, right: 0, zIndex: 99999 }} >
           <Toast show={this.state.show} onClose={() => this.showNotification(false)} delay={3000} autohide>
             <Toast.Header>
               <img src="http://placekitten.com/50/50" className="rounded mr-2"  alt="" />
