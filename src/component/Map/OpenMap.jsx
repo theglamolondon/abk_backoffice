@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import './Map.css'
 import { useState } from 'react';
+import { click } from '@testing-library/user-event/dist/click';
 
 const token = "pk.eyJ1IjoiZ2xhbW9sb25kb24iLCJhIjoiY2tudmtra2Q4MG5tazJwcnZhdTVoanA3NiJ9.uhDiwzTLS_BbPRv17_HBYg"
 
@@ -23,8 +24,12 @@ function OpenMap(props) {
       
         {data.length && data.map( (point, k) =>  {
           return (point !== undefined && 
-            <Marker position={point.position} icon={point.icon} key={k}>
-              <Popup onOpen={() => {handleMarkerClick(point)}} >{point.title}</Popup>
+            <Marker position={point.position} icon={point.icon} key={k}
+              eventHandlers={{
+                click: () => {handleMarkerClick(point)}
+              }}
+            >
+              <Popup>{point.title}</Popup>
             </Marker>) 
         })}
       <LocationMarker 
